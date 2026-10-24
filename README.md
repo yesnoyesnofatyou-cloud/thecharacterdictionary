@@ -1,1 +1,6 @@
-# thecharacterdictionary
+# 아르카나 인물 도감
+
+왓더퍽을 비롯한 판타지 등장인물의 능력, 고유 스킬, 전투 기믹, 잠재 해방을 정리한 설정 도감의 공개판입니다.
+
+- 사이트: https://thecharacterdictionary.netlify.app
+- `index.html` 한 파일에 화면과 데이터가 모두 들어 있습니다. 편집은 원본 도감에서 하고, 이 파일은 공개용 스냅샷입니다.

@@ -1,0 +1,1773 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>아르카나 인물 도감</title><meta name="description" content="왓더퍽을 비롯한 판타지 등장인물의 능력, 고유 스킬, 전투 기믹, 잠재 해방을 단계별로 열어보는 설정 도감."><meta property="og:title" content="아르카나 인물 도감"><meta property="og:description" content="왓더퍽을 비롯한 판타지 등장인물의 능력, 고유 스킬, 전투 기믹, 잠재 해방을 단계별로 열어보는 설정 도감."><meta property="og:type" content="website"><meta name="theme-color" content="#0d0b15"><style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><script>window.__PUBLIC_DATA__={"characters": [{"ability": "자신의 마력 혹은 적의 마력을 이용해 상대방을 공격하며, 적이 강할수록 더 강해진다. 마력을 조종할 수 있는 능력은 세계 최고다. 자신의 마력 조종스킬을 이용해서 전장을 지휘하며 광역기를 사용하는 것이 그의 주특기이다.", "avatar": "WTF", "className": "아르카나 (Arcana)", "controlRank": "세계 최고", "disguiseDesc": "자신의 마력을 2성급(자신보다 낮은 모든 등급)으로 변장시킨다. 그의 마나 조종술은 세계 최고라 그 누구도 마나를 조작했는지 모른다.", "disguisePower": "완벽위장", "disguiseTier": 2, "gender": "남성", "gimmicks": [{"icon": "droplet", "id": "gm-mana-zones", "isDraft": false, "name": "마나 조석 구간", "nameEn": "Mana Tide Zones", "rules": [{"added": false, "text": "70% 이상 [고요]: 평타 적중 시 빙결·둔화. 레조넌스 볼트의 기절 확률이 현재 마나 비율과 같다."}, {"added": false, "text": "30~70% [균형]: 평타 치명타 확률 증가."}, {"added": false, "text": "30% 미만 [역류]: 평타 적중 시 적을 침묵시키거나 모든 스킬 쿨타임을 줄인다."}, {"added": true, "text": "구간 경계를 넘을 때마다 과부하 1스택을 얻는다. 마나를 일부러 출렁이게 만드는 것 자체가 화력이 된다."}], "sim": {"initial": 80, "label": "현재 마나", "max": 100, "min": 0, "presets": [{"label": "이퀼리브리엄 (50% 고정)", "value": 50}], "type": "threshold", "unit": "%", "zones": [{"detail": "레조넌스 볼트 기절 확률 {v}%", "effect": "평타 적중 시 빙결·둔화", "from": 70, "name": "고요", "to": 100, "tone": "cyan"}, {"detail": "레조넌스 볼트 기절 확률 {v}% · 안정적인 지속 화력", "effect": "평타 치명타 확률 증가", "from": 30, "name": "균형", "to": 70, "tone": "green"}, {"detail": "위기이자 기회. 에테르 플러리로 연사하면 쿨타임이 빠르게 돈다", "effect": "평타 적중 시 침묵 또는 전체 쿨타임 감소", "from": 0, "name": "역류", "to": 30, "tone": "rose"}]}, "summary": "마나 잔량에 따라 기본 공격의 추가 효과가 세 구간으로 바뀐다."}, {"icon": "flame", "id": "gm-overload", "isDraft": false, "name": "과부하", "nameEn": "Overload", "rules": [{"added": false, "text": "스킬을 사용할 때마다 1스택, 최대 5스택."}, {"added": false, "text": "스택당 공격 속도 +10%, 추가 마법 피해 +10%."}, {"added": false, "text": "5스택: 평타가 광역(AoE)으로 바뀌고 마법 방어력을 일부 무시한다."}, {"added": false, "text": "아케인 디스차지처럼 스택을 전부 소모해 위력을 끌어올리는 스킬이 있다."}, {"added": true, "text": "마나 구간 전환, 패링 성공, 적 버프 강탈로도 스택을 얻는다."}, {"added": true, "text": "위장 중에 5스택을 유지하면 위장 균열이 서서히 오른다. 넘치는 마력은 숨기기 어렵다."}], "sim": {"addLabel": "스킬 사용 +1", "initial": 3, "label": "과부하 스택", "max": 5, "maxEffect": "평타 광역 전환 + 마법 방어력 일부 무시", "perStack": [{"amount": 10, "label": "공격 속도", "unit": "%"}, {"amount": 10, "label": "추가 마법 피해", "unit": "%"}], "spendLabel": "아케인 디스차지 (전부 소모)", "type": "stack"}, "summary": "스킬을 쓸수록 쌓이는 스택. 최대 5스택에서 평타가 광역으로 바뀐다."}, {"icon": "magnet", "id": "gm-borrowed", "isDraft": false, "name": "차용 마력", "nameEn": "Borrowed Mana", "rules": [{"added": false, "text": "적에게서 강탈한 마력은 자기 마나와 별개인 [차용 마력] 게이지(0~100)에 쌓인다."}, {"added": false, "text": "흡수 배율 = 1 + 0.25 × (상대 등급 − 2). 초월 상대는 10등급으로 계산한다."}, {"added": false, "text": "스킬 비용을 차용 마력으로 낼 수 있다. 자기 마나가 줄지 않으니 원하는 마나 구간을 유지한 채 싸운다."}, {"added": false, "text": "게이지가 100이 되면 [이자 청구]: 다음 반격 스킬의 위력이 2배가 된다."}], "sim": {"baseTier": 2, "fullEffect": "이자 청구: 다음 반격 스킬 위력 2배", "gainBase": 10, "gainLabel": "강탈", "initial": 40, "label": "차용 마력", "max": 100, "perTierBonus": 0.25, "scaleInitial": 6, "scaleLabel": "상대 등급", "scaleMax": 10, "scaleMin": 1, "spendAmount": 30, "spendLabel": "차용 마력으로 시전 (−30)", "type": "gauge"}, "summary": "적에게서 빼앗은 마력을 따로 모아두는 게이지. 상대가 강할수록 많이 빼앗는다."}, {"icon": "mask", "id": "gm-mask", "isDraft": false, "name": "가면", "nameEn": "Masquerade", "rules": [{"added": true, "text": "평소에는 2성으로 위장하지만, 본실력보다 낮은 등급이라면 몇 성으로든 완벽하게 위장할 수 있다."}, {"text": "위장 중 첫 공격은 상대의 방심을 찔러 적 방어력 −30%."}, {"text": "위장 중 위장 등급보다 높은 스킬을 쓰면 [위장 균열]이 (스킬 등급 − 위장 등급) × 10% 오른다. 100%가 되면 위장이 강제로 풀린다."}, {"added": true, "text": "위장 등급은 전투 중에도 바꿀 수 있다. 높여 둘수록 균열은 덜 오르지만, 상대가 그만큼 덜 방심한다."}, {"text": "스스로 풀면 [본실력 개방]: 7성까지 제한 없이 쓰지만 방심 보너스가 사라지고 적이 경계한다."}, {"text": "기만 스킬과 패링 성공은 위장 균열을 낮춘다."}], "sim": {"baseMax": 6, "baseSelectable": true, "baseTier": 2, "meterLabel": "위장 균열", "modes": [{"effects": ["첫 공격 적 방어력 −30%", "{b}성보다 높은 스킬을 쓰면 균열 상승", "적이 고위 마법을 아낀다"], "id": "mask", "name": "위장 중", "tag": "{b}성으로 보임"}, {"effects": ["7성까지 스킬 제한 없음", "방심 보너스 없음", "적이 경계하고 전력을 다한다"], "id": "open", "name": "본실력 개방", "tag": "7성"}], "perTier": 10, "type": "mode"}, "summary": "평소엔 2성, 필요하면 본실력보다 낮은 어떤 등급으로든 위장한 상태와 본실력을 드러낸 상태를 오가며 싸운다."}], "goal": "자신의 잠재력을 어떤 '행동'으로 초월하는 것. 이미 강한 그는 봉인된 잠재 스킬을 하나씩 해방하며 그 행동에 다가간다.", "id": "char-wtf", "name": "왓더퍽 (WhatTheFuck)", "order": 1, "personality": "상대방을 대할 때 항상 능글맞게 대하는 것이 특징이다. 여유로운 태도로 적의 심리를 흔든다.", "quote": "어라, 겨우 그 정도 마력으로 날 잡겠다고? 네 마력, 내가 대신 좀 써줄게.", "realPower": "7성 (더 오를 수 있음)", "realTier": 7, "story": "■ 성장 방향\n왓더퍽은 처음부터 강하다. 그의 이야기는 약자가 강해지는 이야기가 아니라, 이미 가진 잠재력을 하나씩 해방해 가는 이야기다.\n\n■ 잠재 스킬\n7성까지는 이미 자유자재로 쓴다. 8성 · 9성 · 초월 스킬은 몸 안에 봉인된 '잠재 스킬'로 존재하며, 수련이 아니라 특정 행동이나 상황을 만나야 풀린다.\n· 강적 — 그 등급의 상대와 직접 맞붙어 마력을 읽거나 빌려야 열린다.\n· 태도 — 능글맞음을 내려놓고 진심으로 싸운 순간 열린다.\n· 위장 — 스스로 정체를 드러낸 순간 열린다.\n· 관계 — 지키고 싶은 사람이 생겼을 때 열린다.\n· 초월 — 최종 목표를 이룬 뒤에만 열린다.\n\n■ 최종 목표\n자신의 잠재력을 어떤 '행동'으로 초월하는 것. 그 행동은 '등급 체계 밖으로'로 정했다. 1~9성이라는 측정 자체를 깨부숴 '측정 불가'가 되는 것이며, 이를 이루면 초월 스킬 「측정 불가」를 비롯한 초월 등급 잠재 스킬이 해방된다.\n\n■ 세계관 메모\n이 세계에는 원래 마나를 '조종'한다는 개념이 없다. 그래서 상대 마력의 흐름 · 양 · 회로를 다루는 왓더퍽의 스킬은 고유 특성 [마나 조종]으로 따로 분류한다.\n주특기는 마력 조종으로 전장을 지휘하며 광역기를 쓰는 것.", "traits": [{"desc": "이 세계에는 원래 마나를 '조종'한다는 개념이 없다. 마력은 타고난 그릇에 담긴 채 쓰는 것이고, 남의 마력이 흐르는 방향이나 그 양을 움직인다는 발상 자체가 존재하지 않았다. 상대의 마력에 손을 대는 모든 기술은 왓더퍽만이 가진, 세계관 바깥의 능력이다.", "facets": [], "id": "mana-dominion", "name": "마나 조종", "nameEn": "Mana Dominion"}], "transcend": {"candidates": [{"desc": "평생 남의 마력을 빼앗아 온 그가, 처음으로 자기 마력 전부를 누군가에게 내어주는 순간 초월한다. 가져가는 자에서 주는 자로.", "id": "tc-give", "title": "빌리지 않고 주기"}, {"desc": "세상 모든 마력을 조종했지만 자기 한계만은 건드리지 않았다. 마지막에 그 기술을 자기 자신에게 써서 회로를 다시 쓴다.", "id": "tc-selfhack", "title": "자기 회로 해킹"}, {"desc": "모두가 보는 앞에서 위장 없이 전력을 드러내는 순간. 숨는 강자에서 드러나는 강자로.", "id": "tc-unmask", "title": "가면을 벗는 것"}, {"desc": "1~9성이라는 측정 자체를 깨부숴 '측정 불가'가 된다.", "id": "tc-beyond", "title": "등급 체계 밖으로"}], "chosen": "tc-beyond"}}], "skills": [{"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "기본 공격(평타)을 마나 소모형 강화 탄환으로 전환하는 토글 스킬입니다. 평소 2성 위장 상태에서도 부담 없이 사용하며, 의도적으로 마나를 태워 30~70%(치명타) 또는 30% 이하(침묵/쿨감) 구간으로 진입하는 핵심 조절기입니다.", "difficulty": 2, "gimmick": "마나 소모로 원하는 [마나 잔량 구간] 진입 유도 + [과부하] 스택 시동", "id": "sk-1", "isDraft": false, "nameEn": "Mana Ignition", "nameKo": "마나 이그니션 (마나 점화)", "power": 3, "quote": "", "reach": "ranged", "subType": "토글형 평타 강화", "tier": "2"}, {"area": "", "category": "utility", "characterId": "char-wtf", "desc": "세계 최고의 마나 조종술로 자신의 외견 마력을 본실력보다 낮은 원하는 등급으로 감춘다. 평소에는 2성 하급 마법사 행세를 하며, 능글맞게 대화하는 동안 상대의 마력 회로 구조와 총량을 파악하는 상시 위장 스킬이다.", "difficulty": 9, "gimmick": "본실력보다 낮은 원하는 등급으로 마력을 완벽 위장 (평소엔 2성) + 적의 최대 마력량 및 회로 스캔", "id": "sk-10", "isDraft": false, "nameEn": "Curtain Call", "nameKo": "커튼콜 (위장 개막)", "power": 1, "quote": "", "reach": "self", "subType": "마력 위장 / 파장 스캔", "tier": "2"}, {"area": "", "category": "defense", "characterId": "char-wtf", "desc": "적이 날린 고위력 공격의 마력 구조를 실시간으로 해체하여 방어막으로 삼고, 남은 에너지를 흡수하는 상급 방어 기술입니다.", "difficulty": 7, "gimmick": "적의 마법 공격 에너지 분해 ➔ 보호막 및 자신의 마나로 전환", "id": "sk-11", "isDraft": false, "nameEn": "Mana Sponge", "nameKo": "마나 스폰지 (마력 흡수장)", "power": 5, "quote": "", "reach": "self", "subType": "마력 분해 보호막", "tier": "6", "traits": ["mana-dominion"]}, {"area": "single", "category": "counter", "characterId": "char-wtf", "desc": "적이 마력을 끌어올려 공격하는 순간 상대의 마나 파장에 간섭해 충격파를 적 자신에게 되돌려주는 능글맞은 카운터 기술입니다.", "difficulty": 6, "gimmick": "적 공격 시전 시 마력 파동 간섭 ➔ 반동 피해 되돌리기", "id": "sk-12", "isDraft": false, "nameEn": "Flow Reversal", "nameKo": "플로우 리버설 (흐름 역전)", "power": 5, "quote": "", "reach": "ranged", "subType": "마력 회로 역류 반격", "tier": "3", "traits": ["mana-dominion"]}, {"area": "single", "category": "counter", "characterId": "char-wtf", "desc": "\"네 마력, 꽤 쓸만하네?\" 적의 필살기 마력 술식을 그 자리에서 해킹해 자신의 마력 회로로 복제·증폭하여 되돌려주는 7성 주력 반격기입니다.", "difficulty": 9, "gimmick": "적의 고성급 스킬 흡수 + 자신의 [과부하] 마력을 얹어 2배 위력으로 반격", "id": "sk-13", "isDraft": false, "nameEn": "Parasitic Mirror", "nameKo": "패러사이틱 미러 (기생의 거울)", "power": 9, "quote": "", "reach": "ranged", "subType": "적 스킬 해킹 및 증폭 반사", "tier": "7", "traits": ["mana-dominion"]}, {"area": "aoe", "category": "counter", "characterId": "char-wtf", "desc": "세계관 정점의 마나 조종술이 극에 달한 초월 스킬. 상대가 시전 중인 대마법이나 공간 내 모든 적의 마력 통제권을 통째로 빼앗아 적의 마력으로 적을 소멸시킵니다.", "difficulty": 10, "gimmick": "적의 궁극기/초월기 마력 통제권을 시전 도중 강제 탈취 (적이 강할수록 위력 무한 증폭)", "id": "sk-14", "isDraft": false, "nameEn": "Sovereign's Hijack", "nameKo": "소버린 하이재킹 (마력 지배자의 강탈)", "power": 10, "quote": "", "reach": "ranged", "sealed": true, "subType": "초월 반격 / 전장 마력 지배권 강탈", "tier": "transcendent", "traits": ["mana-dominion"], "unlockCond": "최종 목표인 '초월 행동'을 이룬 뒤에 해방된다.", "unlockType": "final"}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "자신의 모든 과부하 스택과 반경 내 모든 생명체·자연의 마나를 하나의 검은 특이점으로 압축시켜 붕괴시키는 궁극의 초월 공격기입니다.", "difficulty": 10, "gimmick": "자신의 마나 100% + 전장의 모든 적 마력 강제 응축 폭발", "id": "sk-15", "isDraft": false, "nameEn": "Abyssal Singularity", "nameKo": "어비설 싱귤래리티 (심연의 특이점)", "power": 10, "quote": "", "reach": "ranged", "sealed": true, "subType": "초월 광역 소멸기", "tier": "transcendent", "traits": ["mana-dominion"], "unlockCond": "최종 목표인 '초월 행동'을 이룬 뒤에 해방된다.", "unlockType": "final"}, {"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "다음 기본 공격을 강화하고 적중 시 대량의 마나를 즉시 회복합니다. 상대의 마력 회로를 타격해 에너지를 빨아들이며, 마나 30% 이하 역전 상태에서 쿨타임을 돌린 뒤 단숨에 고마나 구간으로 복귀할 때 사용합니다.", "difficulty": 4, "gimmick": "적의 마력 강탈 + 마나 잔량 즉시 회복 (역전 구간 ➔ 안정 구간 복귀)", "id": "sk-2", "isDraft": false, "nameEn": "Siphon Strike", "nameKo": "사이폰 스트라이크 (흡수 타격)", "power": 4, "quote": "", "reach": "ranged", "subType": "평타 강화 / 마나 흡수", "tier": "3", "traits": ["mana-dominion"]}, {"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "현재 자신의 마나 잔량 비율과 똑같은 확률로 적에게 기절(Stun)을 먹이는 마력 화살입니다. 마나 70% 이상(빙결/둔화 구간)에서 발사하면 70~100% 확률로 적을 확정 기절시키는 까다로운 제압기입니다.", "difficulty": 5, "gimmick": "현재 마나 비율(%) = 적 기절(Stun) 발동 확률", "id": "sk-3", "isDraft": false, "nameEn": "Resonance Bolt", "nameKo": "레조넌스 볼트 (공명 화살)", "power": 5, "quote": "", "reach": "ranged", "subType": "조건부 상태이상(CC) 공격기", "tier": "4"}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "기본 공격 속도를 한계까지 끌어올리는 액티브 스킬입니다. 과부하 5스택 상태에서 발동하면 방어력을 무시하는 광역 탄환이 폭우처럼 쏟아지며, 빙결·치명타·침묵/쿨감 효과를 순식간에 터뜨립니다.", "difficulty": 6, "gimmick": "[과부하 5스택] 광역 방어관통 평타 + [마나 잔량 평타 효과] 초고속 연타", "id": "sk-4", "isDraft": false, "nameEn": "Aether Flurry", "nameKo": "에테르 플러리 (에테르 난사)", "power": 6, "quote": "", "reach": "ranged", "subType": "초고속 평타 연사 액티브", "tier": "5"}, {"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "적의 마나나 기력을 직접 불태워 증발시키고, 그 수치만큼 폭발적인 추가 피해를 입힙니다. 적이 강하고 마력 총량이 높을수록 피해량이 기하급수적으로 치솟는 왓더퍽의 대표 대(對)강적 처형기입니다.", "difficulty": 7, "gimmick": "적의 마력/기력 소멸 + 소멸시킨 수치 비례 추가 피해 (강적 카운터)", "id": "sk-5", "isDraft": false, "nameEn": "Evaporation", "nameKo": "이베포레이션 (증발)", "power": 8, "quote": "", "reach": "ranged", "subType": "마나 번(Mana Burn) / 비례 피해", "tier": "6", "traits": ["mana-dominion"]}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "축적된 [과부하] 스택을 한 번에 모두 소모하며 전방에 파괴적인 비전 레이저를 발사합니다. 7성 본실력을 개방했을 때 주력으로 사용하는 필살기로, 주변에서 끌어모은 적의 잔류 마력까지 합쳐 전장을 휩쓸어버립니다.", "difficulty": 8, "gimmick": "[과부하] 스택 일제 소모 + 전방 초고밀도 관통 레이저", "id": "sk-6", "isDraft": false, "nameEn": "Arcane Discharge", "nameKo": "아케인 디스차지 (비전 방출)", "power": 9, "quote": "", "reach": "ranged", "subType": "과부하 전탄 소모 광역 레이저", "tier": "7", "traits": []}, {"area": "", "category": "utility", "characterId": "char-wtf", "desc": "밀물과 썰물처럼 자신의 마나 잔량을 강제로 출렁이게 만들어, 전투 상황에 맞춰 원하는 평타 기믹(빙결 견제 / 치명타 딜링 / 침묵 및 쿨감 역전)을 즉시 켜는 세계 최고 마나 조종사다운 유틸 스킬입니다.", "difficulty": 7, "gimmick": "원하는 [마나 잔량 기믹(70%↑ / 30~70% / 30%↓)] 즉시 유도", "id": "sk-7", "isDraft": false, "nameEn": "Mana Tide", "nameKo": "마나 타이드 (마나 조석)", "power": 2, "quote": "", "reach": "self", "subType": "마나 수치 강제 변동기", "tier": "3"}, {"area": "aoe", "category": "defense", "characterId": "char-wtf", "desc": "자신의 마나 수치를 즉시 50%로 고정하며 파동을 일으켜 주변 적을 강하게 밀쳐내는 생존 겸 유틸 방어기입니다. 암살자나 근접 전사의 기습을 흘려내면서 동시에 치명타 밸런스 상태로 태세를 정비합니다.", "difficulty": 5, "gimmick": "마나 즉시 50% 고정 (밸런스 구간 진입) + 주변 적 밀쳐내기(Knockback)", "id": "sk-8", "isDraft": false, "nameEn": "Equilibrium", "nameKo": "이퀼리브리엄 (평형)", "power": 4, "quote": "", "reach": "melee", "subType": "생존기 / 광역 넉백 / 마나 고정", "tier": "4"}, {"area": "", "category": "utility", "characterId": "char-wtf", "desc": "단시간 동안 마나 소모량을 대폭 늘리는 대신 기본 공격에 폭발적인 보너스를 부여하는 버프입니다. 화력을 쏟아부으며 동시에 마나를 순식간에 30% 이하로 떨어뜨려 침묵/쿨감 역전 기믹을 켜는 전술 가속기입니다.", "difficulty": 6, "gimmick": "마나 소모량 급증 + 평타 폭발적 보너스 + 30% 이하 [역전 상태] 고속 진입", "id": "sk-9", "isDraft": false, "nameEn": "Mana Surge", "nameKo": "마나 서지 (마나 격동)", "power": 7, "quote": "", "reach": "self", "subType": "하이리스크 폭딜 버프", "tier": "5"}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "한 적의 마력을 거꾸로 흐르게 만들면, 역류한 마력이 가까운 적의 회로로 옮겨붙어 연달아 터진다. 적이 모여 있을수록 연쇄가 길어진다.", "difficulty": 6, "gimmick": "튈 때마다 과부하 +1 (최대 3) · 적이 밀집할수록 연쇄 횟수 증가", "id": "sk-a01", "isDraft": false, "nameEn": "Chain Backflow", "nameKo": "연쇄 역류", "power": 6, "quote": "하나 건드렸는데 다 터지네?", "reach": "ranged", "sealed": false, "subType": "연쇄 폭발", "tier": "4", "traits": ["mana-dominion"], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "siphon", "characterId": "char-wtf", "desc": "범위 안의 모든 적에게서 마력을 조금씩 한꺼번에 걷어 간다. 한 명에게서 뺏는 양은 적지만, 적이 많을수록 차용 마력이 순식간에 찬다.", "difficulty": 6, "gimmick": "범위 내 적 한 명당 차용 마력 +8 (흡수 배율 적용)", "id": "sk-a02", "isDraft": false, "nameEn": "Requisition", "nameKo": "공출", "power": 5, "quote": "한 사람당 조금씩만. 공평하지?", "reach": "ranged", "sealed": false, "subType": "광역 일괄 징수", "tier": "5", "traits": ["mana-dominion"], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "counter", "characterId": "char-wtf", "desc": "여러 적이 한꺼번에 마법을 쏘는 순간 그 궤도를 모두 비틀어, 서로가 서로의 마법에 맞게 만든다. 집중 포화를 받을수록 오히려 유리해진다.", "difficulty": 8, "gimmick": "범위 내 적들이 동시에 시전 중일 때만 발동 · 마나 [균형] 구간에서 치명타 확정", "id": "sk-a03", "isDraft": false, "nameEn": "Backfire Bloom", "nameKo": "역광", "power": 7, "quote": "서로 사이좋게 맞아.", "reach": "ranged", "sealed": false, "subType": "광역 궤도 교란", "tier": "5", "traits": ["mana-dominion"], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "지휘봉을 휘두르듯 손을 들어, 전장에 있는 모든 적의 마력을 같은 박자로 맞춘 뒤 한 번에 터뜨린다. 그의 주특기인 전장 지휘가 가장 화려하게 드러나는 기술.", "difficulty": 8, "gimmick": "마나 구간에 따라 폭발 성질 변화 · 고요: 빙결 / 균형: 치명타 / 역류: 침묵 파동", "id": "sk-a04", "isDraft": false, "nameEn": "Grand Ensemble", "nameKo": "대합주", "power": 8, "quote": "자, 다 같이. 하나, 둘—", "reach": "ranged", "sealed": false, "subType": "동시 공명 폭발", "tier": "6", "traits": ["mana-dominion"], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "utility", "characterId": "char-wtf", "desc": "적들의 마력 흐름을 한 점으로 기울여, 흩어진 적들을 한곳에 끌어모은다. 혼자서는 큰 피해가 없지만 뒤따르는 광역기의 판을 깔아 준다.", "difficulty": 9, "gimmick": "범위 내 적을 한 지점으로 끌어모음 · 직후 쓰는 광역기 위력 +30%", "id": "sk-a05", "isDraft": false, "nameEn": "Battlefield Rearrangement", "nameKo": "전장 재배치", "power": 6, "quote": "흩어져 있으면 귀찮잖아. 모여.", "reach": "ranged", "sealed": false, "subType": "광역 끌어모으기", "tier": "7", "traits": ["mana-dominion"], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "전장에 있는 모든 마력에서 '등급'을 지워 버린다. 이 범위 안에서는 9성의 마력도 1성의 마력도 똑같은 마력일 뿐이고, 그 전부가 왓더퍽의 손끝을 따라 움직인다. 등급 체계 밖으로 나선 자만이 쓸 수 있는 기술.", "difficulty": 10, "gimmick": "범위 안 모든 마력의 등급 소거 → 전부 왓더퍽의 지휘 아래 놓임", "id": "sk-a06", "isDraft": false, "nameEn": "Unmeasurable", "nameKo": "측정 불가", "power": 10, "quote": "등급? 그거 누가 매긴 건데.", "reach": "ranged", "sealed": true, "subType": "초월 · 등급 소거", "tier": "transcendent", "traits": ["mana-dominion"], "unlockCond": "최종 목표인 '등급 체계 밖으로'를 이룬 뒤에 해방된다.", "unlockType": "final"}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "몸 주변으로 비전 마력을 한 번에 터뜨려 가까이 붙은 적들을 밀어낸다. 2성 마법사가 쓰기에 딱 그럴듯한 위력이라 위장용으로도 쓴다.", "difficulty": 2, "gimmick": "위장 중 사용해도 균열 없음 · 과부하 +1", "id": "sk-a07", "isDraft": false, "nameEn": "Arcane Explosion", "nameKo": "비전 폭발", "power": 3, "quote": "앗, 뜨거. 너무 가까이 오지 마.", "reach": "melee", "sealed": false, "subType": "자기 중심 폭발", "tier": "2", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "defense", "characterId": "char-wtf", "desc": "발밑에서 서리가 고리 모양으로 퍼져 주변 적들의 발을 얼려 묶는다. 근접 적에게 둘러싸였을 때 빠져나오는 용도.", "difficulty": 4, "gimmick": "마나 [고요] 구간에서 시전 시 빙결 지속 2배", "id": "sk-a08", "isDraft": false, "nameEn": "Frost Nova", "nameKo": "서리 고리", "power": 4, "quote": "잠깐 거기 서 있어.", "reach": "melee", "sealed": false, "subType": "주변 빙결", "tier": "3", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "번개를 한 줄기 쏘면 가까운 적에게서 적에게로 튀어 다닌다. 고전적이지만 믿을 만한 광역 견제기.", "difficulty": 4, "gimmick": "최대 5명까지 튐 · 튈수록 피해 감소 · 과부하 5스택이면 감소 없음", "id": "sk-a09", "isDraft": false, "nameEn": "Chain Lightning", "nameKo": "연쇄 번개", "power": 5, "quote": "줄 서. 차례대로 맞게.", "reach": "ranged", "sealed": false, "subType": "튀는 번개", "tier": "4", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "지정한 지역에 보랏빛 비전 폭풍을 일으켜, 안에 있는 적들을 몇 초 동안 계속 갈아낸다. 적을 한곳에 묶어 두는 기술과 함께 쓸 때 가장 강하다.", "difficulty": 6, "gimmick": "과부하 스택 1당 폭풍 지속 +1초 · 시전 중 마나 지속 소모", "id": "sk-a10", "isDraft": false, "nameEn": "Arcane Storm", "nameKo": "비전 폭풍", "power": 7, "quote": "비 온다. 우산은 없어.", "reach": "ranged", "sealed": false, "subType": "지속 광역 영역", "tier": "6", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "하늘에서 마력으로 빚은 유성 여러 개를 연달아 떨어뜨린다. 마나를 크게 쓰는 대신, 시전이 끝나면 곧바로 역류 구간의 침묵 평타로 이어진다.", "difficulty": 7, "gimmick": "마나 대량 소모 → 시전 후 [역류] 구간 진입 · 이어지는 평타가 침묵 부여", "id": "sk-a11", "isDraft": false, "nameEn": "Meteor Shower", "nameKo": "유성우", "power": 9, "quote": "위를 좀 봐. 별 떨어진다.", "reach": "ranged", "sealed": false, "subType": "대규모 낙하 폭격", "tier": "7", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "자신의 마나 전부를 한 점에 모아 하늘에서 거대한 마력 기둥으로 내리꽂는다. 남의 마력을 빌리지 않고 쓰는, 순수한 자기 힘의 정점.", "difficulty": 9, "gimmick": "자기 마나 100% 소모 · 과부하 5스택이면 범위 2배", "id": "sk-a12", "isDraft": false, "nameEn": "Heaven's Fall", "nameKo": "천붕", "power": 10, "quote": "가끔은 내 걸로 해야 기분이 나거든.", "reach": "ranged", "sealed": true, "subType": "초대형 마력 기둥", "tier": "9", "traits": [], "unlockCond": "9성 상대 앞에서, 빌린 마력 없이 자기 마력만으로 맞서야 하는 순간이 온다.", "unlockType": "enemy"}, {"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "손끝에 마력을 얇게 세워 짧은 칼날처럼 휘두른다. 원거리 위주인 그가 품 안으로 파고든 적을 처리할 때 쓴다.", "difficulty": 2, "gimmick": "위장 중 사용 가능 · 적중 시 마나 +3%", "id": "sk-a13", "isDraft": false, "nameEn": "Mana Blade", "nameKo": "마력 칼날", "power": 2, "quote": "가까이 오면 이것도 있어.", "reach": "melee", "sealed": false, "subType": "근접 마력 검", "tier": "1", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "", "category": "mobility", "characterId": "char-wtf", "desc": "짧은 거리를 순식간에 건너뛴다. 너무 짧고 흔한 기술이라 아무도 의심하지 않는다.", "difficulty": 3, "gimmick": "위장 유지 · 과부하 +1", "id": "sk-a14", "isDraft": false, "nameEn": "Blink", "nameKo": "점멸", "power": 1, "quote": "어, 나 여기 있는데?", "reach": "self", "sealed": false, "subType": "단거리 순간이동", "tier": "2", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "single", "category": "defense", "characterId": "char-wtf", "desc": "멀리 있는 아군 한 명에게 마력 보호막을 씌운다. 전장을 지휘하며 위험한 동료부터 챙기는 용도.", "difficulty": 4, "gimmick": "아군 1명에게 보호막 · 차용 마력으로 시전하면 보호막 1.5배", "id": "sk-a15", "isDraft": false, "nameEn": "Mana Barrier", "nameKo": "마력 장벽", "power": 3, "quote": "거기 너, 잠깐 이거 쓰고 있어.", "reach": "ranged", "sealed": false, "subType": "아군 보호막", "tier": "3", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "deceive", "characterId": "char-wtf", "desc": "일부러 요란한 마력 불꽃을 터뜨려 주변 적들의 시선을 한 몸에 받는다. 동료가 숨을 돌리게 하거나, 방심한 적들을 한꺼번에 끌어들인다.", "difficulty": 3, "gimmick": "범위 내 적 전원 [도발] · 도발된 적의 다음 공격은 방심 상태", "id": "sk-a16", "isDraft": false, "nameEn": "Spotlight", "nameKo": "시선 끌기", "power": 2, "quote": "자, 다들 나만 봐.", "reach": "ranged", "sealed": false, "subType": "광역 도발", "tier": "3", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "aoe", "category": "utility", "characterId": "char-wtf", "desc": "자신의 마력을 얇게 넓게 펼쳐 전장 전체를 훑고, 적들의 위치와 움직임을 아군에게 알려 준다. 전장 지휘의 기본기.", "difficulty": 6, "gimmick": "범위 내 모든 적의 위치와 시전 준비 상태를 아군에게 공유", "id": "sk-a17", "isDraft": false, "nameEn": "Commander's Eye", "nameKo": "지휘관의 눈", "power": 3, "quote": "왼쪽 셋, 오른쪽 둘. 뒤에 하나 숨어 있어.", "reach": "ranged", "sealed": false, "subType": "전장 감지 · 정보 공유", "tier": "4", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "", "category": "passive", "characterId": "char-wtf", "desc": "과부하로 쌓인 마력을 버리지 않고 다시 몸 안으로 돌린다. 큰 기술을 쓴 뒤에도 금방 다음 기술을 준비할 수 있다.", "difficulty": 3, "gimmick": "과부하 스택을 소모할 때마다 스택 1당 마나 +4%", "id": "sk-a18", "isDraft": false, "nameEn": "Mana Cycle", "nameKo": "마나 순환", "power": 3, "quote": "버리긴 아깝잖아.", "reach": "self", "sealed": false, "subType": "상시 · 마나 회복", "tier": "3", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "", "category": "passive", "characterId": "char-wtf", "desc": "광역기를 쏘는 순간 다음 술식을 이미 머릿속에 완성해 둔다. 광역기 두 개가 거의 동시에 떨어지는 장면이 그의 전장 지휘의 상징이다.", "difficulty": 7, "gimmick": "광역기를 쓴 직후 다음 스킬 1회 즉시 시전 (쿨타임 30초)", "id": "sk-a19", "isDraft": false, "nameEn": "Double Cast", "nameKo": "연속 영창", "power": 6, "quote": "하나 더 있는데?", "reach": "self", "sealed": false, "subType": "상시 · 광역 연계", "tier": "6", "traits": [], "unlockCond": "", "unlockType": ""}, {"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "적이 방금 쓴 마법의 잔불을 주워 손가락 끝으로 튕겨내는 견제기. 위력은 약하지만 속성이 상대 것이라, 겉보기엔 2성 마법사가 운 좋게 쓴 기술 같다.", "difficulty": 2, "gimmick": "차용 마력 10으로 시전 시 자기 마나 소모 없음", "id": "sk-n01", "isDraft": false, "nameEn": "Borrowed Ember", "nameKo": "빌린 불씨", "power": 2, "quote": "이거 네 거 맞지? 돌려줄게.", "reach": "ranged", "subType": "견제 탄환", "tier": "1", "traits": ["mana-dominion"]}, {"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "전투 내내 적에게서 빌린 마력을 한 번에 정산해 마력 창으로 꽂는다. 오래 싸울수록, 상대가 강할수록 청구 금액이 불어난다.", "difficulty": 6, "gimmick": "이번 전투에서 강탈한 마력 총량 비례 피해 · 차용 마력 전부 소모", "id": "sk-n02", "isDraft": false, "nameEn": "The Invoice", "nameKo": "청구서", "power": 7, "quote": "자, 그동안 빌려 쓴 거 이자까지 계산해 봤는데.", "reach": "ranged", "subType": "누적 정산 일격", "tier": "5", "traits": ["mana-dominion"]}, {"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "적 마력 회로의 고유 진동수에 맞춰 안쪽부터 공진시킨다. 마력이 가득 찬 강적일수록 회로가 스스로 터져 나간다. 본실력 7성을 넘어서는 기술이라 아직 완성되지 않았다.", "difficulty": 9, "gimmick": "적 마나 잔량이 높을수록 피해 증가 · 마나 [고요] 구간에서 시전 시 기절 확정", "id": "sk-n03", "isDraft": false, "nameEn": "Resonance Collapse", "nameKo": "공명 붕괴", "power": 9, "quote": "몸 안에 그렇게 꽉 채워두면... 흔들면 터지잖아.", "reach": "ranged", "sealed": true, "subType": "회로 공진 폭발", "tier": "8", "traits": ["mana-dominion"], "unlockCond": "8성 이상 상대의 마력 회로를 직접 손으로 읽어낸다.", "unlockType": "enemy"}, {"area": "", "category": "defense", "characterId": "char-wtf", "desc": "날아오는 마법의 궤도를 아주 살짝 비틀어 몸 옆으로 흘려보낸다. 겉보기엔 운 좋게 빗나간 것 같아서 2성 위장이 그대로 유지된다.", "difficulty": 4, "gimmick": "위장 중 사용해도 균열 없음 · 성공 시 과부하 +1", "id": "sk-n04", "isDraft": false, "nameEn": "Let It Slide", "nameKo": "흘려듣기", "power": 2, "quote": "어이쿠, 빗나갔네? 조준 연습 좀 해야겠다.", "reach": "self", "subType": "마력 흘리기 패링", "tier": "2", "traits": ["mana-dominion"]}, {"area": "", "category": "defense", "characterId": "char-wtf", "desc": "들어오는 마력의 위상을 정반대로 뒤집은 얇은 막을 펼쳐 상쇄한다. 상쇄되고 남은 찌꺼기 마력은 버리지 않고 챙긴다.", "difficulty": 7, "gimmick": "막아낸 피해의 30%를 차용 마력으로 저장", "id": "sk-n05", "isDraft": false, "nameEn": "Inverse Veil", "nameKo": "역상 장막", "power": 5, "quote": "공짜 마력 들어왔다~", "reach": "self", "subType": "위상 반전 보호막", "tier": "5", "traits": ["mana-dominion"]}, {"area": "", "category": "defense", "characterId": "char-wtf", "desc": "이퀼리브리엄의 극의. 몸에 닿는 모든 마력을 균형의 일부로 받아들여, 어떤 폭격 속에서도 흔들리지 않는다.", "difficulty": 10, "gimmick": "지속 중 마나 50% 고정 · 받은 마법 피해를 과부하 스택으로 전환", "id": "sk-n06", "isDraft": false, "nameEn": "Absolute Equilibrium", "nameKo": "절대 평형", "power": 8, "quote": "더 쏴 봐. 어차피 다 내 거 되니까.", "reach": "self", "sealed": true, "subType": "마력 피해 완전 흡수", "tier": "9", "traits": ["mana-dominion"], "unlockCond": "지키고 싶은 사람을 등 뒤에 두고, 한 걸음도 물러서지 않은 채 상대의 전력을 받아낸다.", "unlockType": "bond"}, {"area": "single", "category": "counter", "characterId": "char-wtf", "desc": "맞기 직전 손바닥으로 마법을 툭 쳐서 시전자에게 돌려보낸다. 2성 위장 상태에서도 쓸 수 있는 소박한 반격기.", "difficulty": 3, "gimmick": "받은 마법 피해의 50% 반사 · 위장 중 사용 가능", "id": "sk-n07", "isDraft": false, "nameEn": "Return to Sender", "nameKo": "반송 처리", "power": 3, "quote": "반송 처리할게요~", "reach": "melee", "subType": "단순 반사", "tier": "2", "traits": ["mana-dominion"]}, {"area": "single", "category": "counter", "characterId": "char-wtf", "desc": "적이 대마법을 준비하는 그 짧은 틈에 회로로 손가락을 밀어 넣어 시전을 끊고, 모아둔 마력을 가로챈다.", "difficulty": 6, "gimmick": "적이 3성 이상 스킬을 시전하는 중에만 발동 · 시전 마력 일부 강탈 + 시전 취소", "id": "sk-n08", "isDraft": false, "nameEn": "Opening Claim", "nameKo": "빈틈 청구", "power": 5, "quote": "주문이 너무 길어. 기다리다 지루해서.", "reach": "ranged", "subType": "시전 차단 카운터", "tier": "4", "traits": ["mana-dominion"]}, {"area": "aoe", "category": "counter", "characterId": "char-wtf", "desc": "일정 범위 안으로 날아든 모든 마법을 증거물로 압수해 각자의 시전자에게 동시에 돌려준다. 여러 강적에게 둘러싸였을 때 진가가 나온다.", "difficulty": 9, "gimmick": "범위 내 모든 적 공격 일괄 반사 · 차용 마력 100이면 위력 2배", "id": "sk-n09", "isDraft": false, "nameEn": "Mirror Tribunal", "nameKo": "거울 법정", "power": 9, "quote": "자, 각자 자기가 쏜 거 돌려받으세요.", "reach": "ranged", "sealed": true, "subType": "광역 일괄 반격", "tier": "8", "traits": ["mana-dominion"], "unlockCond": "자신과 같은 등급 이상의 적 여럿에게 동시에 포위당한 전투에서 모두의 공격을 받아낸다.", "unlockType": "enemy"}, {"area": "single", "category": "utility", "characterId": "char-wtf", "desc": "악수하거나 어깨를 툭 치는 순간 상대 마력의 총량과 회로 구조를 읽어낸다. 상대는 그저 넉살 좋은 하급 마법사라고 생각한다.", "difficulty": 5, "gimmick": "적 등급·마나 잔량·주력 속성 파악 → 차용 마력 흡수 배율 확인", "id": "sk-n10", "isDraft": false, "nameEn": "Appraisal", "nameKo": "마력 감정", "power": 1, "quote": "오, 손 따뜻하시네요. ...마력도 꽤 있으시고.", "reach": "melee", "subType": "접촉 스캔", "tier": "1"}, {"area": "", "category": "utility", "characterId": "char-wtf", "desc": "마나 타이드보다 섬세한 조종술. 숨 한 번 쉬는 사이에 마나를 딱 필요한 만큼만 올리거나 내려 구간 경계를 자유롭게 넘나든다.", "difficulty": 8, "gimmick": "마나를 ±20% 범위에서 원하는 값으로 즉시 조정 · 구간을 넘으면 과부하 +1", "id": "sk-n11", "isDraft": false, "nameEn": "Tuning", "nameKo": "조율", "power": 3, "quote": "딱 이만큼만.", "reach": "self", "subType": "마나 구간 미세 조정", "tier": "4"}, {"area": "single", "category": "utility", "characterId": "char-wtf", "desc": "적에게서 빼앗은 마력을 아군에게 넘겨준다. 출처가 적이라 아군 입장에선 공짜다. 이자는 받지 않는다. 아마도.", "difficulty": 7, "gimmick": "차용 마력을 아군에게 전달 · 전달량만큼 아군 스킬 쿨타임 감소", "id": "sk-n12", "isDraft": false, "nameEn": "Mana Loan", "nameKo": "마력 대출", "power": 4, "quote": "필요하면 말해. 이자는... 나중에 생각하자.", "reach": "ranged", "subType": "아군 마력 공급", "tier": "6", "traits": ["mana-dominion"]}, {"area": "single", "category": "siphon", "characterId": "char-wtf", "desc": "스쳐 지나가며 아주 조금씩 마력을 빼낸다. 양이 너무 적어서 상대는 알아채지 못한다.", "difficulty": 3, "gimmick": "평타 적중 시 차용 마력 +5 (흡수 배율 적용)", "id": "sk-n13", "isDraft": false, "nameEn": "Pickpocket", "nameKo": "소매치기", "power": 1, "quote": "...뭐야, 왜 그렇게 봐?", "reach": "melee", "subType": "접촉 미량 흡수", "tier": "1", "traits": ["mana-dominion"]}, {"area": "single", "category": "siphon", "characterId": "char-wtf", "desc": "적의 마력 회로에 보이지 않는 사슬을 걸어 계속 빨아들인다. 상대가 강할수록 사슬이 굵어진다.", "difficulty": 6, "gimmick": "연결 중 매초 차용 마력 증가 · 적 마나가 30% 아래로 떨어지면 침묵", "id": "sk-n14", "isDraft": false, "nameEn": "Leech Chain", "nameKo": "착취 사슬", "power": 5, "quote": "끊고 싶으면 끊어 봐. 네 마력으로 만든 사슬인데.", "reach": "ranged", "subType": "지속 흡수 연결", "tier": "4", "traits": ["mana-dominion"]}, {"area": "single", "category": "siphon", "characterId": "char-wtf", "desc": "적 마력의 큰 덩어리를 통째로 압류한다. 본실력을 개방해야 쓸 수 있는 주력 강탈기로, 강적일수록 빼앗는 양이 어마어마해진다.", "difficulty": 9, "gimmick": "적 현재 마나의 40% 즉시 강탈 · 강탈량에 비례해 과부하 스택", "id": "sk-n15", "isDraft": false, "nameEn": "Total Seizure", "nameKo": "총량 압류", "power": 8, "quote": "이건 담보로 잡아둘게.", "reach": "ranged", "subType": "대량 강탈", "tier": "7", "traits": ["mana-dominion"]}, {"area": "single", "category": "hack", "characterId": "char-wtf", "desc": "적 술식의 한 글자를 슬쩍 바꿔놓는다. 불꽃이 불씨가 되고 폭발이 폭죽이 된다. 상대는 자기 실수인 줄 안다.", "difficulty": 5, "gimmick": "적의 다음 스킬 효과를 무작위로 약화 · 위장 중 사용해도 균열 없음", "id": "sk-n16", "isDraft": false, "nameEn": "Typo", "nameKo": "오타 내기", "power": 2, "quote": "어? 방금 그거 실수였어?", "reach": "ranged", "subType": "술식 교란", "tier": "2", "traits": ["mana-dominion"]}, {"area": "single", "category": "hack", "characterId": "char-wtf", "desc": "적에게 걸린 강화 마법의 소유권을 자기 쪽으로 옮겨 쓴다. 효과도 지속 시간도 그대로.", "difficulty": 7, "gimmick": "적 강화 효과 1개를 빼앗아 자신에게 적용 · 과부하 +1", "id": "sk-n17", "isDraft": false, "nameEn": "Privilege Escalation", "nameKo": "권한 탈취", "power": 6, "quote": "이 버프, 나한테 더 잘 어울리는데?", "reach": "ranged", "subType": "적 버프 강탈", "tier": "5", "traits": ["mana-dominion"]}, {"area": "single", "category": "hack", "characterId": "char-wtf", "desc": "전투 초반에 적 회로에 몰래 심어둔 술식이 적의 필살기 순간 깨어나 마력을 역류시킨다.", "difficulty": 10, "gimmick": "적 회로에 술식을 심어둠 → 적이 7성 이상 스킬을 쓰는 순간 폭주", "id": "sk-n18", "isDraft": false, "nameEn": "Backdoor", "nameKo": "백도어", "power": 8, "quote": "아까 악수했을 때부터 깔아뒀지.", "reach": "melee", "sealed": true, "subType": "지연 발동 술식", "tier": "8", "traits": ["mana-dominion"], "unlockCond": "8성 이상 상대의 필살 술식을 시전 도중에 처음으로 해킹해 낸다.", "unlockType": "enemy"}, {"area": "aoe", "category": "ward", "characterId": "char-wtf", "desc": "발끝으로 땅에 작은 표식을 남겨, 그 반경 안에서 마력이 움직이면 바로 알아챈다.", "difficulty": 3, "gimmick": "결계 안에서 적이 마력을 쓰면 감지 · 위장 유지", "id": "sk-n19", "isDraft": false, "nameEn": "Stake", "nameKo": "말뚝", "power": 1, "quote": "여기 들어오면 다 보여.", "reach": "melee", "subType": "소형 감지 결계", "tier": "2"}, {"area": "aoe", "category": "ward", "characterId": "char-wtf", "desc": "이 땅에서는 마법을 쓸 때마다 통행료를 내야 한다. 걷힌 마력은 전부 왓더퍽의 주머니로 들어간다.", "difficulty": 7, "gimmick": "영역 안에서 적이 스킬을 쓸 때마다 시전 마력 20% 징수 → 차용 마력", "id": "sk-n20", "isDraft": false, "nameEn": "Toll Zone", "nameKo": "징수 구역", "power": 6, "quote": "통행료는 마력으로 받습니다.", "reach": "ranged", "subType": "흡수 영역", "tier": "6", "traits": ["mana-dominion"]}, {"area": "aoe", "category": "ward", "characterId": "char-wtf", "desc": "결계 안의 마력을 전부 걷어내 아무도 마법을 쓸 수 없게 만든다. 미리 빌려둔 마력이 있는 왓더퍽만 예외다. (단, 자신이 지정한 사람들에게는 이 능력의 효과로 부터 제외된다.)", "difficulty": 10, "gimmick": "결계 안 적 마나 회복 불가 · 자신은 차용 마력으로만 시전", "id": "sk-n21", "isDraft": false, "nameEn": "Mana Vacuum", "nameKo": "마력 진공", "power": 9, "quote": "여기선 나만 마법 쓸 수 있어. 불공평하다고? 응.", "reach": "ranged", "sealed": true, "subType": "대규모 봉쇄 결계", "tier": "9", "traits": ["mana-dominion"], "unlockCond": "능글맞음을 내려놓고, 웃지 않은 채 끝까지 싸운다.", "unlockType": "attitude"}, {"area": "", "category": "mobility", "characterId": "char-wtf", "desc": "넘어질 듯 비틀거리며 공격을 피한다. 겉보기엔 순전히 운이다.", "difficulty": 2, "gimmick": "위장 유지 · 회피 성공 시 마나 +5%", "id": "sk-n22", "isDraft": false, "nameEn": "Misstep", "nameKo": "헛디딤", "power": 1, "quote": "와, 큰일 날 뻔했다.", "reach": "self", "subType": "짧은 회피", "tier": "1"}, {"area": "single", "category": "mobility", "characterId": "char-wtf", "desc": "날아오는 마법의 마력 흐름에 올라타 그 근원지까지 단숨에 거슬러 올라간다.", "difficulty": 6, "gimmick": "적이 쏜 마법의 궤적을 거슬러 시전자 등 뒤로 순간이동 · 과부하 +1", "id": "sk-n23", "isDraft": false, "nameEn": "Wave Rider", "nameKo": "파장 타기", "power": 3, "quote": "길 안내 고마워.", "reach": "ranged", "subType": "적 마력 경로 이동", "tier": "4", "traits": ["mana-dominion"]}, {"area": "single", "category": "mobility", "characterId": "char-wtf", "desc": "회로를 읽어둔 대상과 자리를 맞바꾼다. 주로 적의 광역기 한가운데에 그 적을 세워두는 데 쓴다.", "difficulty": 8, "gimmick": "회로를 읽어둔 대상과 위치 교환 · 차용 마력 20 소모", "id": "sk-n24", "isDraft": false, "nameEn": "Coordinate Swap", "nameKo": "좌표 교환", "power": 5, "quote": "자리 좀 바꿔줄래? 거기 경치 좋아 보여서.", "reach": "ranged", "subType": "위치 교환", "tier": "7"}, {"area": "single", "category": "deceive", "characterId": "char-wtf", "desc": "과장되게 숨을 헐떡이며 마나가 바닥난 척한다. 상대에게 [도발] 효과를 부여한다. 도발이 발생돤 적은 방심을 한 상태의 공격을 유발한다.", "difficulty": 3, "gimmick": "적을 [방심] 상태로 만듦 → 다음 공격 적 방어력 −30% · 위장 균열 감소", "id": "sk-n25", "isDraft": false, "nameEn": "Feigned Weakness", "nameKo": "엄살", "power": 1, "quote": "헉, 헉... 잠깐만, 마나가... 다 떨어졌나 봐...", "reach": "ranged", "subType": "방심 유도", "tier": "1"}, {"area": "", "category": "deceive", "characterId": "char-wtf", "desc": "자신과 똑같은 마력 신호를 주변에 여러 개 띄운다. 조종이 너무 정교해서 고위 마법사도 진짜를 구분하지 못한다.", "difficulty": 8, "gimmick": "가짜 마력 신호 3개 생성 · 적의 탐지와 유도 공격 분산", "id": "sk-n26", "isDraft": false, "nameEn": "Phantom Signature", "nameKo": "허상 마력", "power": 4, "quote": "어느 게 진짜 나게?", "reach": "self", "subType": "마력 신호 위조", "tier": "5"}, {"area": "", "category": "deceive", "characterId": "char-wtf", "desc": "궁지에 몰린 척 본실력을 드러내지만, 그것조차 위장이다. 상대가 7성에 맞춰 대응하는 순간 그 너머를 꺼낸다.", "difficulty": 10, "gimmick": "위장이 풀린 것처럼 연출한 뒤 7성으로 보이게 2차 위장 · 진짜 실력은 계속 은폐", "id": "sk-n27", "isDraft": false, "nameEn": "Mask upon Mask", "nameKo": "가면 위의 가면", "power": 6, "quote": "이게 내 진짜 실력이냐고? 글쎄.", "reach": "self", "sealed": true, "subType": "이중 위장", "tier": "8", "unlockCond": "처음으로 누군가에게 스스로 정체를 밝힌다. 그 순간 더 깊은 가면이 열린다.", "unlockType": "reveal"}, {"area": "", "category": "passive", "characterId": "char-wtf", "desc": "상대가 자신을 얕볼수록, 그리고 상대가 강할수록 왓더퍽은 더 날카로워진다.", "difficulty": 2, "gimmick": "상대 등급이 지금의 위장 등급보다 1 높을 때마다 모든 피해 +8% (평소 2성 위장 기준)", "id": "sk-n28", "isDraft": false, "nameEn": "Price of Contempt", "nameKo": "얕보기의 대가", "power": 4, "quote": "나 2성인데? 좀 봐주면서 해.", "reach": "self", "subType": "상시 · 강적 보정", "tier": "2"}, {"area": "", "category": "passive", "characterId": "char-wtf", "desc": "한 번 맛본 마력은 잊지 않는다. 같은 상대에게서 빼앗을수록 그 마력이 몸에 익는다.", "difficulty": 4, "gimmick": "같은 적에게서 강탈할 때마다 흡수 효율 +5% (최대 +50%)", "id": "sk-n29", "isDraft": false, "nameEn": "Mana Palate", "nameKo": "마력 미각", "power": 3, "quote": "이 마력 맛, 이제 좀 알겠다.", "reach": "self", "subType": "상시 · 흡수 효율", "tier": "4", "traits": ["mana-dominion"]}, {"area": "", "category": "passive", "characterId": "char-wtf", "desc": "세계 최고라 불리는 마나 조종술 그 자체. 어떤 탐지 마법으로도 그의 위장을 꿰뚫지 못한다.", "difficulty": 10, "gimmick": "마나 구간 전환 지연 없음 · 모든 스킬 마나 소모 −15% · 위장 탐지 면역", "id": "sk-n30", "isDraft": false, "nameEn": "Finest Fingertips", "nameKo": "세계 최고의 손끝", "power": 6, "quote": "손재주가 좀 좋아서.", "reach": "self", "subType": "상시 · 조종술의 정점", "tier": "7"}, {"area": "aoe", "category": "attack", "characterId": "char-wtf", "desc": "마나 검을 가볍게 휘둘러 초승달 모양의 검기를 전방으로 날린다. 일직선상의 모든 적을 관통하며 적의 마나와 HP를 흡수한다. 마나 검을 활용한 기술이며, 기술을 쓰는 데 많은 마나가 들어가지는 않지만 마나에 대한 이해도와 고도의 복잡한 연계가 필요한 기술이다.", "difficulty": 8, "gimmick": "마나 검(매니페스트 엣지) 활용 · 일직선상 모든 적 관통 · 적중한 적의 마나와 HP 흡수 · 마나 소모 적음", "id": "sk-u01", "isDraft": false, "nameEn": "Mana Wave", "nameKo": "마나 웨이브 (마나 검풍)", "power": 6, "quote": "", "reach": "ranged", "sealed": false, "subType": "관통 검기 · 흡수", "tier": "5", "traits": ["mana-dominion"], "unlockCond": "", "unlockType": ""}, {"area": "single", "category": "attack", "characterId": "char-wtf", "desc": "무형의 마나를 물리적인 칼날로 실체화하는 기술이다. 마나를 투영한 검으로, 사용자의 마나 능력에 따라 검의 세기가 정해진다. 기본적인 2성급만 되어도 형태는 유지되지만, 공격력이 다른 마나 능력에 비해 그렇게 효율이 좋지 않아 요즘에는 잘 사용하지 않는 기술이다.", "difficulty": 3, "gimmick": "사용자의 마나 능력에 따라 검의 세기 결정 · 2성급부터 형태 유지", "id": "sk-u02", "isDraft": false, "nameEn": "Manifest Edge", "nameKo": "매니페스트 엣지 (실체화된 검날)", "power": 3, "quote": "", "reach": "melee", "sealed": false, "subType": "마나 실체화 · 근접 검", "tier": "2", "traits": [], "unlockCond": "", "unlockType": ""}]};</script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one narrow column of large tap targets; each screen goes one level deeper (인물 → 메뉴 → 유형 → 목록 → 상세). Single committed dark "grimoire at night" look. */
+:root {
+  color-scheme: dark;
+  --ink: #0d0b15;
+  --ink-2: #15121f;
+  --ink-3: #1e1a2d;
+  --ink-4: #282339;
+  --line: #2f2944;
+  --line-2: #3d3557;
+  --text: #ede9f7;
+  --muted: #a49cbd;
+  --faint: #716a8c;
+  --arcane: #b49cff;
+  --arcane-deep: #7a5ce6;
+  --arcane-wash: rgba(180, 156, 255, 0.12);
+  --mana: #63e0e6;
+  --mana-wash: rgba(99, 224, 230, 0.12);
+  --ember: #f2b75e;
+  --ember-wash: rgba(242, 183, 94, 0.13);
+  --rose: #f27c96;
+  --rose-wash: rgba(242, 124, 150, 0.13);
+  --jade: #62d49c;
+  --jade-wash: rgba(98, 212, 156, 0.13);
+  --font-display: "Hahmlet", "Noto Serif KR", "Noto Serif CJK KR", "Nanum Myeongjo", Georgia, serif;
+  --font-body: "IBM Plex Sans KR", "Noto Sans KR", "Noto Sans CJK KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r-s: 10px;
+  --r-m: 16px;
+  --r-l: 22px;
+  --bar-h: 60px;
+}
+* { box-sizing: border-box; }
+html { background: var(--ink); }
+body {
+  background: var(--ink);
+  background-image: radial-gradient(1200px 600px at 50% -200px, rgba(122, 92, 230, 0.16), transparent 70%);
+  background-repeat: no-repeat;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--ink);
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--arcane); outline-offset: 2px; }
+.mono { font-family: var(--font-mono); }
+.display { font-family: var(--font-display); }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: rgba(13, 11, 21, 0.9);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.bar-inner {
+  max-width: 980px; margin: 0 auto; height: var(--bar-h);
+  padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px));
+  display: flex; align-items: center; gap: 8px;
+}
+.icon-btn {
+  width: 44px; height: 44px; flex: none; border-radius: 12px;
+  display: grid; place-items: center;
+  background: var(--ink-3); border: 1px solid var(--line); color: var(--text);
+}
+.icon-btn:hover { border-color: var(--line-2); background: var(--ink-4); }
+.icon-btn[hidden] { display: none !important; }
+.icon-btn svg { width: 22px; height: 22px; }
+.crumbs {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 2px;
+  overflow-x: auto; scrollbar-width: none; white-space: nowrap;
+}
+.crumbs::-webkit-scrollbar { display: none; }
+.crumbs.fade { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22px); mask-image: linear-gradient(to right, transparent 0, #000 22px); }
+.crumb {
+  border: 0; background: none; padding: 8px 6px; border-radius: 8px;
+  color: var(--muted); font-size: 13.5px; font-weight: 500; flex: none;
+}
+.crumb:hover { color: var(--text); background: var(--ink-3); }
+.crumb.current { color: var(--text); font-weight: 700; cursor: default; background: none; }
+.crumb-sep { color: var(--faint); font-size: 12px; flex: none; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; color: var(--text); padding: 0 6px; }
+
+/* ---------- page ---------- */
+.page {
+  max-width: 980px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 120px;
+  display: flex; flex-direction: column; gap: 22px;
+}
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--arcane); }
+.h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(26px, 6vw, 36px); line-height: 1.15; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+.h2 { font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.25; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 62ch; }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.section-head > div { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+
+/* ---------- big tiles ---------- */
+.tiles { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 720px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 720px) { .tiles.quad { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.tile {
+  position: relative; text-align: left;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+  min-height: 150px; padding: 16px;
+  background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-l);
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.tile:hover { border-color: var(--line-2); background: var(--ink-3); transform: translateY(-2px); }
+.tile:active { transform: translateY(0); }
+.tile.dim { opacity: 0.5; }
+.tile.dashed { border-style: dashed; background: transparent; align-items: center; justify-content: center; text-align: center; color: var(--muted); gap: 8px; }
+.tile.dashed:hover { color: var(--text); border-color: var(--arcane-deep); }
+.tile-icon {
+  width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
+  background: var(--tone-wash, var(--arcane-wash)); color: var(--tone, var(--arcane));
+  border: 1px solid color-mix(in srgb, var(--tone, var(--arcane)) 35%, transparent);
+}
+.tile-icon svg { width: 28px; height: 28px; }
+.tile-name { font-family: var(--font-display); font-weight: 700; font-size: 19px; line-height: 1.2; }
+.tile-sub { color: var(--muted); font-size: 13px; line-height: 1.45; margin-top: 3px; }
+.tile-count { position: absolute; top: 14px; right: 14px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--muted); }
+.tile-count b { color: var(--text); font-size: 20px; font-weight: 600; }
+.tile > .chip { position: absolute; top: 14px; right: 14px; }
+.tile.big { min-height: 168px; }
+
+/* tones */
+.t-arcane { --tone: var(--arcane); --tone-wash: var(--arcane-wash); }
+.t-mana { --tone: var(--mana); --tone-wash: var(--mana-wash); }
+.t-ember { --tone: var(--ember); --tone-wash: var(--ember-wash); }
+.t-rose { --tone: var(--rose); --tone-wash: var(--rose-wash); }
+.t-jade, .t-green { --tone: var(--jade); --tone-wash: var(--jade-wash); }
+.t-cyan { --tone: var(--mana); --tone-wash: var(--mana-wash); }
+
+/* ---------- trait / growth ---------- */
+.chip.trait { background: linear-gradient(90deg, rgba(99,224,230,.16), rgba(180,156,255,.16)); color: var(--mana); border-color: color-mix(in srgb, var(--mana) 45%, transparent); }
+.chip svg { width: 12px; height: 12px; }
+.chip.sealed-chip { background: var(--ink); color: var(--muted); border: 1px dashed var(--line-2); }
+.feature {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; text-align: left;
+  padding: 16px 18px; border-radius: var(--r-l); border: 1px solid color-mix(in srgb, var(--mana) 45%, transparent);
+  background: linear-gradient(110deg, rgba(99,224,230,.10), var(--ink-2) 55%, rgba(180,156,255,.08));
+}
+.feature:hover { border-color: var(--mana); }
+.feature-n { font-size: 28px; font-weight: 600; color: var(--mana); }
+.trait-hero { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: var(--r-l); border: 1px solid color-mix(in srgb, var(--mana) 40%, transparent); background: linear-gradient(160deg, rgba(99,224,230,.09), var(--ink-2) 60%); }
+.trait-hero .row { display: flex; gap: 14px; align-items: center; }
+.trait-hero p { margin: 0; color: var(--text); max-width: 62ch; white-space: pre-line; }
+.goal { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: var(--r-l); border: 1px solid color-mix(in srgb, var(--arcane) 45%, transparent); background: linear-gradient(160deg, var(--arcane-wash), var(--ink-2) 65%); }
+.goal .k { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--arcane); letter-spacing: .06em; }
+.goal .k svg { width: 18px; height: 18px; }
+.goal p { margin: 0; font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1.45; text-wrap: balance; }
+.goal .chosen { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: var(--r-m); background: var(--ink); border: 1px solid var(--line-2); }
+.goal .chosen span:last-child { color: var(--muted); font-size: 14px; }
+.cand-list { display: flex; flex-direction: column; gap: 10px; }
+.cand { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 4px 12px; align-items: start; padding: 14px; border-radius: var(--r-m); background: var(--ink-2); border: 1px solid var(--line); }
+.cand .btn { grid-column: 2; justify-self: start; margin-top: 6px; }
+.cand .num { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--ink-4); color: var(--muted); font-weight: 600; }
+.cand b { font-family: var(--font-display); font-size: 16.5px; }
+.cand p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.cand.on { border-color: var(--arcane); background: var(--arcane-wash); }
+.cand.on .num { background: var(--arcane-deep); color: #fff; }
+.cand.dimmed { opacity: .55; }
+.unlock-group { display: flex; flex-direction: column; gap: 10px; }
+.ug-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.skill-row.sealed { border-style: dashed; background: repeating-linear-gradient(135deg, var(--ink-2) 0 10px, #17142200 10px 20px), var(--ink-2); }
+.skill-row.sealed .tier-block { opacity: .6; }
+.skill-row .cond { display: flex; gap: 6px; align-items: flex-start; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+.skill-row .cond svg { width: 14px; height: 14px; flex: none; margin-top: 3px; color: var(--faint); }
+.seal-banner { padding: 16px; border-radius: var(--r-m); border: 1px dashed var(--line-2); background: var(--ink); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.seal-banner .k { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .04em; }
+.seal-banner .k svg { width: 16px; height: 16px; }
+.seal-banner p { margin: 0; font-weight: 600; }
+.callout.jade { background: var(--jade-wash); border-color: color-mix(in srgb, var(--jade) 30%, transparent); }
+.callout.jade .k { color: var(--jade); }
+.tier-chip.rng.on { background: var(--jade-wash); border-color: var(--jade); }
+.tier-chip.zero { opacity: .45; }
+.bar-sep { flex: none; width: 1px; align-self: stretch; margin: 8px 4px; background: var(--line-2); }
+.chip.range-chip { background: var(--ink); color: var(--jade); border-color: color-mix(in srgb, var(--jade) 35%, transparent); }
+.tier-chip.facet.on { background: var(--mana-wash); border-color: var(--mana); }
+.checks { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- chips ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 9px;
+  border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap;
+  background: var(--tone-wash, var(--ink-4)); color: var(--tone, var(--muted));
+  border: 1px solid color-mix(in srgb, var(--tone, var(--line-2)) 35%, transparent);
+}
+.chip.plain { background: var(--ink-3); color: var(--muted); border-color: var(--line); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ---------- character cards (home) ---------- */
+.sigil { position: relative; width: 72px; height: 72px; flex: none; display: grid; place-items: center; }
+.sigil svg.ring { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--arcane); }
+.sigil span { position: relative; z-index: 1; font-family: var(--font-mono); font-weight: 600; font-size: 17px; letter-spacing: 0.04em; color: var(--text); }
+.sigil.xl { width: 96px; height: 96px; }
+.sigil.xl span { font-size: 22px; }
+
+.char-list { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 720px) { .char-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.char-card {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) 20px; gap: 16px; align-items: center; text-align: left;
+  padding: 18px; min-height: 0; background: linear-gradient(160deg, var(--ink-3), var(--ink-2)); border: 1px solid var(--line); border-radius: var(--r-l);
+  transition: border-color .15s, transform .15s;
+}
+.char-card:hover { border-color: var(--arcane-deep); transform: translateY(-2px); }
+.char-card .chev { width: 20px; height: 20px; color: var(--faint); }
+.cc-body { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.cc-file { font-size: 11.5px; color: var(--faint); letter-spacing: .08em; }
+.cc-name { font-family: var(--font-display); font-weight: 800; font-size: 22px; line-height: 1.2; }
+.cc-sub { color: var(--muted); font-size: 13.5px; }
+.nw { white-space: nowrap; }
+.cc-stats { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.cc-stats b { color: var(--text); font-weight: 600; font-size: 15px; }
+.add-slim {
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 56px;
+  border: 1px dashed var(--line-2); border-radius: var(--r-m); background: transparent; color: var(--muted); font-weight: 600;
+}
+.add-slim:hover { color: var(--text); border-color: var(--arcane-deep); }
+.add-slim svg { width: 18px; height: 18px; }
+.v-note { display: block; font-family: var(--font-body); font-size: 11.5px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+.skill-row .en .st { color: var(--muted); font-family: var(--font-body); }
+@media (min-width: 900px) { .page .skill-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); } .page .skill-list .skill-row { align-self: stretch; } }
+.to-top {
+  position: fixed; z-index: 40; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--ink-4); border: 1px solid var(--line-2); color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,.4);
+}
+.to-top svg { width: 22px; height: 22px; }
+
+/* ---------- hero (character menu) ---------- */
+.hero {
+  display: grid; gap: 18px; padding: 22px;
+  background: linear-gradient(180deg, var(--ink-3), var(--ink-2));
+  border: 1px solid var(--line); border-radius: var(--r-l);
+}
+.hero-top { display: flex; gap: 16px; align-items: center; }
+.hero-top > div:not(.sigil) { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.quote { font-family: var(--font-display); font-weight: 500; color: var(--arcane); font-size: 15.5px; line-height: 1.5; margin: 0; }
+.quote::before { content: "“"; } .quote::after { content: "”"; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.stat { padding: 10px 12px; background: var(--ink); border: 1px solid var(--line); border-radius: var(--r-m); min-width: 0; }
+.stat .k { font-size: 11.5px; color: var(--faint); font-weight: 600; letter-spacing: .04em; }
+.stat .v { font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.3; margin-top: 2px; overflow-wrap: anywhere; }
+.row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  height: 46px; padding: 0 16px; border-radius: 14px; font-weight: 600; font-size: 14.5px;
+  background: var(--ink-3); border: 1px solid var(--line-2); color: var(--text);
+}
+.btn:hover { background: var(--ink-4); }
+.btn svg { width: 18px; height: 18px; }
+.btn.primary { background: var(--arcane-deep); border-color: var(--arcane-deep); color: #fff; }
+.btn.primary:hover { background: #8a6df0; }
+.btn.danger { color: var(--rose); border-color: color-mix(in srgb, var(--rose) 40%, transparent); background: var(--rose-wash); }
+.btn.small { height: 38px; padding: 0 12px; font-size: 13.5px; border-radius: 12px; }
+.btn.ghost { background: transparent; }
+.btn[disabled] { opacity: .45; cursor: default; }
+
+/* ---------- panels ---------- */
+.panel { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-l); padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.panel h3 { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .06em; display: flex; align-items: center; gap: 8px; }
+.panel p { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
+.grid-2 { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 720px) { .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 14px; }
+.kv dt { color: var(--faint); } .kv dd { margin: 0; overflow-wrap: anywhere; }
+
+/* ---------- skill list ---------- */
+.filterbar { display: flex; flex-direction: column; gap: 10px; }
+.tierbar { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.tierbar::-webkit-scrollbar { display: none; }
+.tier-chip {
+  flex: none; min-width: 52px; height: 44px; padding: 0 12px; border-radius: 12px;
+  background: var(--ink-2); border: 1px solid var(--line); color: var(--muted);
+  font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+}
+.tier-chip small { font-family: var(--font-mono); font-weight: 500; color: var(--faint); font-size: 11.5px; }
+.tier-chip.on { background: var(--arcane-wash); border-color: var(--arcane); color: var(--text); }
+.tier-chip.trans { color: var(--ember); }
+.tier-chip.trans.on { background: var(--ember-wash); border-color: var(--ember); }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.select {
+  height: 40px; padding: 0 34px 0 12px; border-radius: 12px; background: var(--ink-2); border: 1px solid var(--line); color: var(--text);
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a49cbd' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+.toggle { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border-radius: 12px; background: var(--ink-2); border: 1px solid var(--line); font-size: 13.5px; color: var(--muted); }
+.toggle input { width: 18px; height: 18px; accent-color: var(--arcane-deep); }
+.skill-list { display: flex; flex-direction: column; gap: 10px; }
+.skill-row {
+  display: grid; grid-template-columns: 58px minmax(0, 1fr) 20px; gap: 14px; align-items: center;
+  text-align: left; padding: 14px; min-height: 92px;
+  background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-m);
+  transition: border-color .15s, background .15s;
+}
+.skill-row:hover { border-color: var(--line-2); background: var(--ink-3); }
+.skill-row.trans { border-color: color-mix(in srgb, var(--ember) 45%, transparent); background: linear-gradient(120deg, var(--ember-wash), var(--ink-2) 60%); }
+.skill-row .chev { color: var(--faint); width: 20px; height: 20px; }
+.skill-row .body { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.skill-row .nm { font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.3; overflow-wrap: anywhere; }
+.skill-row .en { font-family: var(--font-mono); font-size: 12px; color: var(--arcane); overflow-wrap: anywhere; }
+.skill-row .meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.tier-block {
+  width: 58px; height: 58px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--ink); border: 1px solid var(--line);
+}
+.tier-block b { font-family: var(--font-mono); font-size: 22px; line-height: 1; font-weight: 600; }
+.tier-block small { font-size: 11px; color: var(--faint); margin-top: 3px; }
+.tier-block.hi { border-color: color-mix(in srgb, var(--arcane) 50%, transparent); }
+.tier-block.hi b { color: var(--arcane); }
+.tier-block.trans { border-color: var(--ember); background: var(--ember-wash); }
+.tier-block.trans b { color: var(--ember); font-size: 24px; }
+.empty {
+  border: 1px dashed var(--line-2); border-radius: var(--r-l); padding: 28px 20px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--muted);
+}
+.empty strong { color: var(--text); font-family: var(--font-display); font-size: 18px; }
+
+/* ---------- skill detail ---------- */
+.detail-head { display: flex; flex-direction: column; gap: 10px; }
+.meters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.meter { padding: 12px 14px; background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-m); }
+.meter .top { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--muted); gap: 8px; }
+.meter .top b { font-family: var(--font-mono); color: var(--text); font-size: 14px; }
+.pips { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; margin-top: 8px; }
+.pips i { height: 8px; border-radius: 3px; background: var(--ink-4); }
+.pips i.on { background: var(--tone, var(--arcane)); }
+.callout { padding: 14px 16px; border-radius: var(--r-m); background: var(--arcane-wash); border: 1px solid color-mix(in srgb, var(--arcane) 30%, transparent); }
+.callout .k { font-size: 12px; font-weight: 700; color: var(--arcane); letter-spacing: .06em; margin-bottom: 4px; }
+.prevnext { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pn { text-align: left; padding: 12px 14px; border-radius: var(--r-m); background: var(--ink-2); border: 1px solid var(--line); min-width: 0; min-height: 64px; }
+.pn.next { text-align: right; }
+.pn small { display: block; color: var(--faint); font-size: 12px; }
+.pn span { display: block; font-family: var(--font-display); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pn[disabled] { opacity: .35; cursor: default; }
+
+/* ---------- gimmick sims ---------- */
+.sim { background: var(--ink); border: 1px solid var(--line); border-radius: var(--r-l); padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+.sim-big { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.sim-big b { font-family: var(--font-mono); font-size: 40px; font-weight: 600; line-height: 1; }
+.sim-big span { color: var(--muted); }
+.range { width: 100%; height: 36px; accent-color: var(--arcane-deep); }
+.zonebar { position: relative; display: flex; height: 14px; border-radius: 7px; overflow: hidden; }
+.zonebar div { height: 100%; }
+.zonebar .mark { position: absolute; top: -3px; width: 4px; height: 20px; border-radius: 2px; background: var(--text); transform: translateX(-2px); box-shadow: 0 0 0 2px var(--ink); }
+.zone-wrap { position: relative; padding-top: 3px; }
+.zone-card { padding: 14px; border-radius: var(--r-m); background: var(--tone-wash); border: 1px solid color-mix(in srgb, var(--tone) 40%, transparent); }
+.zone-card .nm { font-family: var(--font-display); font-weight: 800; color: var(--tone); font-size: 18px; }
+.zone-card .ef { font-weight: 600; margin-top: 2px; }
+.zone-card .dt { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+.stackrow { display: grid; gap: 6px; }
+.stackrow button { height: 52px; border-radius: 12px; background: var(--ink-3); border: 1px solid var(--line); font-family: var(--font-mono); font-weight: 600; color: var(--faint); }
+.stackrow button.on { background: linear-gradient(180deg, #e46bc0, var(--arcane-deep)); border-color: transparent; color: #fff; }
+.statlines { display: grid; gap: 6px; font-size: 14px; }
+.statlines div { display: flex; justify-content: space-between; gap: 10px; }
+.statlines span { color: var(--muted); }
+.statlines b { font-family: var(--font-mono); font-weight: 600; }
+.gauge { height: 18px; border-radius: 9px; background: var(--ink-4); overflow: hidden; }
+.gauge div { height: 100%; background: linear-gradient(90deg, var(--mana), var(--arcane)); border-radius: 9px; transition: width .25s; }
+.gauge.full div { background: linear-gradient(90deg, var(--ember), #f58bb0); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px; background: var(--ink-3); border-radius: 14px; border: 1px solid var(--line); }
+.seg button { height: 46px; border-radius: 10px; border: 0; background: transparent; color: var(--muted); font-weight: 700; }
+.seg button.on { background: var(--ink); color: var(--text); box-shadow: inset 0 0 0 1px var(--line-2); }
+.tiergrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.tiergrid button { height: 44px; border-radius: 10px; background: var(--ink-3); border: 1px solid var(--line); font-weight: 700; font-size: 14px; }
+.tiergrid button:hover { border-color: var(--line-2); }
+.tiergrid button.on { background: var(--ember-wash); border-color: var(--ember); color: var(--ember); }
+.tiergrid button.safe { color: var(--muted); }
+.rules { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.rules li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; }
+.rules li::before { content: ""; width: 8px; height: 8px; margin: 8px 0 0 6px; border-radius: 2px; transform: rotate(45deg); background: var(--arcane); }
+.rules li.added::before { background: var(--ember); }
+.rules .chip { margin-left: 6px; vertical-align: 1px; }
+
+/* ---------- sheet ---------- */
+.backdrop { position: fixed; inset: 0; z-index: 50; background: rgba(5, 4, 10, 0.7); backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; }
+.sheet {
+  width: 100%; max-width: 620px; max-height: 92vh; max-height: 92dvh; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--ink-2); border: 1px solid var(--line-2); border-bottom: 0; border-radius: 24px 24px 0 0;
+  padding: 10px max(18px, env(safe-area-inset-right, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px));
+  display: flex; flex-direction: column; gap: 16px;
+  animation: up .22s ease-out;
+}
+@media (min-width: 720px) { .backdrop { align-items: center; } .sheet { border-radius: 24px; border-bottom: 1px solid var(--line-2); max-height: 86vh; } }
+@keyframes up { from { transform: translateY(24px); opacity: .6; } to { transform: none; opacity: 1; } }
+.grabber { width: 44px; height: 5px; border-radius: 3px; background: var(--line-2); margin: 0 auto; flex: none; }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sheet-head h2 { font-family: var(--font-display); font-size: 20px; margin: 0; }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label, .field .lbl { font-size: 13px; font-weight: 600; color: var(--muted); }
+.field label em { color: var(--rose); font-style: normal; }
+.input, .textarea, .field .select {
+  width: 100%; min-height: 48px; padding: 12px 14px; border-radius: 14px;
+  background: var(--ink); border: 1px solid var(--line-2); color: var(--text); font-size: 16px;
+}
+.field .select { padding-right: 34px; }
+.textarea { min-height: 110px; resize: vertical; line-height: 1.55; }
+.input:focus, .textarea:focus, .select:focus { border-color: var(--arcane); outline: none; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+details.more { border: 1px solid var(--line); border-radius: var(--r-m); background: var(--ink); }
+details.more summary { list-style: none; cursor: pointer; padding: 14px 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--muted); }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::after { content: "+"; font-family: var(--font-mono); font-size: 18px; }
+details.more[open] summary::after { content: "−"; }
+details.more .form { padding: 0 16px 16px; }
+.rangeval { font-family: var(--font-mono); color: var(--text); font-weight: 600; }
+.sheet-actions { display: flex; gap: 10px; position: sticky; bottom: calc(-18px - env(safe-area-inset-bottom, 0px)); background: var(--ink-2); padding: 12px 0 calc(4px + env(safe-area-inset-bottom, 0px)); margin-bottom: calc(-4px - env(safe-area-inset-bottom, 0px)); }
+.sheet-actions .btn { flex: 1; height: 52px; }
+.menu-list { display: flex; flex-direction: column; gap: 8px; }
+.menu-item { display: flex; align-items: center; gap: 14px; text-align: left; padding: 14px; border-radius: var(--r-m); background: var(--ink); border: 1px solid var(--line); }
+.menu-item:hover { border-color: var(--line-2); }
+.menu-item svg { width: 22px; height: 22px; color: var(--arcane); flex: none; }
+.menu-item b { display: block; } .menu-item small { color: var(--muted); }
+.code { width: 100%; min-height: 160px; font-family: var(--font-mono); font-size: 12px; color: var(--jade); background: var(--ink); border: 1px solid var(--line-2); border-radius: 14px; padding: 12px; resize: vertical; }
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed; z-index: 60; left: 50%; transform: translateX(-50%);
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  width: max-content; max-width: calc(100% - 32px);
+  display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 16px;
+  background: var(--ink-4); border: 1px solid var(--line-2); border-radius: 14px; box-shadow: 0 12px 40px rgba(0,0,0,.45);
+  font-size: 14px; font-weight: 500;
+}
+.toast button { height: 36px; padding: 0 12px; border-radius: 10px; border: 0; background: var(--arcane-deep); color: #fff; font-weight: 700; flex: none; }
+.toast:not(:has(button)) { padding-right: 16px; }
+
+/* ---------- search ---------- */
+.searchbox { position: relative; }
+.searchbox svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--faint); }
+.searchbox input { padding-left: 44px; height: 54px; font-size: 16px; }
+.hint { color: var(--faint); font-size: 13px; }
+.loading { padding: 60px 0; text-align: center; color: var(--muted); }
+.notice { padding: 12px 14px; border-radius: var(--r-m); background: var(--ember-wash); border: 1px solid color-mix(in srgb, var(--ember) 35%, transparent); color: var(--text); font-size: 13.5px; }
+
+@media (max-width: 420px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stats .stat:last-child { grid-column: span 2; }
+  .tile { min-height: 140px; padding: 14px; }
+  .tile-name { font-size: 17.5px; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<header class="bar">
+  <div class="bar-inner">
+    <button class="icon-btn" id="btn-back" type="button" aria-label="뒤로" hidden></button>
+    <nav class="crumbs" id="crumbs" aria-label="현재 위치"></nav>
+    <button class="icon-btn" id="btn-search" type="button" aria-label="검색"></button>
+    <button class="icon-btn" id="btn-more" type="button" aria-label="메뉴"></button>
+  </div>
+</header>
+<main class="page" id="view"><div class="loading">도감을 여는 중…</div></main>
+<div id="sheet-root"></div>
+<button type="button" class="to-top" id="to-top" aria-label="맨 위로" hidden></button>
+<div id="toast-root" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ================= icons ================= */
+  const P = {
+    back: '<path d="M15 18l-6-6 6-6"/>',
+    chev: '<path d="M9 18l6-6-6-6"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>',
+    more: '<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    edit: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/>',
+    trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+    copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+    check: '<path d="M5 12l5 5L20 7"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+    book: '<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19"/><path d="M9 7h6"/>',
+    sparkle: '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/>',
+    layers: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
+    grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+    attack: '<path d="M4 4l11.5 11.5M13 18l5-5M20 4L8.5 15.5M6 13l5 5M16.5 16.5L20 20M7.5 16.5L4 20"/>',
+    defense: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/>',
+    counter: '<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4v4h4"/><path d="M12 8v4l2.5 2.5"/>',
+    utility: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+    siphon: '<path d="M5 4h4v8a3 3 0 0 0 6 0V4h4v8a7 7 0 0 1-14 0z"/><path d="M5 8h4M15 8h4"/>',
+    hack: '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/>',
+    ward: '<path d="M12 2.5l8.2 4.75v9.5L12 21.5l-8.2-4.75v-9.5z"/><circle cx="12" cy="12" r="3.2"/>',
+    mobility: '<path d="M3 8h10.5a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
+    deceive: '<path d="M3 7c3.5 0 5.5-1.2 9-1.2S17.5 7 21 7c0 6.5-3 10-6 10-1.6 0-2-2-3-2s-1.4 2-3 2c-3 0-6-3.5-6-10z"/><path d="M7.5 11h3M13.5 11h3"/>',
+    passive: '<path d="M6.5 9a3 3 0 1 0 0 6c3 0 8-6 11-6a3 3 0 1 1 0 6c-3 0-8-6-11-6z"/>',
+    droplet: '<path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/>',
+    flame: '<path d="M12 3c.8 3.8 5 5.6 5 10.2A5 5 0 0 1 7 13.5c0-2.6 1.4-4.2 2.6-5.2.2 1.6 1 2.6 2.4 3.2-.9-3 0-6 0-8.5z"/>',
+    magnet: '<path d="M5 4h4v8a3 3 0 0 0 6 0V4h4v8a7 7 0 0 1-14 0z"/><path d="M5 8h4M15 8h4"/>',
+    mask: '<path d="M3 7c3.5 0 5.5-1.2 9-1.2S17.5 7 21 7c0 6.5-3 10-6 10-1.6 0-2-2-3-2s-1.4 2-3 2c-3 0-6-3.5-6-10z"/><path d="M7.5 11h3M13.5 11h3"/>',
+    star: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.6l-5.3 2.8 1.2-6-4.5-4.1 6-.7z"/>',
+    download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+    upload: '<path d="M12 20V9M7 14l5-5 5 5M5 4h14"/>',
+    lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    unlock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.6-1.7"/>',
+    rise: '<path d="M4 18l6-6 4 4 6-8"/><path d="M15 8h5v5"/>',
+    crown: '<path d="M4 18h16M5 18l-1-10 5 4 3-6 3 6 5-4-1 10"/>',
+    seal: '<circle cx="12" cy="9" r="5"/><path d="M9 13.5L7.5 21l4.5-2.5 4.5 2.5L15 13.5"/>'
+  };
+  function icon(name, extra) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"' + (extra || '') + '>' + (P[name] || P.sparkle) + '</svg>';
+  }
+  function ringSvg() {
+    return '<svg class="ring" viewBox="0 0 100 100" fill="none" stroke="currentColor" aria-hidden="true">' +
+      '<circle cx="50" cy="50" r="47" stroke-width="1.2" opacity=".55"/>' +
+      '<circle cx="50" cy="50" r="40" stroke-width="1" stroke-dasharray="2 4" opacity=".7"/>' +
+      '<path d="M50 3 L91 74 L9 74 Z" stroke-width=".9" opacity=".35"/>' +
+      '<path d="M50 97 L9 26 L91 26 Z" stroke-width=".9" opacity=".35"/>' +
+      '<circle cx="50" cy="50" r="31" fill="#15121f" stroke-width="1.4"/></svg>';
+  }
+
+  /* ================= schema ================= */
+  const CATEGORIES = [
+    { id: 'attack', name: '공격', desc: '타격 · 마나 번 · 방출', icon: 'attack', tone: 'rose' },
+    { id: 'defense', name: '방어', desc: '보호막 · 흘리기 · 생존', icon: 'defense', tone: 'mana' },
+    { id: 'counter', name: '반격', desc: '받은 공격 되돌리기', icon: 'counter', tone: 'ember' },
+    { id: 'utility', name: '유틸', desc: '마나 조종 · 정보 · 지원', icon: 'utility', tone: 'jade' },
+    { id: 'siphon', name: '강탈', desc: '적의 마력 빼앗기', icon: 'siphon', tone: 'arcane', isNew: true },
+    { id: 'hack', name: '술식 해킹', desc: '적 술식·버프에 개입', icon: 'hack', tone: 'mana', isNew: true },
+    { id: 'ward', name: '결계', desc: '전장에 영역 펼치기', icon: 'ward', tone: 'jade', isNew: true },
+    { id: 'mobility', name: '기동', desc: '이동 · 회피 · 위치 교환', icon: 'mobility', tone: 'arcane', isNew: true },
+    { id: 'deceive', name: '기만', desc: '위장 · 환술 · 도발', icon: 'deceive', tone: 'ember', isNew: true },
+    { id: 'passive', name: '패시브', desc: '언제나 켜져 있는 효과', icon: 'passive', tone: 'rose', isNew: true }
+  ];
+  const CAT = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
+  const TIERS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'transcendent'];
+  const TIER_SUB = { '1': '기초', '2': '하급', '3': '중하급', '4': '중급', '5': '중상급', '6': '상급', '7': '고급', '8': '최상급', '9': '정점', transcendent: '규격 외' };
+  const REACH = [
+    { id: 'melee', name: '근거리' },
+    { id: 'ranged', name: '원거리' },
+    { id: 'self', name: '자신' }
+  ];
+  const AREA = [
+    { id: 'single', name: '단일' },
+    { id: 'aoe', name: '광역' }
+  ];
+  const REACH_N = Object.fromEntries(REACH.map(x => [x.id, x.name]));
+  const AREA_N = Object.fromEntries(AREA.map(x => [x.id, x.name]));
+  function rangeLabel(s) { return [REACH_N[s.reach], s.reach === 'self' ? '' : AREA_N[s.area]].filter(Boolean).join(' · '); }
+  const UNLOCK_TYPES = [
+    { id: 'enemy', name: '강적', tone: 'rose', desc: '그 등급의 상대와 직접 맞붙어야 열린다' },
+    { id: 'attitude', name: '태도', tone: 'mana', desc: '능글맞음을 내려놓은 순간 열린다' },
+    { id: 'reveal', name: '위장', tone: 'ember', desc: '스스로 정체를 드러낸 순간 열린다' },
+    { id: 'bond', name: '관계', tone: 'jade', desc: '지키고 싶은 사람이 생겼을 때 열린다' },
+    { id: 'final', name: '초월', tone: 'arcane', desc: '최종 목표를 이룬 뒤에만 열린다' }
+  ];
+  const UNLOCK = Object.fromEntries(UNLOCK_TYPES.map(u => [u.id, u]));
+  const GIMMICK_TONES = { droplet: 'mana', flame: 'rose', magnet: 'arcane', mask: 'ember', sparkle: 'jade' };
+
+  /* ================= helpers ================= */
+  const $ = (s, el) => (el || document).querySelector(s);
+  const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function uid(prefix) { return prefix + '-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+  function tierNum(t) { return t === 'transcendent' ? 10 : Number(t) || 1; }
+  function tierText(t) { return t === 'transcendent' ? '★ 초월' : t + '성'; }
+  function parseTier(text) { const m = String(text || '').match(/(\d)\s*성/); return m ? Number(m[1]) : null; }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  function normChar(c, i) {
+    c = c || {};
+    const realTier = Number.isFinite(c.realTier) ? c.realTier : parseTier(c.realPower);
+    const disguiseTier = Number.isFinite(c.disguiseTier) ? c.disguiseTier : parseTier(c.disguisePower);
+    return {
+      id: String(c.id || uid('char')),
+      order: Number.isFinite(c.order) ? c.order : (i || 0) + 1,
+      name: String(c.name || '이름 없는 인물'),
+      avatar: String(c.avatar || String(c.name || '?').slice(0, 2)).slice(0, 4),
+      gender: String(c.gender || ''),
+      className: String(c.className || ''),
+      realPower: String(c.realPower || ''),
+      realTier: realTier,
+      disguisePower: String(c.disguisePower || ''),
+      disguiseTier: disguiseTier,
+      controlRank: String(c.controlRank || ''),
+      quote: String(c.quote || '').replace(/^["“]+|["”]+$/g, ''),
+      ability: String(c.ability || ''),
+      disguiseDesc: String(c.disguiseDesc || ''),
+      personality: String(c.personality || ''),
+      story: String(c.story || ''),
+      gimmicks: Array.isArray(c.gimmicks) ? c.gimmicks.map(normGimmick) : [],
+      traits: Array.isArray(c.traits) ? c.traits.map(normTrait) : [],
+      goal: String(c.goal || ''),
+      transcend: {
+        candidates: c.transcend && Array.isArray(c.transcend.candidates) ? c.transcend.candidates.map(x => ({ id: String(x.id || uid('tc')), title: String(x.title || ''), desc: String(x.desc || '') })).filter(x => x.title) : [],
+        chosen: c.transcend && c.transcend.chosen ? String(c.transcend.chosen) : null
+      }
+    };
+  }
+  function normTrait(t) {
+    t = t || {};
+    return {
+      id: String(t.id || uid('tr')), name: String(t.name || '고유 특성'), nameEn: String(t.nameEn || ''), desc: String(t.desc || ''),
+      facets: Array.isArray(t.facets) ? t.facets.map(f => ({ id: String(f.id || uid('f')), name: String(f.name || ''), desc: String(f.desc || '') })).filter(f => f.name) : []
+    };
+  }
+  function normGimmick(g) {
+    g = g || {};
+    return {
+      id: String(g.id || uid('gm')),
+      name: String(g.name || '이름 없는 기믹'),
+      nameEn: String(g.nameEn || ''),
+      icon: P[g.icon] ? g.icon : 'sparkle',
+      isDraft: !!g.isDraft,
+      summary: String(g.summary || ''),
+      rules: Array.isArray(g.rules) ? g.rules.map(r => typeof r === 'string' ? { text: r } : { text: String(r.text || ''), added: !!r.added }).filter(r => r.text) : [],
+      sim: g.sim && typeof g.sim === 'object' ? g.sim : null
+    };
+  }
+  function normSkill(s, fallbackChar) {
+    s = s || {};
+    const tier = s.tier === 'transcendent' ? 'transcendent' : String(clamp(Number(s.tier) || 1, 1, 9));
+    return {
+      id: String(s.id || uid('sk')),
+      characterId: String(s.characterId || fallbackChar || ''),
+      nameKo: String(s.nameKo || '이름 없는 스킬'),
+      nameEn: String(s.nameEn || ''),
+      category: CAT[s.category] ? s.category : 'utility',
+      tier: tier,
+      subType: String(s.subType || ''),
+      difficulty: clamp(Number(s.difficulty) || 5, 1, 10),
+      power: clamp(Number(s.power) || 5, 1, 10),
+      gimmick: String(s.gimmick || ''),
+      desc: String(s.desc || ''),
+      quote: String(s.quote || ''),
+      isDraft: !!s.isDraft,
+      sealed: !!s.sealed,
+      unlockType: UNLOCK[s.unlockType] ? s.unlockType : '',
+      unlockCond: String(s.unlockCond || ''),
+      traits: Array.isArray(s.traits) ? s.traits.map(String) : [],
+      reach: REACH_N[s.reach] ? s.reach : '',
+      area: AREA_N[s.area] && s.reach !== 'self' ? s.area : ''
+    };
+  }
+
+  /* ================= store ================= */
+  const state = { chars: new Map(), skills: new Map(), ready: { c: false, s: false }, mode: 'pending', readOnly: false };
+  let db = null, downloads = null;
+
+  function charsSorted() { return Array.from(state.chars.values()).sort((a, b) => a.order - b.order || a.name.localeCompare(b.name)); }
+  function skillsOf(cid) { return Array.from(state.skills.values()).filter(s => s.characterId === cid); }
+  function facetOf(c, tag) {
+    const [tid, fid] = String(tag).split(':');
+    const t = c && c.traits.find(x => x.id === tid);
+    if (!t) return null;
+    const f = fid ? t.facets.find(x => x.id === fid) : null;
+    return { t: t, f: f };
+  }
+  function isUnique(s) { return s.traits.length > 0; }
+  function homeCat(s) { return isUnique(s) ? 'u:' + s.category : s.category; }
+  function isUCat(cat) { return String(cat || '').indexOf('u:') === 0; }
+  function hasTrait(s, tid, fid) { return s.traits.some(tag => { const p = tag.split(':'); return p[0] === tid && (!fid || fid === 'all' || p[1] === fid); }); }
+  function traitChips(c, s) {
+    const seen = {};
+    return s.traits.map(tag => { const x = facetOf(c, tag); if (!x) return ''; const label = x.t.name; if (seen[label]) return ''; seen[label] = 1; return '<span class="chip trait">◆ 고유 · ' + esc(label) + '</span>'; }).join('');
+  }
+
+  function persistLocal() {
+    lsSet('arcana-codex-v2', JSON.stringify({ characters: Array.from(state.chars.values()), skills: Array.from(state.skills.values()) }));
+  }
+  async function write(col, obj) {
+    const map = col === 'characters' ? state.chars : state.skills;
+    if (state.mode === 'db') {
+      const prev = map.get(obj.id);
+      map.set(obj.id, obj);
+      try { await db.collection(col).doc(obj.id).set(JSON.parse(JSON.stringify(obj))); }
+      catch (e) {
+        if (prev) map.set(obj.id, prev); else map.delete(obj.id);
+        render();
+        if (e && e.code === 'invalid_argument') { state.readOnly = true; toast('이 도감은 읽기 전용이라 저장할 수 없어요.'); }
+        else if (e && e.code === 'quota_exceeded') toast('저장 공간이 가득 찼어요. 쓰지 않는 스킬을 지운 뒤 다시 저장해 주세요.');
+        else toast('저장하지 못했어요. 잠시 후 다시 시도해 주세요.');
+        throw e;
+      }
+    } else {
+      map.set(obj.id, obj); persistLocal(); render();
+    }
+  }
+  async function remove(col, id) {
+    const map = col === 'characters' ? state.chars : state.skills;
+    if (state.mode === 'db') {
+      const prev = map.get(id);
+      map.delete(id);
+      try { await db.collection(col).doc(id).delete(); }
+      catch (e) { if (prev) map.set(id, prev); render(); toast('삭제하지 못했어요. 잠시 후 다시 시도해 주세요.'); throw e; }
+    } else { map.delete(id); persistLocal(); render(); }
+  }
+
+  async function initStore() {
+    const pub = window.__PUBLIC_DATA__;
+    if (pub && Array.isArray(pub.characters)) {
+      state.mode = 'public'; state.readOnly = true;
+      pub.characters.forEach((c, i) => { const n = normChar(c, i); state.chars.set(n.id, n); });
+      (pub.skills || []).forEach(x => { const n = normSkill(x); state.skills.set(n.id, n); });
+      state.ready.c = state.ready.s = true; render(); return;
+    }
+    let dbNs = null;
+    try {
+      if (window.claude && typeof window.claude.use === 'function') {
+        dbNs = await window.claude.use('db');
+        window.claude.use('downloads').then(d => { downloads = d; }).catch(() => {});
+        window.claude.use('user').then(async u => {
+          if (!u || typeof u.can !== 'function') return;
+          try { const ok = await u.can('data.write'); if (ok === false) { state.readOnly = true; render(); } } catch (e) {}
+        }).catch(() => {});
+      }
+    } catch (e) { dbNs = null; }
+
+    if (dbNs) {
+      db = dbNs; state.mode = 'db';
+      db.collection('characters').onSnapshot(snap => {
+        state.chars = new Map(snap.docs.map((d, i) => { const c = normChar(Object.assign({}, d.data(), { id: d.id }), i); return [c.id, c]; }));
+        state.ready.c = true; render();
+      }, err => { state.ready.c = true; render(); });
+      db.collection('skills').onSnapshot(snap => {
+        state.skills = new Map(snap.docs.map(d => { const s = normSkill(Object.assign({}, d.data(), { id: d.id })); return [s.id, s]; }));
+        state.ready.s = true; render();
+      }, err => { state.ready.s = true; render(); });
+    } else {
+      state.mode = 'local';
+      const raw = lsGet('arcana-codex-v2');
+      if (raw) {
+        try {
+          const data = JSON.parse(raw);
+          (data.characters || []).forEach((c, i) => { const n = normChar(c, i); state.chars.set(n.id, n); });
+          (data.skills || []).forEach(s => { const n = normSkill(s); state.skills.set(n.id, n); });
+        } catch (e) {}
+      }
+      state.ready.c = state.ready.s = true; render();
+    }
+  }
+
+  /* ================= routing ================= */
+  let route = { v: 'home' };
+  let depth = 0;
+  const listPrefs = { tier: 'all', drafts: true, sort: 'tierAsc', facet: 'all', reach: 'all', area: 'all' };
+  try { Object.assign(listPrefs, JSON.parse(lsGet('arcana-codex-listprefs') || '{}')); } catch (e) {}
+
+  function parentOf(r) {
+    switch (r.v) {
+      case 'char': return { v: 'home' };
+      case 'profile': case 'gimmicks': case 'types': case 'story': case 'traits': case 'growth': return { v: 'char', c: r.c };
+      case 'gimmick': return { v: 'gimmicks', c: r.c };
+      case 'list': return isUCat(r.cat) ? { v: 'traits', c: r.c } : { v: 'types', c: r.c };
+      case 'skill': return r.from === 'growth' ? { v: 'growth', c: r.c } : { v: 'list', c: r.c, cat: r.cat || 'all' };
+      case 'search': return { v: 'home' };
+      default: return null;
+    }
+  }
+  function go(r, opts) {
+    opts = opts || {};
+    route = r;
+    lsSet('arcana-codex-route', JSON.stringify(r));
+    try {
+      if (opts.replace) history.replaceState({ r: r, d: depth }, '');
+      else { depth += 1; history.pushState({ r: r, d: depth }, ''); }
+    } catch (e) {}
+    render();
+    if (!opts.keepScroll) window.scrollTo(0, 0);
+  }
+  function goBack() {
+    const p = parentOf(route);
+    if (!p) return;
+    go(p, { replace: true });
+  }
+  window.addEventListener('popstate', ev => {
+    if (ev.state && ev.state.r) { route = ev.state.r; depth = ev.state.d || 0; lsSet('arcana-codex-route', JSON.stringify(route)); closeSheet(); render(); window.scrollTo(0, 0); }
+  });
+
+  function validRoute(r) {
+    if (!r || !r.v) return { v: 'home' };
+    if (r.v === 'home' || r.v === 'search') return r;
+    if (!state.chars.has(r.c)) return { v: 'home' };
+    if (r.v === 'gimmick' && !state.chars.get(r.c).gimmicks.some(g => g.id === r.g)) return { v: 'gimmicks', c: r.c };
+    if (r.v === 'list' && r.cat !== 'all' && !CAT[r.cat] && !(isUCat(r.cat) && (r.cat === 'u:all' || CAT[r.cat.slice(2)]))) return { v: 'types', c: r.c };
+    if (r.v === 'skill' && !state.skills.has(r.s)) return parentOf(r);
+    return r;
+  }
+
+  /* ================= top bar ================= */
+  function crumbsFor(r) {
+    const out = [{ label: '도감', r: { v: 'home' } }];
+    if (r.v === 'search') { out.push({ label: '검색' }); return out; }
+    const ch = r.c && state.chars.get(r.c);
+    if (!ch) return out;
+    out.push({ label: shortName(ch.name), r: { v: 'char', c: r.c } });
+    if (r.v === 'profile') out.push({ label: '개요' });
+    if (r.v === 'story') out.push({ label: '스토리' });
+    if (r.v === 'growth' || (r.v === 'skill' && r.from === 'growth')) out.push({ label: '잠재 해방', r: { v: 'growth', c: r.c } });
+    const isTraitList = (r.v === 'list' || r.v === 'skill') && isUCat(r.cat) && r.from !== 'growth';
+    if (r.v === 'traits' || isTraitList) out.push({ label: '고유 스킬', r: { v: 'traits', c: r.c } });
+    if (r.v === 'gimmicks' || r.v === 'gimmick') out.push({ label: '전투 기믹', r: { v: 'gimmicks', c: r.c } });
+    if (r.v === 'gimmick') { const g = ch.gimmicks.find(x => x.id === r.g); out.push({ label: g ? g.name : '기믹' }); }
+    if (!isTraitList && r.from !== 'growth' && (r.v === 'types' || r.v === 'list' || r.v === 'skill')) out.push({ label: '일반 스킬', r: { v: 'types', c: r.c } });
+    if (r.from !== 'growth' && (r.v === 'list' || r.v === 'skill')) out.push({ label: catLabel(ch, r.cat), r: { v: 'list', c: r.c, cat: r.cat || 'all' } });
+    if (r.v === 'skill') { const s = state.skills.get(r.s); out.push({ label: s ? s.nameKo.replace(/\s*\(.*\)$/, '') : '스킬' }); }
+    out[out.length - 1].r = null;
+    return out;
+  }
+  function catLabel(c, cat) {
+    if (!cat || cat === 'all') return '전체';
+    if (isUCat(cat)) return cat === 'u:all' ? '전체' : (CAT[cat.slice(2)] ? CAT[cat.slice(2)].name : '전체');
+    return CAT[cat] ? CAT[cat].name : '전체';
+  }
+  function shortName(n) { return String(n).replace(/\s*\(.*\)$/, ''); }
+  function renderBar() {
+    const back = $('#btn-back');
+    back.hidden = route.v === 'home';
+    const cs = crumbsFor(route);
+    const nav = $('#crumbs');
+    if (route.v === 'home') { nav.classList.remove('fade'); nav.innerHTML = '<span class="brand">아르카나 인물 도감</span>'; return; }
+    nav.innerHTML = cs.map((c, i) => (i ? '<span class="crumb-sep">›</span>' : '') +
+      (c.r ? '<button type="button" class="crumb" data-crumb="' + i + '">' + esc(c.label) + '</button>' : '<span class="crumb current" aria-current="page">' + esc(c.label) + '</span>')).join('');
+    $$('[data-crumb]', nav).forEach(b => b.addEventListener('click', () => go(cs[Number(b.dataset.crumb)].r)));
+    requestAnimationFrame(() => { nav.scrollLeft = nav.scrollWidth; nav.classList.toggle('fade', nav.scrollWidth > nav.clientWidth + 2); });
+  }
+
+  /* ================= views ================= */
+  function render() {
+    if (!(state.ready.c && state.ready.s)) return;
+    route = validRoute(route);
+    renderBar();
+    const v = $('#view');
+    const fn = VIEWS[route.v] || VIEWS.home;
+    v.innerHTML = fn(route);
+    const bind = BINDS[route.v];
+    if (bind) bind(route, v);
+  }
+
+  function readOnlyNotice() {
+    if (state.mode === 'public') return '';
+    return state.readOnly ? '<div class="notice">읽기 전용으로 열려 있어요. 내용은 볼 수 있지만 고칠 수는 없어요.</div>' : '';
+  }
+  function canEdit() { return !state.readOnly; }
+
+  const VIEWS = {};
+  const BINDS = {};
+
+  /* ---- home ---- */
+  VIEWS.home = function () {
+    const chars = charsSorted();
+    let html = '<div class="section-head"><div><span class="eyebrow">Character Archive</span><h1 class="h1">누구의 기록을 열까요?</h1>' +
+      '<p class="lede">인물을 고르면 능력, 전투 기믹, 스킬이 단계별로 열립니다.</p></div></div>' + readOnlyNotice();
+    if (!chars.length) {
+      html += '<div class="empty"><strong>아직 등록된 인물이 없어요</strong><span>첫 인물을 등록하거나, 이전에 저장한 백업을 불러오세요.</span>' +
+        '<div class="row-actions">' + (canEdit() ? '<button class="btn primary" type="button" data-act="new-char">' + icon('plus') + '첫 인물 등록</button>' : '') +
+        '<button class="btn" type="button" data-act="backup">' + icon('upload') + '백업 불러오기</button></div></div>';
+      return html;
+    }
+    html += '<div class="char-list">';
+    chars.forEach((c, i) => {
+      const sk = skillsOf(c.id);
+      const sealed = sk.filter(x => x.sealed).length;
+      html += '<button type="button" class="char-card" data-char="' + esc(c.id) + '">' +
+        '<div class="sigil xl">' + ringSvg() + '<span>' + esc(c.avatar) + '</span></div>' +
+        '<div class="cc-body"><span class="mono cc-file">FILE ' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<div class="cc-name">' + esc(shortName(c.name)) + '</div>' +
+        '<div class="cc-sub">' + ([c.className, c.realTier ? '본실력 ' + c.realTier + '성' : ''].filter(Boolean).map(x => '<span class="nw">' + esc(x) + '</span>').join(' · ') || '클래스 미정') + '</div>' +
+        '<div class="cc-stats mono"><span><b>' + sk.length + '</b> 스킬</span><span><b>' + sk.filter(isUnique).length + '</b> 고유</span>' + (sealed ? '<span><b>' + sealed + '</b> 봉인</span>' : '') + '</div></div>' +
+        icon('chev', ' class="chev"') + '</button>';
+    });
+    html += '</div>';
+    if (canEdit()) html += '<button type="button" class="add-slim" data-act="new-char">' + icon('plus') + '새 인물 등록</button>';
+    return html;
+  };
+  BINDS.home = function (r, v) {
+    $$('[data-char]', v).forEach(b => b.addEventListener('click', () => go({ v: 'char', c: b.dataset.char })));
+    bindActs(v);
+  };
+
+  /* ---- character menu ---- */
+  VIEWS.char = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id);
+    const drafts = sk.filter(s => s.isDraft).length;
+    const sealedN = sk.filter(s => s.sealed).length;
+    const html = '<section class="hero">' +
+      '<div class="hero-top"><div class="sigil xl">' + ringSvg() + '<span>' + esc(c.avatar) + '</span></div>' +
+      '<div><div class="chips">' + (c.className ? '<span class="chip t-arcane">' + esc(c.className) + '</span>' : '') + (c.gender ? '<span class="chip plain">' + esc(c.gender) + '</span>' : '') + c.traits.map(t => '<span class="chip trait">◆ 고유 · ' + esc(t.name) + '</span>').join('') + '</div>' +
+      '<h1 class="h1">' + esc(c.name) + '</h1>' + (c.quote ? '<p class="quote">' + esc(c.quote) + '</p>' : '') + '</div></div>' +
+      '<div class="stats">' +
+      '<div class="stat"><div class="k">본실력</div><div class="v">' + powerHtml(c.realPower) + '</div></div>' +
+      '<div class="stat"><div class="k">평소 위장</div><div class="v" style="color:var(--ember)">' + esc(c.disguisePower || '—') + '</div></div>' +
+      '<div class="stat"><div class="k">마력 조종</div><div class="v" style="color:var(--mana)">' + esc(c.controlRank || '—') + '</div></div>' +
+      '</div>' +
+      (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-char">' + icon('edit') + '인물 정보 수정</button></div>' : '') +
+      '</section>' + readOnlyNotice() +
+      '<div class="tiles six">' +
+      menuTile('profile', 'user', 't-arcane', '개요', '고유 능력 · 위장 · 성격') +
+      menuTile('traits', 'crown', 't-mana', '고유 스킬', c.traits.length ? c.traits.map(t => t.name).join(' · ') + ' · 상대 마나 조작' : '아직 없음', c.traits.length ? sk.filter(isUnique).length : null) +
+      menuTile('gimmicks', 'sparkle', 't-jade', '전투 기믹', c.gimmicks.length ? c.gimmicks.length + '개 · 시뮬레이터' : '아직 없음', c.gimmicks.length) +
+      menuTile('types', 'layers', 't-rose', '일반 스킬', '자기 마나로 쓰는 기술', sk.filter(x => !isUnique(x)).length) +
+      menuTile('growth', 'rise', 't-arcane', '잠재 해방', sealedN ? '봉인 ' + sealedN + '개 · 초월 목표' : '모두 해방됨', null, (sk.length - sealedN) + '/' + sk.length) +
+      menuTile('story', 'book', 't-ember', '스토리', c.story ? '성장 · 세계관 · 메모' : '아직 비어 있음') +
+      '</div>';
+    return html;
+  };
+  function powerHtml(t) {
+    const m = String(t || '').match(/^(.*?)\s*\((.+)\)\s*$/);
+    return m ? esc(m[1]) + '<small class="v-note">' + esc(m[2]) + '</small>' : esc(t || '—');
+  }
+  function menuTile(v, ic, tone, name, sub, count, countText) {
+    return '<button type="button" class="tile big ' + tone + '" data-go="' + v + '">' +
+      (count != null ? '<span class="tile-count"><b>' + count + '</b></span>' : '') + (countText ? '<span class="tile-count"><b>' + esc(countText) + '</b></span>' : '') +
+      '<div class="tile-icon">' + icon(ic) + '</div><div><div class="tile-name">' + esc(name) + '</div><div class="tile-sub">' + esc(sub) + '</div></div></button>';
+  }
+  BINDS.char = function (r, v) {
+    $$('[data-go]', v).forEach(b => b.addEventListener('click', () => go({ v: b.dataset.go, c: r.c })));
+    bindActs(v, r);
+  };
+
+  /* ---- profile ---- */
+  VIEWS.profile = function (r) {
+    const c = state.chars.get(r.c);
+    const block = (t, ic, body, tone) => '<section class="panel"><h3><span class="' + tone + '" style="color:var(--tone);display:inline-flex;width:18px;height:18px">' + icon(ic) + '</span>' + t + '</h3><p>' + (body ? esc(body) : '<span style="color:var(--faint)">아직 적지 않았어요.</span>') + '</p></section>';
+    return '<div class="section-head"><div><span class="eyebrow">개요</span><h1 class="h1">' + esc(shortName(c.name)) + '</h1></div>' +
+      (canEdit() ? '<button type="button" class="btn small" data-act="edit-char">' + icon('edit') + '수정</button>' : '') + '</div>' +
+      block('고유 능력', 'sparkle', c.ability, 't-arcane') +
+      '<div class="grid-2">' + block('마력 위장', 'mask', c.disguiseDesc, 't-ember') + block('성격 · 대인 특징', 'user', c.personality, 't-mana') + '</div>' +
+      '<section class="panel"><h3>기본 정보</h3><dl class="kv">' +
+      kv('이름', c.name) + kv('성별', c.gender) + kv('클래스', c.className) + kv('본실력', c.realPower) + kv('평소 위장', c.disguisePower) + kv('마력 조종', c.controlRank) +
+      '</dl></section>';
+  };
+  function kv(k, v) { return '<dt>' + esc(k) + '</dt><dd>' + (v ? esc(v) : '—') + '</dd>'; }
+  BINDS.profile = function (r, v) { bindActs(v, r); };
+
+  /* ---- story ---- */
+  VIEWS.story = function (r) {
+    const c = state.chars.get(r.c);
+    return '<div class="section-head"><div><span class="eyebrow">스토리</span><h1 class="h1">' + esc(shortName(c.name)) + '의 기록</h1></div>' +
+      (canEdit() ? '<button type="button" class="btn small" data-act="edit-story">' + icon('edit') + (c.story ? '수정' : '쓰기') + '</button>' : '') + '</div>' +
+      (c.story ? '<section class="panel"><p>' + esc(c.story) + '</p></section>' :
+        '<div class="empty"><strong>아직 기록이 없어요</strong><span>과거사, 인물 관계, 등장 장면 메모 등을 자유롭게 적어두세요.</span>' +
+        (canEdit() ? '<button class="btn primary" type="button" data-act="edit-story">' + icon('edit') + '스토리 쓰기</button>' : '') + '</div>');
+  };
+  BINDS.story = function (r, v) { bindActs(v, r); };
+
+  /* ---- gimmicks ---- */
+  VIEWS.gimmicks = function (r) {
+    const c = state.chars.get(r.c);
+    let html = '<div class="section-head"><div><span class="eyebrow">전투 기믹</span><h1 class="h1">' + esc(shortName(c.name)) + '의 전투 방식</h1>' +
+      '<p class="lede">기믹을 누르면 규칙과 직접 만져볼 수 있는 시뮬레이터가 열립니다.</p></div></div>';
+    if (!c.gimmicks.length && !canEdit()) return html + '<div class="empty"><strong>등록된 기믹이 없어요</strong></div>';
+    html += '<div class="tiles">';
+    c.gimmicks.forEach(g => {
+      const tone = 't-' + (GIMMICK_TONES[g.icon] || 'arcane');
+      html += '<button type="button" class="tile big ' + tone + '" data-gm="' + esc(g.id) + '">' +
+        (g.isDraft ? '<span class="chip t-ember">신규 가안</span>' : '') +
+        '<div class="tile-icon">' + icon(g.icon) + '</div><div><div class="tile-name">' + esc(g.name) + '</div>' +
+        '<div class="tile-sub">' + esc(g.summary) + '</div></div></button>';
+    });
+    html += '</div>';
+    if (canEdit()) html += '<button type="button" class="add-slim" data-act="new-gimmick">' + icon('plus') + '기믹 추가</button>';
+    return html;
+  };
+  BINDS.gimmicks = function (r, v) {
+    $$('[data-gm]', v).forEach(b => b.addEventListener('click', () => go({ v: 'gimmick', c: r.c, g: b.dataset.gm })));
+    bindActs(v, r);
+  };
+
+  /* ---- gimmick detail + simulators ---- */
+  const simState = {};
+  VIEWS.gimmick = function (r) {
+    const c = state.chars.get(r.c);
+    const g = c.gimmicks.find(x => x.id === r.g);
+    const tone = 't-' + (GIMMICK_TONES[g.icon] || 'arcane');
+    return '<div class="detail-head"><div class="chips">' + (g.isDraft ? '<span class="chip t-ember">신규 가안</span>' : '<span class="chip t-jade">공식 설정</span>') + '</div>' +
+      '<div style="display:flex;gap:14px;align-items:center"><div class="tile-icon ' + tone + '">' + icon(g.icon) + '</div><div style="min-width:0"><h1 class="h1">' + esc(g.name) + '</h1>' +
+      (g.nameEn ? '<div class="mono" style="color:var(--arcane);font-size:13px">' + esc(g.nameEn) + '</div>' : '') + '</div></div>' +
+      '<p class="lede">' + esc(g.summary) + '</p></div>' +
+      (g.sim ? simHtml(g) : '') +
+      '<section class="panel"><h3>규칙</h3><ul class="rules">' + g.rules.map(x => '<li class="' + (x.added ? 'added' : '') + '"><span>' + esc(x.text) + (x.added ? '<span class="chip t-ember">새로 추가</span>' : '') + '</span></li>').join('') + '</ul></section>' +
+      (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-gimmick">' + icon('edit') + '기믹 수정</button><button type="button" class="btn small danger" data-act="del-gimmick">' + icon('trash') + '삭제</button></div>' : '');
+  };
+  function simGet(g) {
+    const s = g.sim;
+    if (!simState[g.id]) {
+      if (s.type === 'threshold') simState[g.id] = { v: s.initial != null ? s.initial : 50 };
+      else if (s.type === 'stack') simState[g.id] = { n: s.initial != null ? s.initial : 0 };
+      else if (s.type === 'gauge') simState[g.id] = { v: s.initial || 0, t: s.scaleInitial || s.scaleMin || 1 };
+      else if (s.type === 'mode') simState[g.id] = { mode: (s.modes && s.modes[0] && s.modes[0].id) || 'a', crack: 0, base: s.baseTier || 2 };
+      else simState[g.id] = {};
+    }
+    return simState[g.id];
+  }
+  function simHtml(g) {
+    const s = g.sim, st = simGet(g);
+    let inner = '';
+    if (s.type === 'threshold') {
+      const zones = (s.zones || []).slice().sort((a, b) => a.from - b.from);
+      const z = zones.find(z => st.v >= z.from && (st.v < z.to || (z.to >= s.max && st.v <= z.to))) || zones[zones.length - 1];
+      const span = (s.max - s.min) || 1;
+      inner = '<div class="sim-big"><b>' + st.v + esc(s.unit || '') + '</b><span>' + esc(s.label || '') + '</span></div>' +
+        '<div class="zone-wrap"><div class="zonebar">' + zones.map(zz => '<div class="t-' + esc(zz.tone) + '" style="width:' + ((zz.to - zz.from) / span * 100) + '%;background:var(--tone);opacity:' + (zz === z ? 1 : .35) + '"></div>').join('') +
+        '<span class="mark" style="left:' + ((st.v - s.min) / span * 100) + '%"></span></div></div>' +
+        '<input class="range" id="sim-' + esc(g.id) + '-v" type="range" min="' + s.min + '" max="' + s.max + '" value="' + st.v + '" aria-label="' + esc(s.label || '값') + '">' +
+        (z ? '<div class="zone-card t-' + esc(z.tone) + '"><div class="nm">' + esc(z.name) + ' 구간</div><div class="ef">' + esc(z.effect) + '</div>' + (z.detail ? '<div class="dt">' + esc(String(z.detail).replace('{v}', st.v)) + '</div>' : '') + '</div>' : '') +
+        '<div class="row-actions">' + zones.slice().reverse().map(zz => '<button type="button" class="btn small" data-set="' + Math.round((zz.from + Math.min(zz.to, s.max)) / 2) + '">' + esc(zz.name) + '</button>').join('') +
+        (s.presets || []).map(p => '<button type="button" class="btn small" data-set="' + p.value + '">' + esc(p.label) + '</button>').join('') + '</div>';
+    } else if (s.type === 'stack') {
+      const max = s.max || 5;
+      let pips = '';
+      for (let i = 1; i <= max; i++) pips += '<button type="button" class="' + (i <= st.n ? 'on' : '') + '" data-n="' + i + '" aria-label="' + i + '스택">' + i + '</button>';
+      inner = '<div class="sim-big"><b>' + st.n + ' / ' + max + '</b><span>' + esc(s.label || '스택') + (st.n === max ? ' · 최대' : '') + '</span></div>' +
+        '<div class="stackrow" style="grid-template-columns:repeat(' + max + ',1fr)">' + pips + '</div>' +
+        '<div class="statlines">' + (s.perStack || []).map(p => '<div><span>' + esc(p.label) + '</span><b>+' + (p.amount * st.n) + esc(p.unit || '') + '</b></div>').join('') +
+        (s.maxEffect ? '<div><span>최대 스택 효과</span><b style="font-family:var(--font-body);color:' + (st.n === max ? 'var(--ember)' : 'var(--faint)') + '">' + (st.n === max ? esc(s.maxEffect) : (max - st.n) + '스택 더 필요') + '</b></div>' : '') + '</div>' +
+        '<div class="row-actions"><button type="button" class="btn small" data-act2="add">' + icon('plus') + esc(s.addLabel || '+1') + '</button><button type="button" class="btn small" data-act2="spend">' + esc(s.spendLabel || '전부 소모') + '</button></div>';
+    } else if (s.type === 'gauge') {
+      const max = s.max || 100;
+      const mult = 1 + (s.perTierBonus || 0) * Math.max(0, st.t - (s.baseTier || 0));
+      const gain = Math.round((s.gainBase || 10) * mult);
+      const full = st.v >= max;
+      inner = '<div class="sim-big"><b>' + st.v + '</b><span>/ ' + max + ' ' + esc(s.label || '') + '</span></div>' +
+        '<div class="gauge' + (full ? ' full' : '') + '"><div style="width:' + (st.v / max * 100) + '%"></div></div>' +
+        (full && s.fullEffect ? '<div class="zone-card t-ember"><div class="nm">가득 참</div><div class="ef">' + esc(s.fullEffect) + '</div></div>' : '') +
+        '<div class="field"><label for="sim-' + esc(g.id) + '-t">' + esc(s.scaleLabel || '배율') + ': <span class="rangeval">' + (st.t >= 10 ? '초월' : st.t + '성') + '</span> → 흡수 배율 <span class="rangeval" style="color:var(--mana)">×' + mult.toFixed(2) + '</span></label>' +
+        '<input class="range" id="sim-' + esc(g.id) + '-t" type="range" min="' + (s.scaleMin || 1) + '" max="' + (s.scaleMax || 10) + '" value="' + st.t + '"></div>' +
+        '<div class="row-actions"><button type="button" class="btn small" data-act2="gain">' + icon('magnet') + esc(s.gainLabel || '획득') + ' +' + gain + '</button>' +
+        '<button type="button" class="btn small" data-act2="spend"' + (st.v < (s.spendAmount || 30) ? ' disabled' : '') + '>' + esc(s.spendLabel || '소모') + '</button>' +
+        '<button type="button" class="btn small ghost" data-act2="reset">비우기</button></div>';
+    } else if (s.type === 'mode') {
+      const modes = s.modes || [];
+      const m = modes.find(x => x.id === st.mode) || modes[0];
+      const isFirst = m === modes[0];
+      const base = st.base || s.baseTier || 2;
+      const fill = t => String(t || '').replace(/\{b\}/g, base);
+      inner = '<div class="seg">' + modes.map(x => '<button type="button" class="' + (x.id === st.mode ? 'on' : '') + '" data-mode="' + esc(x.id) + '">' + esc(x.name) + '</button>').join('') + '</div>' +
+        '<div class="zone-card ' + (isFirst ? 't-ember' : 't-rose') + '"><div class="nm">' + esc(m.name) + (m.tag ? ' · ' + esc(fill(m.tag)) : '') + '</div>' +
+        '<div class="statlines" style="margin-top:6px">' + (m.effects || []).map(e => '<div><span style="color:var(--text)">· ' + esc(fill(e)) + '</span></div>').join('') + '</div></div>' +
+        (isFirst && s.baseSelectable ? '<div class="field"><span class="lbl">지금 몇 성으로 위장할까?</span><div class="tiergrid" style="grid-template-columns:repeat(' + Math.min(s.baseMax || 6, 6) + ',minmax(0,1fr))">' +
+          Array.from({ length: s.baseMax || 6 }, (_, k) => k + 1).map(n => '<button type="button" data-base="' + n + '" class="' + (n === base ? 'on' : '') + '">' + n + '성</button>').join('') + '</div></div>' : '') +
+        (isFirst ? '<div><div class="statlines"><div><span>' + esc(s.meterLabel || '게이지') + '</span><b>' + st.crack + '%</b></div></div>' +
+          '<div class="gauge' + (st.crack >= 70 ? ' full' : '') + '" style="margin-top:6px"><div style="width:' + st.crack + '%"></div></div></div>' +
+          '<div class="field"><span class="lbl">위장 중에 이 등급의 스킬을 쓰면?</span><div class="tiergrid">' +
+          [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => '<button type="button" data-use="' + n + '"' + (n <= base ? ' class="safe"' : '') + '>' + n + '성</button>').join('') + '<button type="button" data-use="0" title="균열 낮추기">기만</button></div></div>'
+          : '<div class="row-actions"><button type="button" class="btn small" data-mode="' + esc(modes[0].id) + '">' + icon('mask') + '다시 위장하기 (균열 0%)</button></div>');
+    }
+    return '<section class="sim" id="sim-' + esc(g.id) + '"><h3 style="margin:0;font-size:13px;color:var(--muted);letter-spacing:.06em">시뮬레이터</h3>' + inner + '</section>';
+  }
+  function bindSim(g) {
+    const box = document.getElementById('sim-' + g.id);
+    if (!box) return;
+    const s = g.sim, st = simGet(g);
+    const redraw = () => { const fresh = document.createElement('div'); fresh.innerHTML = simHtml(g); box.replaceWith(fresh.firstElementChild); bindSim(g); };
+    if (s.type === 'threshold') {
+      const rng = $('input[type=range]', box);
+      rng.addEventListener('input', () => { st.v = Number(rng.value); redraw(); const n = document.getElementById(rng.id); if (n) n.focus(); });
+      $$('[data-set]', box).forEach(b => b.addEventListener('click', () => { st.v = Number(b.dataset.set); redraw(); }));
+    } else if (s.type === 'stack') {
+      $$('[data-n]', box).forEach(b => b.addEventListener('click', () => { st.n = st.n === Number(b.dataset.n) ? Number(b.dataset.n) - 1 : Number(b.dataset.n); redraw(); }));
+      $$('[data-act2]', box).forEach(b => b.addEventListener('click', () => {
+        if (b.dataset.act2 === 'add') st.n = Math.min(s.max || 5, st.n + 1);
+        else { if (!st.n) { toast('소모할 스택이 없어요.'); return; } toast(st.n + '스택을 모두 소모했어요.'); st.n = 0; }
+        redraw();
+      }));
+    } else if (s.type === 'gauge') {
+      const rng = $('input[type=range]', box);
+      rng.addEventListener('input', () => { st.t = Number(rng.value); redraw(); const n = document.getElementById(rng.id); if (n) n.focus(); });
+      $$('[data-act2]', box).forEach(b => b.addEventListener('click', () => {
+        const max = s.max || 100;
+        const mult = 1 + (s.perTierBonus || 0) * Math.max(0, st.t - (s.baseTier || 0));
+        if (b.dataset.act2 === 'gain') { st.v = Math.min(max, st.v + Math.round((s.gainBase || 10) * mult)); if (st.v >= max && s.fullEffect) toast(s.fullEffect); }
+        else if (b.dataset.act2 === 'spend') st.v = Math.max(0, st.v - (s.spendAmount || 30));
+        else st.v = 0;
+        redraw();
+      }));
+    } else if (s.type === 'mode') {
+      $$('[data-mode]', box).forEach(b => b.addEventListener('click', () => { st.mode = b.dataset.mode; if (st.mode === s.modes[0].id) st.crack = 0; redraw(); }));
+      $$('[data-base]', box).forEach(b => b.addEventListener('click', () => { st.base = Number(b.dataset.base); redraw(); }));
+      $$('[data-use]', box).forEach(b => b.addEventListener('click', () => {
+        const n = Number(b.dataset.use);
+        if (n === 0) { st.crack = Math.max(0, st.crack - 20); toast('기만 성공. 균열이 20% 줄었어요.'); }
+        else {
+          const add = Math.max(0, (n - (st.base || s.baseTier || 2)) * (s.perTier || 10));
+          if (!add) toast(n + '성 스킬은 위장 범위 안이라 들키지 않아요.');
+          st.crack = Math.min(100, st.crack + add);
+          if (st.crack >= 100 && s.modes[1]) { st.mode = s.modes[1].id; toast('균열 100%. 위장이 강제로 풀렸어요!'); }
+        }
+        redraw();
+      }));
+    }
+  }
+  BINDS.gimmick = function (r, v) {
+    const c = state.chars.get(r.c);
+    const g = c.gimmicks.find(x => x.id === r.g);
+    if (g.sim) bindSim(g);
+    bindActs(v, r);
+  };
+
+  function catTiles(sk, prefix, allSub) {
+    let html = '<div class="tiles">';
+    html += '<button type="button" class="tile ' + (prefix ? 't-mana' : 't-arcane') + '" data-cat="' + prefix + 'all"><span class="tile-count"><b>' + sk.length + '</b></span><div class="tile-icon">' + icon(prefix ? 'crown' : 'grid') + '</div><div><div class="tile-name">전체</div><div class="tile-sub">' + esc(allSub) + '</div></div></button>';
+    CATEGORIES.forEach(cat => {
+      const n = sk.filter(s => s.category === cat.id).length;
+      if (!n && ['attack', 'defense', 'counter', 'utility'].indexOf(cat.id) < 0) return;
+      html += '<button type="button" class="tile t-' + cat.tone + (n ? '' : ' dim') + '" data-cat="' + prefix + cat.id + '">' +
+        '<span class="tile-count"><b>' + n + '</b></span>' +
+        '<div class="tile-icon">' + icon(cat.icon) + '</div><div><div class="tile-name">' + esc(cat.name) + '' + '</div><div class="tile-sub">' + esc(cat.desc) + '</div></div></button>';
+    });
+    return html + '</div>';
+  }
+
+  /* ---- unique traits ---- */
+  VIEWS.traits = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id).filter(s => listPrefs.drafts || !s.isDraft);
+    let html = '<div class="section-head"><div><span class="eyebrow">고유 스킬</span><h1 class="h1">' + esc(shortName(c.name)) + '만의 능력</h1>' +
+      '<p class="lede">상대의 마나를 조작해서 쓰는 기술만 모았어요. 자기 마나로 쓰는 기술은 일반 스킬에 따로 있어요.</p></div></div>';
+    if (!c.traits.length) {
+      return html + '<div class="empty"><strong>등록된 고유 특성이 없어요</strong>' + (canEdit() ? '<button class="btn primary" type="button" data-act="new-trait">' + icon('plus') + '고유 특성 만들기</button>' : '') + '</div>';
+    }
+    c.traits.forEach(t => {
+      html += '<section class="trait-hero"><div class="row"><div class="tile-icon t-mana">' + icon('crown') + '</div><div style="min-width:0"><span class="chip trait">◆ 고유 특성</span>' +
+        '<h2 class="h2" style="margin-top:6px">' + esc(t.name) + (t.nameEn ? ' <span class="mono" style="font-size:13px;color:var(--mana)">' + esc(t.nameEn) + '</span>' : '') + '</h2></div></div>' +
+        (t.desc ? '<p>' + esc(t.desc) + '</p>' : '') +
+        (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-trait" data-tid="' + esc(t.id) + '">' + icon('edit') + '특성 설명 수정</button></div>' : '') + '</section>';
+    });
+    const uniq = sk.filter(isUnique);
+    html += '<div class="section-head"><div><h2 class="h2">어떤 유형을 볼까요?</h2><p class="lede" style="font-size:14px">고유 스킬 ' + uniq.length + '개' + (listPrefs.drafts ? '' : ' (가안 숨김)') + ' · 일반 스킬과 같은 유형으로 나눴어요.</p></div>' +
+      (canEdit() ? '<button type="button" class="btn small primary" data-act="new-skill">' + icon('plus') + '고유 스킬 추가</button>' : '') + '</div>';
+    html += catTiles(uniq, 'u:', '고유 스킬 한 번에 보기');
+    return html;
+  };
+  BINDS.traits = function (r, v) {
+    $$('[data-cat]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = 'all'; listPrefs.reach = 'all'; listPrefs.area = 'all'; saveListPrefs(); go({ v: 'list', c: r.c, cat: b.dataset.cat }); }));
+    $$('[data-act="new-skill"]', v).forEach(b => b.addEventListener('click', () => openSkillForm(null, { c: r.c, cat: 'u:all' })));
+    $$('[data-act="edit-trait"]', v).forEach(b => b.addEventListener('click', e => { e.stopPropagation(); openTraitForm(r.c, b.dataset.tid); }));
+    $$('[data-act="new-trait"]', v).forEach(b => b.addEventListener('click', () => openTraitForm(r.c, null)));
+  };
+
+  /* ---- growth (latent unlock) ---- */
+  VIEWS.growth = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id);
+    const sealed = sk.filter(s => s.sealed);
+    const open = sk.length - sealed.length;
+    const pct = sk.length ? Math.round(open / sk.length * 100) : 0;
+    const chosen = c.transcend.candidates.find(x => x.id === c.transcend.chosen);
+    let html = '<div class="section-head"><div><span class="eyebrow">잠재 해방</span><h1 class="h1">잠재력을 여는 길</h1>' +
+      '<p class="lede">이미 강하다. 다만 아직 잠겨 있을 뿐. 봉인된 스킬은 수련이 아니라 특정 행동과 상황으로 풀립니다.</p></div></div>';
+    html += '<section class="panel"><h3>해방 현황</h3><div class="sim-big"><b>' + open + '</b><span>/ ' + sk.length + ' 스킬 해방 · ' + pct + '%</span></div>' +
+      '<div class="gauge"><div style="width:' + pct + '%"></div></div><p class="hint">봉인된 잠재 스킬 ' + sealed.length + '개 · 본실력 ' + esc(c.realPower || '—') + '</p></section>';
+    html += '<section class="goal"><div class="k">' + icon('crown') + '최종 목표</div><p>' + (c.goal ? esc(c.goal) : '<span style="color:var(--faint)">아직 적지 않았어요.</span>') + '</p>' +
+      (chosen ? '<div class="chosen"><span class="chip t-arcane">확정된 초월 행동</span><b>' + esc(chosen.title) + '</b><span>' + esc(chosen.desc) + '</span></div>' : '') +
+      (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-goal">' + icon('edit') + '목표 · 후보 수정</button></div>' : '') + '</section>';
+    if (c.transcend.candidates.length) {
+      html += '<div class="section-head"><div><h2 class="h2">초월 행동 후보</h2><p class="lede" style="font-size:14px">' + (chosen ? '확정한 행동이 위 최종 목표에 표시돼요.' : '아직 정하지 않았어요. 마음에 드는 걸 확정해 두세요.') + '</p></div></div><div class="cand-list">' +
+        c.transcend.candidates.map((x, i) => '<div class="cand' + (x.id === c.transcend.chosen ? ' on' : (chosen ? ' dimmed' : '')) + '"><span class="num mono">' + (i + 1) + '</span><div style="min-width:0"><b>' + esc(x.title) + '</b><p>' + esc(x.desc) + '</p></div>' +
+          (canEdit() ? (x.id === c.transcend.chosen ? '<button type="button" class="btn small ghost" data-unchoose="1">확정 취소</button>' : '<button type="button" class="btn small" data-choose="' + esc(x.id) + '">' + icon('check') + '확정</button>') : '') + '</div>').join('') + '</div>';
+    }
+    html += '<div class="section-head"><div><h2 class="h2">봉인된 잠재 스킬</h2><p class="lede" style="font-size:14px">해방 조건 유형별로 묶었어요. 눌러서 해방 처리할 수 있어요.</p></div></div>';
+    if (!sealed.length) html += '<div class="empty"><strong>봉인된 스킬이 없어요</strong><span>스킬 수정 화면의 상세 설정에서 봉인과 해방 조건을 지정할 수 있어요.</span></div>';
+    UNLOCK_TYPES.concat([{ id: '', name: '조건 미정', tone: 'arcane', desc: '해방 조건을 아직 정하지 않음' }]).forEach(u => {
+      const list = sealed.filter(s => s.unlockType === u.id).sort((a, b) => tierNum(a.tier) - tierNum(b.tier));
+      if (!list.length) return;
+      html += '<div class="unlock-group"><div class="ug-head"><span class="chip t-' + u.tone + '">' + esc(u.name) + '</span><span class="hint">' + esc(u.desc) + '</span></div><div class="skill-list">' +
+        list.map(s => '<button type="button" class="skill-row sealed" data-gskill="' + esc(s.id) + '">' + tierBlock(s.tier) + '<div class="body"><div class="nm">' + esc(s.nameKo) + '</div>' +
+          '<div class="cond">' + icon('lock') + '<span>' + esc(s.unlockCond || '해방 조건 미정') + '</span></div><div class="meta"><span class="chip t-' + CAT[s.category].tone + '">' + esc(CAT[s.category].name) + '</span>' + traitChips(c, s) + '</div></div>' + icon('chev', ' class="chev"') + '</button>').join('') + '</div></div>';
+    });
+    return html;
+  };
+  BINDS.growth = function (r, v) {
+    $$('[data-gskill]', v).forEach(b => b.addEventListener('click', () => { const s = state.skills.get(b.dataset.gskill); if (!listPrefs.drafts && s.isDraft) { listPrefs.drafts = true; saveListPrefs(); } go({ v: 'skill', c: r.c, cat: 'all', s: s.id, from: 'growth' }); }));
+    $$('[data-choose]', v).forEach(b => b.addEventListener('click', async () => { const c = state.chars.get(r.c); try { await write('characters', Object.assign({}, c, { transcend: Object.assign({}, c.transcend, { chosen: b.dataset.choose }) })); toast('초월 행동을 확정했어요.'); } catch (e) {} }));
+    $$('[data-unchoose]', v).forEach(b => b.addEventListener('click', async () => { const c = state.chars.get(r.c); try { await write('characters', Object.assign({}, c, { transcend: Object.assign({}, c.transcend, { chosen: null }) })); toast('확정을 취소했어요.'); } catch (e) {} }));
+    bindActs(v, r);
+  };
+
+  /* ---- skill types ---- */
+  VIEWS.types = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id).filter(s => !isUnique(s) && (listPrefs.drafts || !s.isDraft));
+    let html = '<div class="section-head"><div><span class="eyebrow">일반 스킬</span><h1 class="h1">어떤 유형을 볼까요?</h1>' +
+      '<p class="lede">자기 마나로 쓰는 기술 ' + sk.length + '개' + (listPrefs.drafts ? '' : ' (가안 숨김)') + '. 상대 마나를 조작하는 기술은 고유 스킬에 따로 있어요.</p></div>' +
+      (canEdit() ? '<button type="button" class="btn small primary" data-act="new-skill">' + icon('plus') + '스킬 추가</button>' : '') + '</div>';
+    return html + catTiles(sk, '', '일반 스킬 한 번에 보기');
+  };
+  BINDS.types = function (r, v) {
+    $$('[data-cat]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = 'all'; listPrefs.reach = 'all'; listPrefs.area = 'all'; saveListPrefs(); go({ v: 'list', c: r.c, cat: b.dataset.cat }); }));
+    bindActs(v, r);
+  };
+  function saveListPrefs() { lsSet('arcana-codex-listprefs', JSON.stringify(listPrefs)); }
+
+  /* ---- skill list ---- */
+  function listSkills(r, ignoreTier) {
+    const isT = isUCat(r.cat);
+    const sub = isT ? r.cat.slice(2) : r.cat;
+    let list = skillsOf(r.c).filter(s => isUnique(s) === isT && (sub === 'all' || s.category === sub) && (listPrefs.drafts || !s.isDraft));
+    if (ignoreTier !== 'range') {
+      if (listPrefs.reach !== 'all') list = list.filter(s => s.reach === listPrefs.reach);
+      if (listPrefs.area !== 'all') list = list.filter(s => s.area === listPrefs.area);
+    }
+    if (!ignoreTier && listPrefs.tier !== 'all') list = list.filter(s => s.tier === listPrefs.tier);
+    const cmp = {
+      tierAsc: (a, b) => tierNum(a.tier) - tierNum(b.tier) || a.nameKo.localeCompare(b.nameKo),
+      tierDesc: (a, b) => tierNum(b.tier) - tierNum(a.tier) || a.nameKo.localeCompare(b.nameKo),
+      powerDesc: (a, b) => b.power - a.power || tierNum(b.tier) - tierNum(a.tier),
+      diffDesc: (a, b) => b.difficulty - a.difficulty || tierNum(b.tier) - tierNum(a.tier),
+      name: (a, b) => a.nameKo.localeCompare(b.nameKo)
+    }[listPrefs.sort] || ((a, b) => tierNum(a.tier) - tierNum(b.tier));
+    return list.sort(cmp);
+  }
+  function tierStatus(c, t, s) {
+    if (s && s.sealed) return '<span class="chip sealed-chip">' + icon('lock') + '봉인</span>';
+    const n = tierNum(t);
+    if (c.disguiseTier && n <= c.disguiseTier) return '<span class="chip t-ember">위장 중 사용</span>';
+    if (c.realTier && n <= c.realTier) return '';
+    return '';
+  }
+  function tierBlock(t) {
+    if (t === 'transcendent') return '<div class="tier-block trans"><b>★</b><small>초월</small></div>';
+    return '<div class="tier-block' + (Number(t) >= 7 ? ' hi' : '') + '"><b>' + t + '</b><small>성</small></div>';
+  }
+  VIEWS.list = function (r) {
+    const c = state.chars.get(r.c);
+    const isT = isUCat(r.cat);
+    const sub = isT ? r.cat.slice(2) : r.cat;
+    const cat = sub === 'all' ? (isT ? { name: '고유 스킬 전체', desc: '상대 마나를 조작하는 기술', icon: 'crown', tone: 'mana' } : { name: '일반 스킬 전체', desc: '자기 마나로 쓰는 기술', icon: 'grid', tone: 'arcane' })
+      : Object.assign({}, CAT[sub], { desc: (isT ? '고유 스킬 · ' : '일반 스킬 · ') + CAT[sub].desc });
+    const pool = listSkills(r, 'range');
+    if (listPrefs.reach !== 'all' && !pool.some(s => s.reach === listPrefs.reach)) listPrefs.reach = 'all';
+    if (listPrefs.area !== 'all' && !pool.some(s => s.area === listPrefs.area && (listPrefs.reach === 'all' || s.reach === listPrefs.reach))) listPrefs.area = 'all';
+    const base = listSkills(r, true);
+    if (listPrefs.tier !== 'all' && !base.some(s => s.tier === listPrefs.tier)) listPrefs.tier = 'all';
+    const list = listSkills(r);
+    const counts = {}; base.forEach(s => { counts[s.tier] = (counts[s.tier] || 0) + 1; });
+    let html = '<div class="section-head"><div style="flex-direction:row;align-items:center;gap:14px"><div class="tile-icon t-' + cat.tone + '">' + icon(cat.icon) + '</div>' +
+      '<div style="min-width:0"><h1 class="h1">' + esc(cat.name) + '</h1><p class="lede" style="font-size:14px">' + esc(cat.desc) + ' · ' + base.length + '개</p></div></div>' +
+      (canEdit() ? '<button type="button" class="btn small primary" data-act="new-skill">' + icon('plus') + '추가</button>' : '') + '</div>';
+    html += '<div class="filterbar">';
+    const reachPool = listPrefs.area === 'all' ? pool : pool.filter(s => s.area === listPrefs.area);
+    const areaPool = listPrefs.reach === 'all' ? pool : pool.filter(s => s.reach === listPrefs.reach);
+    html += '<div class="tierbar" role="group" aria-label="공격 범위">' +
+      REACH.map(x => { const n = reachPool.filter(s => s.reach === x.id).length; return '<button type="button" class="tier-chip rng' + (listPrefs.reach === x.id ? ' on' : '') + (n ? '' : ' zero') + '" data-reach="' + x.id + '">' + x.name + ' <small>' + n + '</small></button>'; }).join('') +
+      '<span class="bar-sep" aria-hidden="true"></span>' +
+      AREA.map(x => { const n = areaPool.filter(s => s.area === x.id).length; return '<button type="button" class="tier-chip rng' + (listPrefs.area === x.id ? ' on' : '') + (n ? '' : ' zero') + '" data-area="' + x.id + '">' + x.name + ' <small>' + n + '</small></button>'; }).join('') +
+      '</div>';
+    html += '<div class="tierbar" role="group" aria-label="등급">' +
+      '<button type="button" class="tier-chip' + (listPrefs.tier === 'all' ? ' on' : '') + '" data-tier="all">전체 <small>' + base.length + '</small></button>' +
+      TIERS.filter(t => counts[t]).map(t => '<button type="button" class="tier-chip' + (t === 'transcendent' ? ' trans' : '') + (listPrefs.tier === t ? ' on' : '') + '" data-tier="' + t + '">' + tierText(t) + ' <small>' + counts[t] + '</small></button>').join('') +
+      '</div><div class="tools"><select class="select" id="sort-select" aria-label="정렬">' +
+      [['tierAsc', '등급 낮은 순'], ['tierDesc', '등급 높은 순'], ['powerDesc', '파괴력 높은 순'], ['diffDesc', '난이도 높은 순'], ['name', '이름 순']].map(o => '<option value="' + o[0] + '"' + (listPrefs.sort === o[0] ? ' selected' : '') + '>' + o[1] + '</option>').join('') +
+      '</select><label class="toggle"><input type="checkbox" id="drafts-toggle"' + (listPrefs.drafts ? ' checked' : '') + '>가안 포함</label></div></div>';
+    if (!list.length) {
+      html += '<div class="empty"><strong>이 조건에 맞는 스킬이 없어요</strong><span>' + (listPrefs.drafts ? '첫 스킬을 등록해 보세요.' : '가안을 포함하면 더 보일 수 있어요.') + '</span>' +
+        (canEdit() ? '<button class="btn primary" type="button" data-act="new-skill">' + icon('plus') + '스킬 추가</button>' : '') + '</div>';
+      return html;
+    }
+    html += '<div class="skill-list">' + list.map(s => {
+      const cc = CAT[s.category];
+      return '<button type="button" class="skill-row' + (s.tier === 'transcendent' ? ' trans' : '') + (s.sealed ? ' sealed' : '') + '" data-skill="' + esc(s.id) + '">' + tierBlock(s.tier) +
+        '<div class="body"><div class="nm">' + esc(s.nameKo) + '</div>' + ((s.nameEn || s.subType) ? '<div class="en">' + esc(s.nameEn) + (s.subType ? '<span class="st">' + (s.nameEn ? ' · ' : '') + esc(s.subType) + '</span>' : '') + '</div>' : '') +
+        '<div class="meta">' + (sub === 'all' ? '<span class="chip t-' + cc.tone + '">' + esc(cc.name) + '</span>' : '') +
+        (rangeLabel(s) ? '<span class="chip range-chip">' + esc(rangeLabel(s)) + '</span>' : '') +
+        (s.isDraft ? '<span class="chip t-ember">가안</span>' : '') + (s.sealed ? tierStatus(c, s.tier, s) : '') + '</div></div>' + icon('chev', ' class="chev"') + '</button>';
+    }).join('') + '</div>';
+    return html;
+  };
+  BINDS.list = function (r, v) {
+    $$('[data-tier]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = b.dataset.tier; saveListPrefs(); render(); }));
+    $$('[data-reach]', v).forEach(b => b.addEventListener('click', () => { listPrefs.reach = listPrefs.reach === b.dataset.reach ? 'all' : b.dataset.reach; if (listPrefs.reach !== 'all' && b.classList.contains('zero')) listPrefs.area = 'all'; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
+    $$('[data-area]', v).forEach(b => b.addEventListener('click', () => { listPrefs.area = listPrefs.area === b.dataset.area ? 'all' : b.dataset.area; if (listPrefs.area !== 'all' && b.classList.contains('zero')) listPrefs.reach = 'all'; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
+    $$('[data-facet]', v).forEach(b => b.addEventListener('click', () => { listPrefs.facet = b.dataset.facet; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
+    $('#sort-select', v).addEventListener('change', e => { listPrefs.sort = e.target.value; saveListPrefs(); render(); });
+    $('#drafts-toggle', v).addEventListener('change', e => { listPrefs.drafts = e.target.checked; saveListPrefs(); render(); });
+    $$('[data-skill]', v).forEach(b => b.addEventListener('click', () => go({ v: 'skill', c: r.c, cat: r.cat, s: b.dataset.skill })));
+    bindActs(v, r);
+  };
+
+  /* ---- skill detail ---- */
+  VIEWS.skill = function (r) {
+    const s = state.skills.get(r.s);
+    const c = state.chars.get(r.c);
+    const cc = CAT[s.category];
+    const sib = r.from === 'growth' ? skillsOf(r.c).filter(x => x.sealed || x.id === s.id).sort((a, b) => tierNum(a.tier) - tierNum(b.tier)) : listSkills({ c: r.c, cat: r.cat || 'all' });
+    const i = sib.findIndex(x => x.id === s.id);
+    const prev = i > 0 ? sib[i - 1] : null, next = i >= 0 && i < sib.length - 1 ? sib[i + 1] : null;
+    const pips = (n, tone) => '<div class="pips ' + tone + '">' + Array.from({ length: 10 }, (_, k) => '<i class="' + (k < n ? 'on' : '') + '"></i>').join('') + '</div>';
+    return '<div class="detail-head"><div class="chips"><span class="chip t-' + cc.tone + '">' + esc(cc.name) + '</span>' +
+      '<span class="chip ' + (s.tier === 'transcendent' ? 't-ember' : 't-arcane') + '">' + tierText(s.tier) + ' · ' + TIER_SUB[s.tier] + '</span>' +
+      (rangeLabel(s) ? '<span class="chip range-chip">' + esc(rangeLabel(s)) + '</span>' : '') +
+      (s.isDraft ? '<span class="chip t-ember">추천 가안</span>' : '<span class="chip t-jade">공식 설정</span>') + tierStatus(c, s.tier, s) + traitChips(c, s) + '</div>' +
+      '<div style="display:flex;gap:14px;align-items:center">' + tierBlock(s.tier) + '<div style="min-width:0"><h1 class="h1">' + esc(s.nameKo) + '</h1>' +
+      '<div class="mono" style="color:var(--arcane);font-size:13px">' + esc([s.nameEn, s.subType].filter(Boolean).join(' · ')) + '</div></div></div>' +
+      (s.quote ? '<p class="quote">' + esc(s.quote) + '</p>' : '') + '</div>' +
+      '<div class="meters"><div class="meter t-mana"><div class="top"><span>기술 난이도</span><b>' + s.difficulty + '/10</b></div>' + pips(s.difficulty, 't-mana') + '</div>' +
+      '<div class="meter t-rose"><div class="top"><span>파괴력 · 영향력</span><b>' + s.power + '/10</b></div>' + pips(s.power, 't-rose') + '</div></div>' +
+      (s.sealed ? '<div class="seal-banner"><div class="k">' + icon('lock') + '봉인된 잠재 스킬' + (s.unlockType ? ' · <span class="chip t-' + UNLOCK[s.unlockType].tone + '">' + esc(UNLOCK[s.unlockType].name) + '</span>' : '') + '</div><p>' + esc(s.unlockCond || '해방 조건을 아직 정하지 않았어요.') + '</p>' +
+        (canEdit() ? '<button type="button" class="btn small primary" data-act="unlock-skill">' + icon('unlock') + '해방 처리</button>' : '') + '</div>' :
+        (s.unlockCond ? '<div class="callout jade"><div class="k">해방 완료 · 조건이었던 것</div>' + esc(s.unlockCond) + '</div>' : '')) +
+      (s.gimmick ? '<div class="callout"><div class="k">기믹 연동 · 발동 조건</div>' + esc(s.gimmick) + '</div>' : '') +
+      '<section class="panel"><h3>효과와 연출</h3><p>' + esc(s.desc) + '</p></section>' +
+      (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-skill">' + icon('edit') + '수정</button>' +
+        '<button type="button" class="btn small" data-act="dup-skill">' + icon('copy') + '복제</button>' +
+        (s.isDraft ? '<button type="button" class="btn small" data-act="confirm-skill">' + icon('seal') + '공식 설정으로 확정</button>' : '<button type="button" class="btn small ghost" data-act="draft-skill">가안으로 되돌리기</button>') +
+        (!s.sealed ? '<button type="button" class="btn small ghost" data-act="seal-skill">' + icon('lock') + '봉인하기</button>' : '') +
+        '<button type="button" class="btn small danger" data-act="del-skill">' + icon('trash') + '삭제</button></div>' : '') +
+      '<div class="prevnext"><button type="button" class="pn" data-pn="' + (prev ? esc(prev.id) : '') + '"' + (prev ? '' : ' disabled') + '><small>‹ 이전</small><span>' + (prev ? esc(prev.nameKo) : '처음') + '</span></button>' +
+      '<button type="button" class="pn next" data-pn="' + (next ? esc(next.id) : '') + '"' + (next ? '' : ' disabled') + '><small>다음 ›</small><span>' + (next ? esc(next.nameKo) : '마지막') + '</span></button></div>';
+  };
+  BINDS.skill = function (r, v) {
+    $$('[data-pn]', v).forEach(b => b.addEventListener('click', () => { if (b.dataset.pn) go(Object.assign({}, r, { s: b.dataset.pn }), { replace: true }); }));
+    bindActs(v, r);
+  };
+
+  /* ---- search ---- */
+  let searchQ = '';
+  VIEWS.search = function () {
+    return '<div class="section-head"><div><span class="eyebrow">검색</span><h1 class="h1">스킬과 기믹 찾기</h1></div></div>' +
+      '<div class="searchbox">' + icon('search') + '<input class="input" id="search-input" type="search" placeholder="이름, 효과, 대사 (예: 기절, 차용, 결계)" value="' + esc(searchQ) + '" autocomplete="off"></div>' +
+      '<div id="search-results"></div>';
+  };
+  function searchResults() {
+    const q = searchQ.trim().toLowerCase();
+    const box = $('#search-results');
+    if (!box) return;
+    if (!q) { box.innerHTML = '<p class="hint">모든 인물의 스킬 이름, 영문명, 효과, 기믹, 대사를 함께 찾아요.</p>'; return; }
+    const hits = Array.from(state.skills.values()).filter(s => { const c = state.chars.get(s.characterId); return [s.nameKo, s.nameEn, s.subType, s.gimmick, s.desc, s.quote, s.unlockCond, s.sealed ? '봉인' : '', rangeLabel(s), CAT[s.category].name].concat(s.traits.map(t => { const x = facetOf(c, t); return x ? x.t.name + ' ' + (x.f ? x.f.name : '') : ''; })).join(' ').toLowerCase().includes(q); })
+      .sort((a, b) => tierNum(a.tier) - tierNum(b.tier));
+    const gms = [];
+    state.chars.forEach(c => c.gimmicks.forEach(g => { if ([g.name, g.nameEn, g.summary].concat(g.rules.map(x => x.text)).join(' ').toLowerCase().includes(q)) gms.push({ c, g }); }));
+    let html = '<p class="hint">스킬 ' + hits.length + '개' + (gms.length ? ' · 기믹 ' + gms.length + '개' : '') + '</p>';
+    if (gms.length) html += '<div class="skill-list">' + gms.map(x => '<button type="button" class="skill-row" data-sgm="' + esc(x.c.id) + '|' + esc(x.g.id) + '"><div class="tier-block"><span style="width:26px;height:26px;color:var(--mana)">' + icon(x.g.icon) + '</span></div><div class="body"><div class="nm">' + esc(x.g.name) + '</div><div class="meta"><span class="chip t-mana">전투 기믹</span><span class="chip plain">' + esc(shortName(x.c.name)) + '</span></div></div>' + icon('chev', ' class="chev"') + '</button>').join('') + '</div>';
+    html += '<div class="skill-list" style="margin-top:10px">' + hits.slice(0, 80).map(s => {
+      const c = state.chars.get(s.characterId); const cc = CAT[s.category];
+      return '<button type="button" class="skill-row' + (s.tier === 'transcendent' ? ' trans' : '') + '" data-ss="' + esc(s.id) + '">' + tierBlock(s.tier) +
+        '<div class="body"><div class="nm">' + esc(s.nameKo) + '</div>' + (s.nameEn ? '<div class="en">' + esc(s.nameEn) + '</div>' : '') +
+        '<div class="meta">' + (isUnique(s) ? '<span class="chip trait">◆ 고유</span>' : '') + '<span class="chip t-' + cc.tone + '">' + esc(cc.name) + '</span>' + (rangeLabel(s) ? '<span class="chip range-chip">' + esc(rangeLabel(s)) + '</span>' : '') + (c && state.chars.size > 1 ? '<span class="chip plain">' + esc(shortName(c.name)) + '</span>' : '') + (s.isDraft ? '<span class="chip t-ember">가안</span>' : '') + '</div></div>' + icon('chev', ' class="chev"') + '</button>';
+    }).join('') + '</div>';
+    box.innerHTML = html;
+    $$('[data-ss]', box).forEach(b => b.addEventListener('click', () => { const s = state.skills.get(b.dataset.ss); if (!listPrefs.drafts && s.isDraft) { listPrefs.drafts = true; saveListPrefs(); } go({ v: 'skill', c: s.characterId, cat: homeCat(s), s: s.id }); }));
+    $$('[data-sgm]', box).forEach(b => b.addEventListener('click', () => { const p = b.dataset.sgm.split('|'); go({ v: 'gimmick', c: p[0], g: p[1] }); }));
+  }
+  BINDS.search = function (r, v) {
+    const inp = $('#search-input', v);
+    inp.addEventListener('input', () => { searchQ = inp.value; searchResults(); });
+    searchResults();
+    setTimeout(() => { try { inp.focus({ preventScroll: true }); } catch (e) {} }, 60);
+  };
+
+  /* ================= actions ================= */
+  function bindActs(v, r) {
+    $$('[data-act]', v).forEach(b => b.addEventListener('click', () => ACTS[b.dataset.act] && ACTS[b.dataset.act](r || route, b)));
+  }
+  const ACTS = {
+    'new-char': () => openCharForm(null),
+    'edit-char': r => openCharForm(r.c),
+    'edit-story': r => openStoryForm(r.c),
+    'backup': () => openBackup(),
+    'new-skill': r => openSkillForm(null, r),
+    'edit-skill': r => openSkillForm(r.s, r),
+    'dup-skill': async r => {
+      const s = state.skills.get(r.s);
+      const copy = Object.assign({}, s, { id: uid('sk'), nameKo: s.nameKo + ' (사본)', isDraft: true });
+      try { await write('skills', copy); toast('사본을 만들었어요.'); go({ v: 'skill', c: r.c, cat: r.cat, s: copy.id }, { replace: true }); } catch (e) {}
+    },
+    'confirm-skill': async r => { const s = state.skills.get(r.s); try { await write('skills', Object.assign({}, s, { isDraft: false })); toast('공식 설정으로 확정했어요.'); } catch (e) {} },
+    'draft-skill': async r => { const s = state.skills.get(r.s); try { await write('skills', Object.assign({}, s, { isDraft: true })); toast('가안으로 바꿨어요.'); } catch (e) {} },
+    'del-skill': r => {
+      const s = state.skills.get(r.s);
+      confirmSheet('「' + s.nameKo + '」 삭제', '이 스킬을 도감에서 지워요. 바로 아래 알림에서 되돌릴 수 있어요.', '삭제', async () => {
+        const backup = Object.assign({}, s);
+        try {
+          await remove('skills', s.id);
+          go({ v: 'list', c: r.c, cat: r.cat || 'all' }, { replace: true });
+          toast('「' + backup.nameKo + '」를 지웠어요.', '되돌리기', async () => { try { await write('skills', backup); toast('되돌렸어요.'); } catch (e) {} });
+        } catch (e) {}
+      });
+    },
+    'unlock-skill': async r => { const s = state.skills.get(r.s); try { await write('skills', Object.assign({}, s, { sealed: false })); toast('「' + s.nameKo + '」 해방!'); } catch (e) {} },
+    'seal-skill': r => openSkillForm(r.s, r, true),
+    'edit-goal': r => openGoalForm(r.c),
+    'new-gimmick': r => openGimmickForm(r.c, null),
+    'edit-gimmick': r => openGimmickForm(r.c, r.g),
+    'del-gimmick': r => {
+      const c = state.chars.get(r.c); const g = c.gimmicks.find(x => x.id === r.g);
+      confirmSheet('「' + g.name + '」 기믹 삭제', '규칙과 시뮬레이터가 함께 지워져요.', '삭제', async () => {
+        const before = c.gimmicks.slice();
+        try {
+          await write('characters', Object.assign({}, c, { gimmicks: c.gimmicks.filter(x => x.id !== g.id) }));
+          go({ v: 'gimmicks', c: c.id }, { replace: true });
+          toast('기믹을 지웠어요.', '되돌리기', async () => { const cur = state.chars.get(c.id); try { await write('characters', Object.assign({}, cur, { gimmicks: before })); } catch (e) {} });
+        } catch (e) {}
+      });
+    }
+  };
+
+  /* ================= sheets ================= */
+  let sheetOpen = false, lastFocus = null;
+  function openSheet(title, bodyHtml, onMount) {
+    lastFocus = document.activeElement;
+    const root = $('#sheet-root');
+    root.innerHTML = '<div class="backdrop" id="backdrop"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title"><div class="grabber"></div>' +
+      '<div class="sheet-head"><h2 id="sheet-title">' + esc(title) + '</h2><button type="button" class="icon-btn" id="sheet-close" aria-label="닫기">' + icon('x') + '</button></div>' + bodyHtml + '</div></div>';
+    sheetOpen = true;
+    document.body.style.overflow = 'hidden';
+    $('#backdrop').addEventListener('click', e => { if (e.target.id === 'backdrop') closeSheet(); });
+    $('#sheet-close').addEventListener('click', closeSheet);
+    if (onMount) onMount($('.sheet', root));
+  }
+  function closeSheet() {
+    if (!sheetOpen) return;
+    $('#sheet-root').innerHTML = ''; sheetOpen = false; document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) try { lastFocus.focus({ preventScroll: true }); } catch (e) {}
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheetOpen) closeSheet(); });
+
+  function confirmSheet(title, msg, okLabel, onOk) {
+    openSheet(title, '<p style="margin:0;color:var(--muted)">' + esc(msg) + '</p><div class="sheet-actions"><button type="button" class="btn" id="cf-cancel">취소</button><button type="button" class="btn danger" id="cf-ok">' + esc(okLabel) + '</button></div>', sh => {
+      $('#cf-cancel', sh).addEventListener('click', closeSheet);
+      $('#cf-ok', sh).addEventListener('click', () => { closeSheet(); onOk(); });
+      $('#cf-cancel', sh).focus();
+    });
+  }
+
+  function opt(v, label, cur) { return '<option value="' + esc(v) + '"' + (String(cur) === String(v) ? ' selected' : '') + '>' + esc(label) + '</option>'; }
+
+  /* ---- skill form ---- */
+  function openSkillForm(skillId, r, focusSeal) {
+    const s = skillId ? state.skills.get(skillId) : null;
+    const fromT = r && isUCat(r.cat);
+    const sub0 = r && r.cat ? (fromT ? r.cat.slice(2) : r.cat) : 'all';
+    const defCat = s ? s.category : (CAT[sub0] ? sub0 : 'attack');
+    const cc0 = state.chars.get(r.c);
+    let defKind = s ? (s.traits[0] ? s.traits[0].split(':')[0] : '') : (fromT && cc0 && cc0.traits[0] ? cc0.traits[0].id : '');
+    const defTier = s ? s.tier : (listPrefs.tier !== 'all' ? listPrefs.tier : '3');
+    const c = state.chars.get(r.c);
+    const body = '<form class="form" id="skill-form" novalidate>' +
+      '<div class="field"><label for="f-nameKo">스킬 이름 <em>*</em></label><input class="input" id="f-nameKo" required placeholder="예: 청구서" value="' + esc(s ? s.nameKo : '') + '"></div>' +
+      (c && c.traits.length ? '<div class="field"><label for="f-kind">분류</label><select class="select" id="f-kind">' + opt('', '일반 스킬 · 자기 마나로 씀', defKind) +
+        c.traits.map(t => opt(t.id, '고유 스킬 · ' + t.name + ' (상대 마나 조작)', defKind)).join('') + '</select>' +
+        '<span class="hint">상대의 마나를 조작해서 쓰는 기술이면 고유 스킬로 고르세요.</span></div>' : '') +
+      '<div class="row2"><div class="field"><label for="f-category">유형</label><select class="select" id="f-category">' + CATEGORIES.map(x => opt(x.id, x.name, defCat)).join('') + '</select></div>' +
+      '<div class="field"><label for="f-tier">등급</label><select class="select" id="f-tier">' + TIERS.map(t => opt(t, tierText(t) + ' · ' + TIER_SUB[t] + (c && c.disguiseTier === tierNum(t) ? ' (위장)' : '') + (c && c.realTier === tierNum(t) ? ' (본실력)' : ''), defTier)).join('') + '</select></div></div>' +
+      '<div class="row2"><div class="field"><label for="f-reach">사거리</label><select class="select" id="f-reach">' + opt('', '정하지 않음', s ? s.reach : '') + REACH.map(x => opt(x.id, x.name, s ? s.reach : '')).join('') + '</select></div>' +
+      '<div class="field"><label for="f-area">범위</label><select class="select" id="f-area">' + opt('', '정하지 않음', s ? s.area : '') + AREA.map(x => opt(x.id, x.name, s ? s.area : '')).join('') + '</select></div></div>' +
+      '<div class="field"><label for="f-desc">효과와 연출 <em>*</em></label><textarea class="textarea" id="f-desc" placeholder="무슨 일이 일어나는지, 어떻게 보이는지">' + esc(s ? s.desc : '') + '</textarea></div>' +
+      '<details class="more"' + (s && (s.gimmick || s.quote) ? '' : '') + '><summary>상세 설정 (영문명, 수치, 기믹, 대사)</summary><div class="form">' +
+      '<div class="row2"><div class="field"><label for="f-nameEn">영문 이름</label><input class="input" id="f-nameEn" value="' + esc(s ? s.nameEn : '') + '" placeholder="The Invoice"></div>' +
+      '<div class="field"><label for="f-subType">세부 형태</label><input class="input" id="f-subType" value="' + esc(s ? s.subType : '') + '" placeholder="누적 정산 일격"></div></div>' +
+      '<div class="row2"><div class="field"><label for="f-difficulty">기술 난이도 <span class="rangeval" id="f-difficulty-v">' + (s ? s.difficulty : 5) + '</span></label><input class="range" type="range" id="f-difficulty" min="1" max="10" value="' + (s ? s.difficulty : 5) + '"></div>' +
+      '<div class="field"><label for="f-power">파괴력 <span class="rangeval" id="f-power-v">' + (s ? s.power : 5) + '</span></label><input class="range" type="range" id="f-power" min="1" max="10" value="' + (s ? s.power : 5) + '"></div></div>' +
+      '<div class="field"><label for="f-gimmick">기믹 연동 · 발동 조건</label><input class="input" id="f-gimmick" value="' + esc(s ? s.gimmick : '') + '" placeholder="예: 차용 마력 전부 소모 · 과부하 +1"></div>' +
+      '<div class="field"><label for="f-quote">대사</label><input class="input" id="f-quote" value="' + esc(s ? s.quote : '') + '" placeholder="시전할 때 한마디"></div>' +
+      '</div></details>' +
+      '<details class="more" id="f-seal-box"' + ((s && s.sealed) || focusSeal ? ' open' : '') + '><summary>잠재 해방 (봉인 · 해방 조건)</summary><div class="form">' +
+      '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="f-sealed"' + ((s && s.sealed) || focusSeal ? ' checked' : '') + '>아직 봉인된 잠재 스킬</label>' +
+      '<div class="field"><label for="f-unlockType">해방 조건 유형</label><select class="select" id="f-unlockType">' + opt('', '정하지 않음', s ? s.unlockType : '') + UNLOCK_TYPES.map(u => opt(u.id, u.name + ' · ' + u.desc, s ? s.unlockType : '')).join('') + '</select></div>' +
+      '<div class="field"><label for="f-unlockCond">해방 조건</label><input class="input" id="f-unlockCond" value="' + esc(s ? s.unlockCond : '') + '" placeholder="예: 8성 이상 상대의 마력 회로를 직접 읽어낸다"></div>' +
+      '</div></details>' +
+      '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="f-isDraft"' + (s ? (s.isDraft ? ' checked' : '') : '') + '>추천 가안 (미확정)으로 표시</label>' +
+      '<div class="sheet-actions"><button type="button" class="btn" id="f-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + (s ? '저장' : '도감에 추가') + '</button></div></form>';
+    openSheet(s ? '스킬 수정' : '새 스킬', body, sh => {
+      if (focusSeal) setTimeout(() => { const b = $('#f-seal-box', sh); if (b) b.scrollIntoView({ block: 'center' }); }, 60);
+      const syncArea = () => { const self = $('#f-reach', sh).value === 'self'; $('#f-area', sh).disabled = self; if (self) $('#f-area', sh).value = ''; };
+      $('#f-reach', sh).addEventListener('change', syncArea); syncArea();
+      ['difficulty', 'power'].forEach(k => { const el = $('#f-' + k, sh); el.addEventListener('input', () => { $('#f-' + k + '-v', sh).textContent = el.value; }); });
+      $('#f-cancel', sh).addEventListener('click', closeSheet);
+      if (!s) setTimeout(() => { try { $('#f-nameKo', sh).focus(); } catch (e) {} }, 80);
+      $('#skill-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const nameKo = $('#f-nameKo', sh).value.trim(); const desc = $('#f-desc', sh).value.trim();
+        if (!nameKo) { toast('스킬 이름을 적어 주세요.'); $('#f-nameKo', sh).focus(); return; }
+        if (!desc) { toast('효과와 연출을 한 줄이라도 적어 주세요.'); $('#f-desc', sh).focus(); return; }
+        const obj = normSkill({
+          id: s ? s.id : uid('sk'), characterId: s ? s.characterId : r.c, nameKo: nameKo, desc: desc,
+          category: $('#f-category', sh).value, tier: $('#f-tier', sh).value,
+          nameEn: $('#f-nameEn', sh).value.trim(), subType: $('#f-subType', sh).value.trim(),
+          difficulty: Number($('#f-difficulty', sh).value), power: Number($('#f-power', sh).value),
+          gimmick: $('#f-gimmick', sh).value.trim(), quote: $('#f-quote', sh).value.trim(), isDraft: $('#f-isDraft', sh).checked,
+          reach: $('#f-reach', sh).value, area: $('#f-area', sh).value,
+          sealed: $('#f-sealed', sh).checked, unlockType: $('#f-unlockType', sh).value, unlockCond: $('#f-unlockCond', sh).value.trim(),
+          traits: $('#f-kind', sh) ? ($('#f-kind', sh).value ? [$('#f-kind', sh).value] : []) : (s ? s.traits : [])
+        });
+        try {
+          await write('skills', obj);
+          closeSheet();
+          toast(s ? '저장했어요.' : '「' + obj.nameKo + '」를 추가했어요.');
+          const hc = homeCat(obj);
+          const keepAll = route.v === 'list' && (route.cat === 'all' || route.cat === 'u:all') && isUCat(route.cat) === isUnique(obj);
+          if (!s) go({ v: 'skill', c: obj.characterId, cat: keepAll ? route.cat : hc, s: obj.id });
+          else if (route.v === 'skill' && route.from !== 'growth') {
+            const allCat = isUnique(obj) ? 'u:all' : 'all';
+            if (route.cat !== hc && route.cat !== allCat) go(Object.assign({}, route, { cat: hc }), { replace: true });
+            if (isUnique(obj) !== isUnique(s)) toast(isUnique(obj) ? '고유 스킬로 옮겼어요.' : '일반 스킬로 옮겼어요.');
+          }
+        } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- character form ---- */
+  function openCharForm(cid) {
+    const c = cid ? state.chars.get(cid) : null;
+    const f = (id, label, val, ph, req) => '<div class="field"><label for="' + id + '">' + label + (req ? ' <em>*</em>' : '') + '</label><input class="input" id="' + id + '" value="' + esc(val || '') + '" placeholder="' + esc(ph || '') + '"></div>';
+    const t = (id, label, val, ph) => '<div class="field"><label for="' + id + '">' + label + '</label><textarea class="textarea" id="' + id + '" placeholder="' + esc(ph || '') + '">' + esc(val || '') + '</textarea></div>';
+    const tierSel = (id, label, cur) => '<div class="field"><label for="' + id + '">' + label + '</label><select class="select" id="' + id + '">' + opt('', '없음', cur == null ? '' : cur) + [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => opt(n, n + '성', cur)).join('') + '</select></div>';
+    const body = '<form class="form" id="char-form" novalidate>' +
+      '<div class="row2">' + f('c-name', '이름', c && c.name, '예: 왓더퍽 (WhatTheFuck)', true) + f('c-avatar', '약자 (2~4자)', c && c.avatar, 'WTF') + '</div>' +
+      '<div class="row2">' + f('c-className', '클래스 · 이명', c && c.className, '아르카나') + f('c-gender', '성별', c && c.gender, '') + '</div>' +
+      t('c-ability', '고유 능력', c && c.ability, '이 인물만의 핵심 능력') +
+      '<details class="more"' + (c ? '' : ' open') + '><summary>등급 · 위장 · 성격</summary><div class="form">' +
+      '<div class="row2">' + f('c-realPower', '본실력 표기', c && c.realPower, '7성 (더 오를 수 있음)') + tierSel('c-realTier', '본실력 등급', c && c.realTier) + '</div>' +
+      '<div class="row2">' + f('c-disguisePower', '위장 표기', c && c.disguisePower, '2성급 완벽 위장') + tierSel('c-disguiseTier', '위장 등급', c && c.disguiseTier) + '</div>' +
+      f('c-controlRank', '마력 조종 수준', c && c.controlRank, '세계 최고') +
+      f('c-quote', '대표 대사', c && c.quote, '') +
+      t('c-disguiseDesc', '위장 특징', c && c.disguiseDesc, '') + t('c-personality', '성격 · 대인 특징', c && c.personality, '') +
+      '</div></details>' +
+      (c ? '<button type="button" class="btn small danger" id="c-delete" style="align-self:flex-start">' + icon('trash') + '이 인물 삭제</button>' : '') +
+      '<div class="sheet-actions"><button type="button" class="btn" id="c-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + (c ? '저장' : '인물 등록') + '</button></div></form>';
+    openSheet(c ? '인물 정보 수정' : '새 인물 등록', body, sh => {
+      $('#c-cancel', sh).addEventListener('click', closeSheet);
+      if (c) $('#c-delete', sh).addEventListener('click', () => {
+        const n = skillsOf(c.id).length;
+        confirmSheet('「' + shortName(c.name) + '」 삭제', '인물과 스킬 ' + n + '개, 기믹이 모두 지워져요. 지우기 전에 메뉴의 백업을 받아두면 안전해요.', '모두 삭제', async () => {
+          try { for (const s of skillsOf(c.id)) await remove('skills', s.id); await remove('characters', c.id); go({ v: 'home' }, { replace: true }); toast('인물을 지웠어요.'); } catch (e) {}
+        });
+      });
+      $('#char-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = $('#c-name', sh).value.trim();
+        if (!name) { toast('이름을 적어 주세요.'); $('#c-name', sh).focus(); return; }
+        const num = id => { const v = $(id, sh).value; return v === '' ? null : Number(v); };
+        const obj = normChar(Object.assign({}, c || { order: charsSorted().length + 1, gimmicks: [], story: '' }, {
+          id: c ? c.id : uid('char'), name: name, avatar: $('#c-avatar', sh).value.trim() || name.slice(0, 2),
+          className: $('#c-className', sh).value.trim(), gender: $('#c-gender', sh).value.trim(), ability: $('#c-ability', sh).value.trim(),
+          realPower: $('#c-realPower', sh).value.trim(), realTier: num('#c-realTier'), disguisePower: $('#c-disguisePower', sh).value.trim(), disguiseTier: num('#c-disguiseTier'),
+          controlRank: $('#c-controlRank', sh).value.trim(), quote: $('#c-quote', sh).value.trim(), disguiseDesc: $('#c-disguiseDesc', sh).value.trim(), personality: $('#c-personality', sh).value.trim()
+        }));
+        try { await write('characters', obj); closeSheet(); toast(c ? '저장했어요.' : '「' + shortName(obj.name) + '」를 등록했어요.'); if (!c) go({ v: 'char', c: obj.id }); } catch (err) {}
+      });
+    });
+  }
+
+  function openStoryForm(cid) {
+    const c = state.chars.get(cid);
+    openSheet('스토리', '<form class="form" id="story-form"><div class="field"><label for="s-story">과거사 · 관계 · 메모</label><textarea class="textarea" id="s-story" style="min-height:260px" placeholder="자유롭게 적어 주세요.">' + esc(c.story) + '</textarea></div>' +
+      '<div class="sheet-actions"><button type="button" class="btn" id="s-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + '저장</button></div></form>', sh => {
+      $('#s-cancel', sh).addEventListener('click', closeSheet);
+      $('#story-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        try { await write('characters', Object.assign({}, c, { story: $('#s-story', sh).value })); closeSheet(); toast('저장했어요.'); } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- goal form ---- */
+  function openGoalForm(cid) {
+    const c = state.chars.get(cid);
+    const lines = c.transcend.candidates.map(x => x.title + ': ' + x.desc).join('\n');
+    openSheet('최종 목표 · 초월 후보', '<form class="form" id="goal-form"><div class="field"><label for="goal-text">최종 목표</label><textarea class="textarea" id="goal-text">' + esc(c.goal) + '</textarea></div>' +
+      '<div class="field"><label for="goal-cands">초월 행동 후보 (한 줄에 하나, "제목: 설명")</label><textarea class="textarea" id="goal-cands" style="min-height:180px">' + esc(lines) + '</textarea></div>' +
+      '<div class="sheet-actions"><button type="button" class="btn" id="goal-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + '저장</button></div></form>', sh => {
+      $('#goal-cancel', sh).addEventListener('click', closeSheet);
+      $('#goal-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const old = c.transcend.candidates;
+        const cands = $('#goal-cands', sh).value.split('\n').map(x => x.trim()).filter(Boolean).map((x, i) => {
+          const k = x.indexOf(':'); const title = (k > 0 ? x.slice(0, k) : x).trim(); const desc = k > 0 ? x.slice(k + 1).trim() : '';
+          const prev = old.find(o => o.title === title) || old[i];
+          return { id: prev ? prev.id : uid('tc'), title: title, desc: desc };
+        });
+        const chosen = cands.some(x => x.id === c.transcend.chosen) ? c.transcend.chosen : null;
+        try { await write('characters', Object.assign({}, c, { goal: $('#goal-text', sh).value.trim(), transcend: { candidates: cands, chosen: chosen } })); closeSheet(); toast('저장했어요.'); } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- trait form ---- */
+  function openTraitForm(cid, tid) {
+    const c = state.chars.get(cid);
+    const t = tid ? c.traits.find(x => x.id === tid) : null;
+    const lines = t ? t.facets.map(f => f.name + ': ' + f.desc).join('\n') : '';
+    openSheet(t ? '고유 특성 수정' : '새 고유 특성', '<form class="form" id="trait-form" novalidate>' +
+      '<div class="row2"><div class="field"><label for="t-name">이름 <em>*</em></label><input class="input" id="t-name" value="' + esc(t ? t.name : '') + '" placeholder="예: 마나 조종"></div>' +
+      '<div class="field"><label for="t-nameEn">영문 이름</label><input class="input" id="t-nameEn" value="' + esc(t ? t.nameEn : '') + '"></div></div>' +
+      '<div class="field"><label for="t-desc">설명</label><textarea class="textarea" id="t-desc">' + esc(t ? t.desc : '') + '</textarea></div>' +
+
+      '<div class="sheet-actions"><button type="button" class="btn" id="t-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + '저장</button></div></form>', sh => {
+      $('#t-cancel', sh).addEventListener('click', closeSheet);
+      $('#trait-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = $('#t-name', sh).value.trim();
+        if (!name) { toast('이름을 적어 주세요.'); return; }
+        const facets = (t ? t.facets.map(f => f.name + ': ' + f.desc).join('\n') : '').split('\n').map(x => x.trim()).filter(Boolean).map((x, i) => {
+          const k = x.indexOf(':'); const fname = (k > 0 ? x.slice(0, k) : x).trim();
+          const prev = t && (t.facets.find(f => f.name === fname) || t.facets[i]);
+          return { id: prev ? prev.id : uid('f'), name: fname, desc: k > 0 ? x.slice(k + 1).trim() : '' };
+        });
+        const obj = normTrait({ id: t ? t.id : uid('tr'), name: name, nameEn: $('#t-nameEn', sh).value.trim(), desc: $('#t-desc', sh).value.trim(), facets: facets });
+        const traits = t ? c.traits.map(x => x.id === t.id ? obj : x) : c.traits.concat([obj]);
+        try { await write('characters', Object.assign({}, c, { traits: traits })); closeSheet(); toast('저장했어요.'); } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- gimmick form ---- */
+  function openGimmickForm(cid, gid) {
+    const c = state.chars.get(cid);
+    const g = gid ? c.gimmicks.find(x => x.id === gid) : null;
+    const rulesText = g ? g.rules.map(x => (x.added ? '+ ' : '') + x.text).join('\n') : '';
+    const body = '<form class="form" id="gm-form" novalidate>' +
+      '<div class="row2"><div class="field"><label for="g-name">기믹 이름 <em>*</em></label><input class="input" id="g-name" value="' + esc(g ? g.name : '') + '" placeholder="예: 차용 마력"></div>' +
+      '<div class="field"><label for="g-icon">아이콘</label><select class="select" id="g-icon">' + [['sparkle', '별빛'], ['droplet', '마나 방울'], ['flame', '불꽃'], ['magnet', '자석'], ['mask', '가면']].map(o => opt(o[0], o[1], g ? g.icon : 'sparkle')).join('') + '</select></div></div>' +
+      '<div class="field"><label for="g-nameEn">영문 이름</label><input class="input" id="g-nameEn" value="' + esc(g ? g.nameEn : '') + '"></div>' +
+      '<div class="field"><label for="g-summary">한 줄 요약</label><input class="input" id="g-summary" value="' + esc(g ? g.summary : '') + '"></div>' +
+      '<div class="field"><label for="g-rules">규칙 (한 줄에 하나, 앞에 + 를 붙이면 "새로 추가" 표시)</label><textarea class="textarea" id="g-rules" style="min-height:160px">' + esc(rulesText) + '</textarea></div>' +
+      (!g ? '<div class="field"><label for="g-sim">시뮬레이터</label><select class="select" id="g-sim">' + opt('none', '없음 (규칙만)', 'none') + opt('stack', '스택형 (최대 N스택)', '') + '</select></div>' +
+        '<div class="field" id="g-max-wrap" hidden><label for="g-max">최대 스택</label><input class="input" id="g-max" type="number" min="2" max="10" value="5"></div>' : '') +
+      '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="g-draft"' + (g ? (g.isDraft ? ' checked' : '') : ' checked') + '>신규 가안으로 표시</label>' +
+      '<div class="sheet-actions"><button type="button" class="btn" id="g-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + (g ? '저장' : '기믹 추가') + '</button></div></form>';
+    openSheet(g ? '기믹 수정' : '새 기믹', body, sh => {
+      $('#g-cancel', sh).addEventListener('click', closeSheet);
+      const simSel = $('#g-sim', sh);
+      if (simSel) simSel.addEventListener('change', () => { $('#g-max-wrap', sh).hidden = simSel.value !== 'stack'; });
+      $('#gm-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = $('#g-name', sh).value.trim();
+        if (!name) { toast('기믹 이름을 적어 주세요.'); return; }
+        const rules = $('#g-rules', sh).value.split('\n').map(x => x.trim()).filter(Boolean).map(x => /^\+\s*/.test(x) ? { text: x.replace(/^\+\s*/, ''), added: true } : { text: x });
+        let sim = g ? g.sim : null;
+        if (!g && simSel && simSel.value === 'stack') sim = { type: 'stack', label: name, max: clamp(Number($('#g-max', sh).value) || 5, 2, 10), initial: 0, perStack: [], addLabel: '+1', spendLabel: '전부 소모' };
+        const obj = normGimmick({ id: g ? g.id : uid('gm'), name: name, nameEn: $('#g-nameEn', sh).value.trim(), icon: $('#g-icon', sh).value, summary: $('#g-summary', sh).value.trim(), rules: rules, sim: sim, isDraft: $('#g-draft', sh).checked });
+        const list = g ? c.gimmicks.map(x => x.id === g.id ? obj : x) : c.gimmicks.concat([obj]);
+        if (g) delete simState[g.id];
+        try { await write('characters', Object.assign({}, c, { gimmicks: list })); closeSheet(); toast(g ? '저장했어요.' : '기믹을 추가했어요.'); if (!g) go({ v: 'gimmick', c: c.id, g: obj.id }); } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- more menu & backup ---- */
+  function openMenu() {
+    const items = [
+      ['home', 'grid', '인물 목록으로', '맨 처음 화면'],
+      ['search', 'search', '검색', '스킬과 기믹 찾기'],
+      ['backup', 'download', '백업 · 복원', 'JSON으로 내보내거나 불러오기']
+    ];
+    openSheet('메뉴', '<div class="menu-list">' + items.map(i => '<button type="button" class="menu-item" data-m="' + i[0] + '">' + icon(i[1]) + '<span><b>' + i[2] + '</b><small>' + i[3] + '</small></span></button>').join('') + '</div>' +
+      '<p class="hint" style="margin:0">' + (state.mode === 'public' ? '읽기 전용 공개판이에요.' : state.mode === 'db' ? '변경 내용은 자동 저장되고, 이 링크를 여는 모든 기기에서 똑같이 보여요.' : '지금은 이 브라우저에만 저장돼요. 다른 기기로 옮기려면 백업을 이용하세요.') + '</p>', sh => {
+      $$('[data-m]', sh).forEach(b => b.addEventListener('click', () => {
+        const m = b.dataset.m; closeSheet();
+        if (m === 'home') go({ v: 'home' }); else if (m === 'search') go({ v: 'search' }); else openBackup();
+      }));
+    });
+  }
+  function exportData() {
+    return JSON.stringify({ format: 'arcana-codex', version: 2, exportedAt: new Date().toISOString(), characters: charsSorted(), skills: Array.from(state.skills.values()) }, null, 2);
+  }
+  function openBackup() {
+    const json = exportData();
+    openSheet('백업 · 복원', '<div class="field"><span class="lbl">현재 도감 (인물 ' + state.chars.size + '명 · 스킬 ' + state.skills.size + '개)</span><textarea class="code" id="b-out" readonly>' + esc(json) + '</textarea></div>' +
+      '<div class="row-actions"><button type="button" class="btn small" id="b-copy">' + icon('copy') + '복사</button>' + (downloads ? '<button type="button" class="btn small" id="b-save">' + icon('download') + '파일로 저장</button>' : '') + '</div>' +
+      (canEdit() ? '<div class="field" style="margin-top:6px"><label for="b-in">불러오기 — 백업 JSON을 붙여넣거나 파일을 고르세요. 이전 도감 형식도 읽을 수 있어요.</label><textarea class="code" id="b-in" placeholder="{ &quot;characters&quot;: [...], &quot;skills&quot;: [...] }" style="color:var(--text)"></textarea>' +
+        '<input type="file" id="b-file" accept=".json,application/json,text/plain" class="input" style="padding:10px"></div>' +
+        '<div class="sheet-actions"><button type="button" class="btn" id="b-cancel">닫기</button><button type="button" class="btn primary" id="b-apply">' + icon('upload') + '불러오기</button></div>' : ''), sh => {
+      $('#b-copy', sh).addEventListener('click', () => {
+        const ta = $('#b-out', sh);
+        const fallback = () => { ta.focus(); ta.select(); toast('텍스트를 선택했어요. 복사해서 보관하세요.'); };
+        try { navigator.clipboard.writeText(json).then(() => toast('백업을 복사했어요.'), fallback); } catch (e) { fallback(); }
+      });
+      const save = $('#b-save', sh);
+      if (save) save.addEventListener('click', async () => {
+        try { await downloads.save({ filename: 'arcana-codex-' + new Date().toISOString().slice(0, 10) + '.json', data: json }); } catch (e) { toast('파일을 저장하지 않았어요.'); }
+      });
+      if (!canEdit()) return;
+      $('#b-cancel', sh).addEventListener('click', closeSheet);
+      $('#b-file', sh).addEventListener('change', e => {
+        const file = e.target.files && e.target.files[0]; if (!file) return;
+        const rd = new FileReader(); rd.onload = () => { $('#b-in', sh).value = String(rd.result || ''); }; rd.readAsText(file);
+      });
+      $('#b-apply', sh).addEventListener('click', () => {
+        let data;
+        try { data = parseBackup($('#b-in', sh).value); } catch (err) { toast(err.message); return; }
+        confirmSheet('도감을 교체할까요?', '불러온 인물 ' + data.characters.length + '명, 스킬 ' + data.skills.length + '개로 지금 도감을 바꿔요. 지금 내용이 필요하면 먼저 복사해 두세요.', '교체하기', () => applyBackup(data));
+      });
+    });
+  }
+  function parseBackup(text) {
+    if (!text.trim()) throw new Error('붙여넣은 내용이 없어요.');
+    let raw;
+    try { raw = JSON.parse(text); } catch (e) { throw new Error('JSON 형식이 아니에요. 백업 전체를 빠짐없이 붙여넣었는지 확인해 주세요.'); }
+    let chars = [], skills = [];
+    if (Array.isArray(raw)) skills = raw;
+    else if (raw && Array.isArray(raw.skills)) { skills = raw.skills; chars = Array.isArray(raw.characters) ? raw.characters : []; }
+    else throw new Error('인물이나 스킬 목록을 찾지 못했어요.');
+    chars = chars.map((c, i) => {
+      const n = normChar(c, i);
+      const cur = state.chars.get(n.id);
+      if (cur && !(Array.isArray(c.gimmicks) && c.gimmicks.length)) n.gimmicks = cur.gimmicks;
+      if (cur && !c.story) n.story = cur.story;
+      return n;
+    });
+    if (!chars.length) chars = charsSorted();
+    const fallback = chars[0] ? chars[0].id : '';
+    skills = skills.map(s => normSkill(s, fallback)).map(s => (chars.some(c => c.id === s.characterId) ? s : Object.assign(s, { characterId: fallback })));
+    return { characters: chars, skills: skills };
+  }
+  async function applyBackup(data) {
+    closeSheet();
+    toast('불러오는 중…');
+    try {
+      const keepS = new Set(data.skills.map(s => s.id)), keepC = new Set(data.characters.map(c => c.id));
+      if (state.mode === 'db') {
+        for (const s of Array.from(state.skills.values())) if (!keepS.has(s.id)) await db.collection('skills').doc(s.id).delete();
+        for (const c of Array.from(state.chars.values())) if (!keepC.has(c.id)) await db.collection('characters').doc(c.id).delete();
+        for (const c of data.characters) await db.collection('characters').doc(c.id).set(JSON.parse(JSON.stringify(c)));
+        for (const s of data.skills) await db.collection('skills').doc(s.id).set(JSON.parse(JSON.stringify(s)));
+      } else {
+        state.chars = new Map(data.characters.map(c => [c.id, c])); state.skills = new Map(data.skills.map(s => [s.id, s])); persistLocal();
+      }
+      go({ v: 'home' }, { replace: true });
+      toast('불러왔어요. 인물 ' + data.characters.length + '명 · 스킬 ' + data.skills.length + '개');
+    } catch (e) { toast('불러오는 중 일부를 저장하지 못했어요. 다시 시도해 주세요.'); render(); }
+  }
+
+  /* ================= toast ================= */
+  let toastTimer = null;
+  function toast(msg, actionLabel, onAction) {
+    const root = $('#toast-root');
+    root.innerHTML = '<div class="toast" role="status"><span>' + esc(msg) + '</span>' + (actionLabel ? '<button type="button" id="toast-act">' + esc(actionLabel) + '</button>' : '') + '</div>';
+    if (actionLabel) $('#toast-act', root).addEventListener('click', () => { root.innerHTML = ''; onAction(); });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { root.innerHTML = ''; }, actionLabel ? 6500 : 2600);
+  }
+
+  /* ================= boot ================= */
+  $('#btn-back').innerHTML = icon('back');
+  $('#btn-search').innerHTML = icon('search');
+  $('#btn-more').innerHTML = icon('more');
+  $('#btn-back').addEventListener('click', goBack);
+  const topBtn = $('#to-top');
+  topBtn.innerHTML = icon('back', ' style="transform:rotate(90deg)"');
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  let topTick = false;
+  window.addEventListener('scroll', () => { if (topTick) return; topTick = true; requestAnimationFrame(() => { topBtn.hidden = window.scrollY < 900; topTick = false; }); }, { passive: true });
+  document.addEventListener('keydown', e => {
+    if (sheetOpen || route.v !== 'skill' || e.altKey || e.metaKey || e.ctrlKey) return;
+    const t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+    const b = e.key === 'ArrowLeft' ? $('.pn:not(.next)') : e.key === 'ArrowRight' ? $('.pn.next') : null;
+    if (b && !b.disabled) { e.preventDefault(); b.click(); }
+  });
+  $('#btn-search').addEventListener('click', () => { if (route.v !== 'search') go({ v: 'search' }); });
+  $('#btn-more').addEventListener('click', openMenu);
+  try { const saved = JSON.parse(lsGet('arcana-codex-route') || 'null'); if (saved && saved.v) route = saved; } catch (e) {}
+  try { history.replaceState({ r: route, d: 0 }, ''); } catch (e) {}
+  initStore();
+})();
+</script>
+</body></html>
