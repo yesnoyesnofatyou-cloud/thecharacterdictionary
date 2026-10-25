@@ -1,0 +1,1891 @@
+<title>아르카나 인물 도감</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one narrow column of large tap targets; each screen goes one level deeper (인물 → 메뉴 → 유형 → 목록 → 상세). Single committed dark "grimoire at night" look. */
+:root {
+  color-scheme: dark;
+  --ink: #0d0b15;
+  --ink-2: #15121f;
+  --ink-3: #1e1a2d;
+  --ink-4: #282339;
+  --line: #2f2944;
+  --line-2: #3d3557;
+  --text: #ede9f7;
+  --muted: #a49cbd;
+  --faint: #716a8c;
+  --arcane: #b49cff;
+  --arcane-deep: #7a5ce6;
+  --arcane-wash: rgba(180, 156, 255, 0.12);
+  --mana: #63e0e6;
+  --mana-wash: rgba(99, 224, 230, 0.12);
+  --ember: #f2b75e;
+  --ember-wash: rgba(242, 183, 94, 0.13);
+  --rose: #f27c96;
+  --rose-wash: rgba(242, 124, 150, 0.13);
+  --jade: #62d49c;
+  --jade-wash: rgba(98, 212, 156, 0.13);
+  --font-display: "Hahmlet", "Noto Serif KR", "Noto Serif CJK KR", "Nanum Myeongjo", Georgia, serif;
+  --font-body: "IBM Plex Sans KR", "Noto Sans KR", "Noto Sans CJK KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r-s: 10px;
+  --r-m: 16px;
+  --r-l: 22px;
+  --bar-h: 60px;
+}
+* { box-sizing: border-box; }
+html { background: var(--ink); }
+body {
+  background: var(--ink);
+  background-image: radial-gradient(1200px 600px at 50% -200px, rgba(122, 92, 230, 0.16), transparent 70%);
+  background-repeat: no-repeat;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--ink);
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--arcane); outline-offset: 2px; }
+.mono { font-family: var(--font-mono); }
+.display { font-family: var(--font-display); }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: rgba(13, 11, 21, 0.9);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.bar-inner {
+  max-width: 980px; margin: 0 auto; height: var(--bar-h);
+  padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px));
+  display: flex; align-items: center; gap: 8px;
+}
+.icon-btn {
+  width: 44px; height: 44px; flex: none; border-radius: 12px;
+  display: grid; place-items: center;
+  background: var(--ink-3); border: 1px solid var(--line); color: var(--text);
+}
+.icon-btn:hover { border-color: var(--line-2); background: var(--ink-4); }
+.icon-btn[hidden] { display: none !important; }
+.icon-btn svg { width: 22px; height: 22px; }
+.crumbs {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 2px;
+  overflow-x: auto; scrollbar-width: none; white-space: nowrap;
+}
+.crumbs::-webkit-scrollbar { display: none; }
+.crumbs.fade { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 22px); mask-image: linear-gradient(to right, transparent 0, #000 22px); }
+.crumb {
+  border: 0; background: none; padding: 8px 6px; border-radius: 8px;
+  color: var(--muted); font-size: 13.5px; font-weight: 500; flex: none;
+}
+.crumb:hover { color: var(--text); background: var(--ink-3); }
+.crumb.current { color: var(--text); font-weight: 700; cursor: default; background: none; }
+.crumb-sep { color: var(--faint); font-size: 12px; flex: none; }
+.brand { font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; color: var(--text); padding: 0 6px; }
+
+/* ---------- page ---------- */
+.page {
+  max-width: 980px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 120px;
+  display: flex; flex-direction: column; gap: 22px;
+}
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--arcane); }
+.h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(26px, 6vw, 36px); line-height: 1.15; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+.h2 { font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.25; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 62ch; }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.section-head > div { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+
+/* ---------- big tiles ---------- */
+.tiles { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 720px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 720px) { .tiles.quad { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.tile {
+  position: relative; text-align: left;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+  min-height: 150px; padding: 16px;
+  background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-l);
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.tile:hover { border-color: var(--line-2); background: var(--ink-3); transform: translateY(-2px); }
+.tile:active { transform: translateY(0); }
+.tile.dim { opacity: 0.5; }
+.tile.dashed { border-style: dashed; background: transparent; align-items: center; justify-content: center; text-align: center; color: var(--muted); gap: 8px; }
+.tile.dashed:hover { color: var(--text); border-color: var(--arcane-deep); }
+.tile-icon {
+  width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
+  background: var(--tone-wash, var(--arcane-wash)); color: var(--tone, var(--arcane));
+  border: 1px solid color-mix(in srgb, var(--tone, var(--arcane)) 35%, transparent);
+}
+.tile-icon svg { width: 28px; height: 28px; }
+.tile-name { font-family: var(--font-display); font-weight: 700; font-size: 19px; line-height: 1.2; }
+.tile-sub { color: var(--muted); font-size: 13px; line-height: 1.45; margin-top: 3px; }
+.tile-count { position: absolute; top: 14px; right: 14px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--muted); }
+.tile-count b { color: var(--text); font-size: 20px; font-weight: 600; }
+.tile > .chip { position: absolute; top: 14px; right: 14px; }
+.tile.big { min-height: 168px; }
+
+/* tones */
+.t-arcane { --tone: var(--arcane); --tone-wash: var(--arcane-wash); }
+.t-mana { --tone: var(--mana); --tone-wash: var(--mana-wash); }
+.t-ember { --tone: var(--ember); --tone-wash: var(--ember-wash); }
+.t-rose { --tone: var(--rose); --tone-wash: var(--rose-wash); }
+.t-jade, .t-green { --tone: var(--jade); --tone-wash: var(--jade-wash); }
+.t-cyan { --tone: var(--mana); --tone-wash: var(--mana-wash); }
+
+/* ---------- trait / growth ---------- */
+.chip.trait { background: linear-gradient(90deg, rgba(99,224,230,.16), rgba(180,156,255,.16)); color: var(--mana); border-color: color-mix(in srgb, var(--mana) 45%, transparent); }
+.chip svg { width: 12px; height: 12px; }
+.chip.sealed-chip { background: var(--ink); color: var(--muted); border: 1px dashed var(--line-2); }
+.feature {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; text-align: left;
+  padding: 16px 18px; border-radius: var(--r-l); border: 1px solid color-mix(in srgb, var(--mana) 45%, transparent);
+  background: linear-gradient(110deg, rgba(99,224,230,.10), var(--ink-2) 55%, rgba(180,156,255,.08));
+}
+.feature:hover { border-color: var(--mana); }
+.feature-n { font-size: 28px; font-weight: 600; color: var(--mana); }
+.trait-hero { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: var(--r-l); border: 1px solid color-mix(in srgb, var(--mana) 40%, transparent); background: linear-gradient(160deg, rgba(99,224,230,.09), var(--ink-2) 60%); }
+.trait-hero .row { display: flex; gap: 14px; align-items: center; }
+.trait-hero p { margin: 0; color: var(--text); max-width: 62ch; white-space: pre-line; }
+.goal { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: var(--r-l); border: 1px solid color-mix(in srgb, var(--arcane) 45%, transparent); background: linear-gradient(160deg, var(--arcane-wash), var(--ink-2) 65%); }
+.goal .k { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--arcane); letter-spacing: .06em; }
+.goal .k svg { width: 18px; height: 18px; }
+.goal p { margin: 0; font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1.45; text-wrap: balance; }
+.goal .chosen { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: var(--r-m); background: var(--ink); border: 1px solid var(--line-2); }
+.goal .chosen span:last-child { color: var(--muted); font-size: 14px; }
+.cand-list { display: flex; flex-direction: column; gap: 10px; }
+.cand { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 4px 12px; align-items: start; padding: 14px; border-radius: var(--r-m); background: var(--ink-2); border: 1px solid var(--line); }
+.cand .btn { grid-column: 2; justify-self: start; margin-top: 6px; }
+.cand .num { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--ink-4); color: var(--muted); font-weight: 600; }
+.cand b { font-family: var(--font-display); font-size: 16.5px; }
+.cand p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.cand.on { border-color: var(--arcane); background: var(--arcane-wash); }
+.cand.on .num { background: var(--arcane-deep); color: #fff; }
+.cand.dimmed { opacity: .55; }
+.unlock-group { display: flex; flex-direction: column; gap: 10px; }
+.ug-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.skill-row.sealed { border-style: dashed; background: repeating-linear-gradient(135deg, var(--ink-2) 0 10px, #17142200 10px 20px), var(--ink-2); }
+.skill-row.sealed .tier-block { opacity: .6; }
+.skill-row .cond { display: flex; gap: 6px; align-items: flex-start; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+.skill-row .cond svg { width: 14px; height: 14px; flex: none; margin-top: 3px; color: var(--faint); }
+.seal-banner { padding: 16px; border-radius: var(--r-m); border: 1px dashed var(--line-2); background: var(--ink); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.seal-banner .k { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .04em; }
+.seal-banner .k svg { width: 16px; height: 16px; }
+.seal-banner p { margin: 0; font-weight: 600; }
+.callout.jade { background: var(--jade-wash); border-color: color-mix(in srgb, var(--jade) 30%, transparent); }
+.callout.jade .k { color: var(--jade); }
+.tier-chip.rng.on { background: var(--jade-wash); border-color: var(--jade); }
+.tier-chip.zero { opacity: .45; }
+.bar-sep { flex: none; width: 1px; align-self: stretch; margin: 8px 4px; background: var(--line-2); }
+.chip.range-chip { background: var(--ink); color: var(--jade); border-color: color-mix(in srgb, var(--jade) 35%, transparent); }
+.tier-chip.facet.on { background: var(--mana-wash); border-color: var(--mana); }
+.checks { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- chips ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 9px;
+  border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap;
+  background: var(--tone-wash, var(--ink-4)); color: var(--tone, var(--muted));
+  border: 1px solid color-mix(in srgb, var(--tone, var(--line-2)) 35%, transparent);
+}
+.chip.plain { background: var(--ink-3); color: var(--muted); border-color: var(--line); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ---------- character cards (home) ---------- */
+.sigil { position: relative; width: 72px; height: 72px; flex: none; display: grid; place-items: center; }
+.sigil svg.ring { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--arcane); }
+.sigil span { position: relative; z-index: 1; font-family: var(--font-mono); font-weight: 600; font-size: 17px; letter-spacing: 0.04em; color: var(--text); }
+.sigil.xl { width: 96px; height: 96px; }
+.sigil.xl span { font-size: 22px; }
+
+.char-list { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 720px) { .char-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.char-card {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) 20px; gap: 16px; align-items: center; text-align: left;
+  padding: 18px; min-height: 0; background: linear-gradient(160deg, var(--ink-3), var(--ink-2)); border: 1px solid var(--line); border-radius: var(--r-l);
+  transition: border-color .15s, transform .15s;
+}
+.char-card:hover { border-color: var(--arcane-deep); transform: translateY(-2px); }
+.char-card .chev { width: 20px; height: 20px; color: var(--faint); }
+.cc-body { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.cc-file { font-size: 11.5px; color: var(--faint); letter-spacing: .08em; }
+.cc-name { font-family: var(--font-display); font-weight: 800; font-size: 22px; line-height: 1.2; }
+.cc-sub { color: var(--muted); font-size: 13.5px; }
+.nw { white-space: nowrap; }
+.cc-stats { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.cc-stats b { color: var(--text); font-weight: 600; font-size: 15px; }
+.add-slim {
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 56px;
+  border: 1px dashed var(--line-2); border-radius: var(--r-m); background: transparent; color: var(--muted); font-weight: 600;
+}
+.add-slim:hover { color: var(--text); border-color: var(--arcane-deep); }
+.add-slim svg { width: 18px; height: 18px; }
+.v-note { display: block; font-family: var(--font-body); font-size: 11.5px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+.skill-row .en .st { color: var(--muted); font-family: var(--font-body); }
+@media (min-width: 900px) { .page .skill-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); } .page .skill-list .skill-row { align-self: stretch; } }
+.to-top {
+  position: fixed; z-index: 40; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--ink-4); border: 1px solid var(--line-2); color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,.4);
+}
+.to-top svg { width: 22px; height: 22px; }
+
+/* ---------- hero (character menu) ---------- */
+.hero {
+  display: grid; gap: 18px; padding: 22px;
+  background: linear-gradient(180deg, var(--ink-3), var(--ink-2));
+  border: 1px solid var(--line); border-radius: var(--r-l);
+}
+.hero-top { display: flex; gap: 16px; align-items: center; }
+.hero-top > div:not(.sigil) { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.quote { font-family: var(--font-display); font-weight: 500; color: var(--arcane); font-size: 15.5px; line-height: 1.5; margin: 0; }
+.quote::before { content: "“"; } .quote::after { content: "”"; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.stat { padding: 10px 12px; background: var(--ink); border: 1px solid var(--line); border-radius: var(--r-m); min-width: 0; }
+.stat .k { font-size: 11.5px; color: var(--faint); font-weight: 600; letter-spacing: .04em; }
+.stat .v { font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.3; margin-top: 2px; overflow-wrap: anywhere; }
+.row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  height: 46px; padding: 0 16px; border-radius: 14px; font-weight: 600; font-size: 14.5px;
+  background: var(--ink-3); border: 1px solid var(--line-2); color: var(--text);
+}
+.btn:hover { background: var(--ink-4); }
+.btn svg { width: 18px; height: 18px; }
+.btn.primary { background: var(--arcane-deep); border-color: var(--arcane-deep); color: #fff; }
+.btn.primary:hover { background: #8a6df0; }
+.btn.danger { color: var(--rose); border-color: color-mix(in srgb, var(--rose) 40%, transparent); background: var(--rose-wash); }
+.btn.small { height: 38px; padding: 0 12px; font-size: 13.5px; border-radius: 12px; }
+.btn.ghost { background: transparent; }
+.btn[disabled] { opacity: .45; cursor: default; }
+
+/* ---------- panels ---------- */
+.panel { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-l); padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.panel h3 { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .06em; display: flex; align-items: center; gap: 8px; }
+.panel p { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
+.grid-2 { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 720px) { .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 14px; }
+.kv dt { color: var(--faint); } .kv dd { margin: 0; overflow-wrap: anywhere; }
+
+/* ---------- skill list ---------- */
+.filterbar { display: flex; flex-direction: column; gap: 10px; }
+.tierbar { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.tierbar::-webkit-scrollbar { display: none; }
+.tier-chip {
+  flex: none; min-width: 52px; height: 44px; padding: 0 12px; border-radius: 12px;
+  background: var(--ink-2); border: 1px solid var(--line); color: var(--muted);
+  font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+}
+.tier-chip small { font-family: var(--font-mono); font-weight: 500; color: var(--faint); font-size: 11.5px; }
+.tier-chip.on { background: var(--arcane-wash); border-color: var(--arcane); color: var(--text); }
+.tier-chip.trans { color: var(--ember); }
+.tier-chip.trans.on { background: var(--ember-wash); border-color: var(--ember); }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.select {
+  height: 40px; padding: 0 34px 0 12px; border-radius: 12px; background: var(--ink-2); border: 1px solid var(--line); color: var(--text);
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a49cbd' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+.toggle { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border-radius: 12px; background: var(--ink-2); border: 1px solid var(--line); font-size: 13.5px; color: var(--muted); }
+.toggle input { width: 18px; height: 18px; accent-color: var(--arcane-deep); }
+.skill-list { display: flex; flex-direction: column; gap: 10px; }
+.skill-row {
+  display: grid; grid-template-columns: 58px minmax(0, 1fr) 20px; gap: 14px; align-items: center;
+  text-align: left; padding: 14px; min-height: 92px;
+  background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-m);
+  transition: border-color .15s, background .15s;
+}
+.skill-row:hover { border-color: var(--line-2); background: var(--ink-3); }
+.skill-row.trans { border-color: color-mix(in srgb, var(--ember) 45%, transparent); background: linear-gradient(120deg, var(--ember-wash), var(--ink-2) 60%); }
+.skill-row .chev { color: var(--faint); width: 20px; height: 20px; }
+.skill-row .body { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.skill-row .nm { font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.3; overflow-wrap: anywhere; }
+.skill-row .en { font-family: var(--font-mono); font-size: 12px; color: var(--arcane); overflow-wrap: anywhere; }
+.skill-row .meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.tier-block {
+  width: 58px; height: 58px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--ink); border: 1px solid var(--line);
+}
+.tier-block b { font-family: var(--font-mono); font-size: 22px; line-height: 1; font-weight: 600; }
+.tier-block small { font-size: 11px; color: var(--faint); margin-top: 3px; }
+.tier-block.hi { border-color: color-mix(in srgb, var(--arcane) 50%, transparent); }
+.tier-block.hi b { color: var(--arcane); }
+.tier-block.trans { border-color: var(--ember); background: var(--ember-wash); }
+.tier-block.trans b { color: var(--ember); font-size: 24px; }
+.tier-block.img { position: relative; padding: 0; overflow: hidden; background: var(--ink); }
+.tier-block.img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tier-block.img .tb-badge {
+  position: absolute; right: 3px; bottom: 3px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 7px;
+  display: grid; place-items: center; font-family: var(--font-mono); font-size: 12px; font-weight: 600; line-height: 1;
+  background: rgba(13, 11, 21, 0.85); color: var(--text); border: 1px solid var(--line-2);
+}
+.tier-block.img.hi .tb-badge { color: var(--arcane); border-color: color-mix(in srgb, var(--arcane) 55%, transparent); }
+.tier-block.img.trans .tb-badge { color: var(--ember); border-color: var(--ember); }
+.skill-art { margin: 0; width: 100%; max-width: 360px; align-self: center; aspect-ratio: 1 / 1; border-radius: var(--r-l); overflow: hidden; border: 1px solid var(--line-2); box-shadow: 0 20px 60px rgba(122, 92, 230, 0.25); background: var(--ink-2); }
+.skill-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.icon-panel h3 svg { width: 16px; height: 16px; color: var(--arcane); }
+.code.prompt { min-height: 0; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+.icon-list { display: flex; flex-direction: column; gap: 10px; }
+.icon-row { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 14px; align-items: start; padding: 14px; background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-m); }
+.icon-row.done { opacity: .78; }
+.icon-row .body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.icon-row .meta { display: flex; flex-wrap: wrap; gap: 5px; }
+.linkish { border: 0; background: none; padding: 0; text-align: left; font-family: var(--font-display); font-weight: 700; font-size: 17px; color: var(--text); }
+.linkish:hover { color: var(--arcane); }
+.empty {
+  border: 1px dashed var(--line-2); border-radius: var(--r-l); padding: 28px 20px; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--muted);
+}
+.empty strong { color: var(--text); font-family: var(--font-display); font-size: 18px; }
+
+/* ---------- skill detail ---------- */
+.detail-head { display: flex; flex-direction: column; gap: 10px; }
+.meters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.meter { padding: 12px 14px; background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r-m); }
+.meter .top { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--muted); gap: 8px; }
+.meter .top b { font-family: var(--font-mono); color: var(--text); font-size: 14px; }
+.pips { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; margin-top: 8px; }
+.pips i { height: 8px; border-radius: 3px; background: var(--ink-4); }
+.pips i.on { background: var(--tone, var(--arcane)); }
+.callout { padding: 14px 16px; border-radius: var(--r-m); background: var(--arcane-wash); border: 1px solid color-mix(in srgb, var(--arcane) 30%, transparent); }
+.callout .k { font-size: 12px; font-weight: 700; color: var(--arcane); letter-spacing: .06em; margin-bottom: 4px; }
+.prevnext { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pn { text-align: left; padding: 12px 14px; border-radius: var(--r-m); background: var(--ink-2); border: 1px solid var(--line); min-width: 0; min-height: 64px; }
+.pn.next { text-align: right; }
+.pn small { display: block; color: var(--faint); font-size: 12px; }
+.pn span { display: block; font-family: var(--font-display); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pn[disabled] { opacity: .35; cursor: default; }
+
+/* ---------- gimmick sims ---------- */
+.sim { background: var(--ink); border: 1px solid var(--line); border-radius: var(--r-l); padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+.sim-big { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.sim-big b { font-family: var(--font-mono); font-size: 40px; font-weight: 600; line-height: 1; }
+.sim-big span { color: var(--muted); }
+.range { width: 100%; height: 36px; accent-color: var(--arcane-deep); }
+.zonebar { position: relative; display: flex; height: 14px; border-radius: 7px; overflow: hidden; }
+.zonebar div { height: 100%; }
+.zonebar .mark { position: absolute; top: -3px; width: 4px; height: 20px; border-radius: 2px; background: var(--text); transform: translateX(-2px); box-shadow: 0 0 0 2px var(--ink); }
+.zone-wrap { position: relative; padding-top: 3px; }
+.zone-card { padding: 14px; border-radius: var(--r-m); background: var(--tone-wash); border: 1px solid color-mix(in srgb, var(--tone) 40%, transparent); }
+.zone-card .nm { font-family: var(--font-display); font-weight: 800; color: var(--tone); font-size: 18px; }
+.zone-card .ef { font-weight: 600; margin-top: 2px; }
+.zone-card .dt { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+.stackrow { display: grid; gap: 6px; }
+.stackrow button { height: 52px; border-radius: 12px; background: var(--ink-3); border: 1px solid var(--line); font-family: var(--font-mono); font-weight: 600; color: var(--faint); }
+.stackrow button.on { background: linear-gradient(180deg, #e46bc0, var(--arcane-deep)); border-color: transparent; color: #fff; }
+.statlines { display: grid; gap: 6px; font-size: 14px; }
+.statlines div { display: flex; justify-content: space-between; gap: 10px; }
+.statlines span { color: var(--muted); }
+.statlines b { font-family: var(--font-mono); font-weight: 600; }
+.gauge { height: 18px; border-radius: 9px; background: var(--ink-4); overflow: hidden; }
+.gauge div { height: 100%; background: linear-gradient(90deg, var(--mana), var(--arcane)); border-radius: 9px; transition: width .25s; }
+.gauge.full div { background: linear-gradient(90deg, var(--ember), #f58bb0); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px; background: var(--ink-3); border-radius: 14px; border: 1px solid var(--line); }
+.seg button { height: 46px; border-radius: 10px; border: 0; background: transparent; color: var(--muted); font-weight: 700; }
+.seg button.on { background: var(--ink); color: var(--text); box-shadow: inset 0 0 0 1px var(--line-2); }
+.tiergrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.tiergrid button { height: 44px; border-radius: 10px; background: var(--ink-3); border: 1px solid var(--line); font-weight: 700; font-size: 14px; }
+.tiergrid button:hover { border-color: var(--line-2); }
+.tiergrid button.on { background: var(--ember-wash); border-color: var(--ember); color: var(--ember); }
+.tiergrid button.safe { color: var(--muted); }
+.rules { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.rules li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: start; }
+.rules li::before { content: ""; width: 8px; height: 8px; margin: 8px 0 0 6px; border-radius: 2px; transform: rotate(45deg); background: var(--arcane); }
+.rules li.added::before { background: var(--ember); }
+.rules .chip { margin-left: 6px; vertical-align: 1px; }
+
+/* ---------- sheet ---------- */
+.backdrop { position: fixed; inset: 0; z-index: 50; background: rgba(5, 4, 10, 0.7); backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; }
+.sheet {
+  width: 100%; max-width: 620px; max-height: 92vh; max-height: 92dvh; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--ink-2); border: 1px solid var(--line-2); border-bottom: 0; border-radius: 24px 24px 0 0;
+  padding: 10px max(18px, env(safe-area-inset-right, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px));
+  display: flex; flex-direction: column; gap: 16px;
+  animation: up .22s ease-out;
+}
+@media (min-width: 720px) { .backdrop { align-items: center; } .sheet { border-radius: 24px; border-bottom: 1px solid var(--line-2); max-height: 86vh; } }
+@keyframes up { from { transform: translateY(24px); opacity: .6; } to { transform: none; opacity: 1; } }
+.grabber { width: 44px; height: 5px; border-radius: 3px; background: var(--line-2); margin: 0 auto; flex: none; }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.sheet-head h2 { font-family: var(--font-display); font-size: 20px; margin: 0; }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label, .field .lbl { font-size: 13px; font-weight: 600; color: var(--muted); }
+.field label em { color: var(--rose); font-style: normal; }
+.input, .textarea, .field .select {
+  width: 100%; min-height: 48px; padding: 12px 14px; border-radius: 14px;
+  background: var(--ink); border: 1px solid var(--line-2); color: var(--text); font-size: 16px;
+}
+.field .select { padding-right: 34px; }
+.textarea { min-height: 110px; resize: vertical; line-height: 1.55; }
+.input:focus, .textarea:focus, .select:focus { border-color: var(--arcane); outline: none; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+details.more { border: 1px solid var(--line); border-radius: var(--r-m); background: var(--ink); }
+details.more summary { list-style: none; cursor: pointer; padding: 14px 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; color: var(--muted); }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::after { content: "+"; font-family: var(--font-mono); font-size: 18px; }
+details.more[open] summary::after { content: "−"; }
+details.more .form { padding: 0 16px 16px; }
+.rangeval { font-family: var(--font-mono); color: var(--text); font-weight: 600; }
+.sheet-actions { display: flex; gap: 10px; position: sticky; bottom: calc(-18px - env(safe-area-inset-bottom, 0px)); background: var(--ink-2); padding: 12px 0 calc(4px + env(safe-area-inset-bottom, 0px)); margin-bottom: calc(-4px - env(safe-area-inset-bottom, 0px)); }
+.sheet-actions .btn { flex: 1; height: 52px; }
+.menu-list { display: flex; flex-direction: column; gap: 8px; }
+.menu-item { display: flex; align-items: center; gap: 14px; text-align: left; padding: 14px; border-radius: var(--r-m); background: var(--ink); border: 1px solid var(--line); }
+.menu-item:hover { border-color: var(--line-2); }
+.menu-item svg { width: 22px; height: 22px; color: var(--arcane); flex: none; }
+.menu-item b { display: block; } .menu-item small { color: var(--muted); }
+.code { width: 100%; min-height: 160px; font-family: var(--font-mono); font-size: 12px; color: var(--jade); background: var(--ink); border: 1px solid var(--line-2); border-radius: 14px; padding: 12px; resize: vertical; }
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed; z-index: 60; left: 50%; transform: translateX(-50%);
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  width: max-content; max-width: calc(100% - 32px);
+  display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 16px;
+  background: var(--ink-4); border: 1px solid var(--line-2); border-radius: 14px; box-shadow: 0 12px 40px rgba(0,0,0,.45);
+  font-size: 14px; font-weight: 500;
+}
+.toast button { height: 36px; padding: 0 12px; border-radius: 10px; border: 0; background: var(--arcane-deep); color: #fff; font-weight: 700; flex: none; }
+.toast:not(:has(button)) { padding-right: 16px; }
+
+/* ---------- search ---------- */
+.searchbox { position: relative; }
+.searchbox svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--faint); }
+.searchbox input { padding-left: 44px; height: 54px; font-size: 16px; }
+.hint { color: var(--faint); font-size: 13px; }
+.loading { padding: 60px 0; text-align: center; color: var(--muted); }
+.notice { padding: 12px 14px; border-radius: var(--r-m); background: var(--ember-wash); border: 1px solid color-mix(in srgb, var(--ember) 35%, transparent); color: var(--text); font-size: 13.5px; }
+
+@media (max-width: 420px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stats .stat:last-child { grid-column: span 2; }
+  .tile { min-height: 140px; padding: 14px; }
+  .tile-name { font-size: 17.5px; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<header class="bar">
+  <div class="bar-inner">
+    <button class="icon-btn" id="btn-back" type="button" aria-label="뒤로" hidden></button>
+    <nav class="crumbs" id="crumbs" aria-label="현재 위치"></nav>
+    <button class="icon-btn" id="btn-search" type="button" aria-label="검색"></button>
+    <button class="icon-btn" id="btn-more" type="button" aria-label="메뉴"></button>
+  </div>
+</header>
+<main class="page" id="view"><div class="loading">도감을 여는 중…</div></main>
+<div id="sheet-root"></div>
+<button type="button" class="to-top" id="to-top" aria-label="맨 위로" hidden></button>
+<div id="toast-root" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ================= icons ================= */
+  const P = {
+    back: '<path d="M15 18l-6-6 6-6"/>',
+    chev: '<path d="M9 18l6-6-6-6"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>',
+    more: '<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    edit: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/>',
+    trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+    copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+    check: '<path d="M5 12l5 5L20 7"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+    book: '<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19"/><path d="M9 7h6"/>',
+    sparkle: '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 16l.7 1.8 1.8.7-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/>',
+    layers: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
+    grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+    attack: '<path d="M4 4l11.5 11.5M13 18l5-5M20 4L8.5 15.5M6 13l5 5M16.5 16.5L20 20M7.5 16.5L4 20"/>',
+    defense: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/>',
+    counter: '<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4 4v4h4"/><path d="M12 8v4l2.5 2.5"/>',
+    utility: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+    siphon: '<path d="M5 4h4v8a3 3 0 0 0 6 0V4h4v8a7 7 0 0 1-14 0z"/><path d="M5 8h4M15 8h4"/>',
+    hack: '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/>',
+    ward: '<path d="M12 2.5l8.2 4.75v9.5L12 21.5l-8.2-4.75v-9.5z"/><circle cx="12" cy="12" r="3.2"/>',
+    mobility: '<path d="M3 8h10.5a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
+    deceive: '<path d="M3 7c3.5 0 5.5-1.2 9-1.2S17.5 7 21 7c0 6.5-3 10-6 10-1.6 0-2-2-3-2s-1.4 2-3 2c-3 0-6-3.5-6-10z"/><path d="M7.5 11h3M13.5 11h3"/>',
+    passive: '<path d="M6.5 9a3 3 0 1 0 0 6c3 0 8-6 11-6a3 3 0 1 1 0 6c-3 0-8-6-11-6z"/>',
+    droplet: '<path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/>',
+    flame: '<path d="M12 3c.8 3.8 5 5.6 5 10.2A5 5 0 0 1 7 13.5c0-2.6 1.4-4.2 2.6-5.2.2 1.6 1 2.6 2.4 3.2-.9-3 0-6 0-8.5z"/>',
+    magnet: '<path d="M5 4h4v8a3 3 0 0 0 6 0V4h4v8a7 7 0 0 1-14 0z"/><path d="M5 8h4M15 8h4"/>',
+    mask: '<path d="M3 7c3.5 0 5.5-1.2 9-1.2S17.5 7 21 7c0 6.5-3 10-6 10-1.6 0-2-2-3-2s-1.4 2-3 2c-3 0-6-3.5-6-10z"/><path d="M7.5 11h3M13.5 11h3"/>',
+    star: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.6l-5.3 2.8 1.2-6-4.5-4.1 6-.7z"/>',
+    download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+    upload: '<path d="M12 20V9M7 14l5-5 5 5M5 4h14"/>',
+    lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    unlock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.6-1.7"/>',
+    rise: '<path d="M4 18l6-6 4 4 6-8"/><path d="M15 8h5v5"/>',
+    crown: '<path d="M4 18h16M5 18l-1-10 5 4 3-6 3 6 5-4-1 10"/>',
+    seal: '<circle cx="12" cy="9" r="5"/><path d="M9 13.5L7.5 21l4.5-2.5 4.5 2.5L15 13.5"/>'
+  };
+  function icon(name, extra) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"' + (extra || '') + '>' + (P[name] || P.sparkle) + '</svg>';
+  }
+  function ringSvg() {
+    return '<svg class="ring" viewBox="0 0 100 100" fill="none" stroke="currentColor" aria-hidden="true">' +
+      '<circle cx="50" cy="50" r="47" stroke-width="1.2" opacity=".55"/>' +
+      '<circle cx="50" cy="50" r="40" stroke-width="1" stroke-dasharray="2 4" opacity=".7"/>' +
+      '<path d="M50 3 L91 74 L9 74 Z" stroke-width=".9" opacity=".35"/>' +
+      '<path d="M50 97 L9 26 L91 26 Z" stroke-width=".9" opacity=".35"/>' +
+      '<circle cx="50" cy="50" r="31" fill="#15121f" stroke-width="1.4"/></svg>';
+  }
+
+  /* ================= schema ================= */
+  const CATEGORIES = [
+    { id: 'attack', name: '공격', desc: '타격 · 마나 번 · 방출', icon: 'attack', tone: 'rose' },
+    { id: 'defense', name: '방어', desc: '보호막 · 흘리기 · 생존', icon: 'defense', tone: 'mana' },
+    { id: 'counter', name: '반격', desc: '받은 공격 되돌리기', icon: 'counter', tone: 'ember' },
+    { id: 'utility', name: '유틸', desc: '마나 조종 · 정보 · 지원', icon: 'utility', tone: 'jade' },
+    { id: 'siphon', name: '강탈', desc: '적의 마력 빼앗기', icon: 'siphon', tone: 'arcane', isNew: true },
+    { id: 'hack', name: '술식 해킹', desc: '적 술식·버프에 개입', icon: 'hack', tone: 'mana', isNew: true },
+    { id: 'ward', name: '결계', desc: '전장에 영역 펼치기', icon: 'ward', tone: 'jade', isNew: true },
+    { id: 'mobility', name: '기동', desc: '이동 · 회피 · 위치 교환', icon: 'mobility', tone: 'arcane', isNew: true },
+    { id: 'deceive', name: '기만', desc: '위장 · 환술 · 도발', icon: 'deceive', tone: 'ember', isNew: true },
+    { id: 'passive', name: '패시브', desc: '언제나 켜져 있는 효과', icon: 'passive', tone: 'rose', isNew: true }
+  ];
+  const CAT = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
+  const TIERS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'transcendent'];
+  const TIER_SUB = { '1': '기초', '2': '하급', '3': '중하급', '4': '중급', '5': '중상급', '6': '상급', '7': '고급', '8': '최상급', '9': '정점', transcendent: '규격 외' };
+  const REACH = [
+    { id: 'melee', name: '근거리' },
+    { id: 'ranged', name: '원거리' },
+    { id: 'self', name: '자신' }
+  ];
+  const AREA = [
+    { id: 'single', name: '단일' },
+    { id: 'aoe', name: '광역' }
+  ];
+  const REACH_N = Object.fromEntries(REACH.map(x => [x.id, x.name]));
+  const AREA_N = Object.fromEntries(AREA.map(x => [x.id, x.name]));
+  function rangeLabel(s) { return [REACH_N[s.reach], s.reach === 'self' ? '' : AREA_N[s.area]].filter(Boolean).join(' · '); }
+  const UNLOCK_TYPES = [
+    { id: 'enemy', name: '강적', tone: 'rose', desc: '그 등급의 상대와 직접 맞붙어야 열린다' },
+    { id: 'attitude', name: '태도', tone: 'mana', desc: '능글맞음을 내려놓은 순간 열린다' },
+    { id: 'reveal', name: '위장', tone: 'ember', desc: '스스로 정체를 드러낸 순간 열린다' },
+    { id: 'bond', name: '관계', tone: 'jade', desc: '지키고 싶은 사람이 생겼을 때 열린다' },
+    { id: 'final', name: '초월', tone: 'arcane', desc: '최종 목표를 이룬 뒤에만 열린다' }
+  ];
+  const UNLOCK = Object.fromEntries(UNLOCK_TYPES.map(u => [u.id, u]));
+  const GIMMICK_TONES = { droplet: 'mana', flame: 'rose', magnet: 'arcane', mask: 'ember', sparkle: 'jade' };
+
+  /* ================= helpers ================= */
+  const $ = (s, el) => (el || document).querySelector(s);
+  const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function uid(prefix) { return prefix + '-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+  function tierNum(t) { return t === 'transcendent' ? 10 : Number(t) || 1; }
+  function tierText(t) { return t === 'transcendent' ? '★ 초월' : t + '성'; }
+  function parseTier(text) { const m = String(text || '').match(/(\d)\s*성/); return m ? Number(m[1]) : null; }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  function normChar(c, i) {
+    c = c || {};
+    const realTier = Number.isFinite(c.realTier) ? c.realTier : parseTier(c.realPower);
+    const disguiseTier = Number.isFinite(c.disguiseTier) ? c.disguiseTier : parseTier(c.disguisePower);
+    return {
+      id: String(c.id || uid('char')),
+      order: Number.isFinite(c.order) ? c.order : (i || 0) + 1,
+      name: String(c.name || '이름 없는 인물'),
+      avatar: String(c.avatar || String(c.name || '?').slice(0, 2)).slice(0, 4),
+      gender: String(c.gender || ''),
+      className: String(c.className || ''),
+      realPower: String(c.realPower || ''),
+      realTier: realTier,
+      disguisePower: String(c.disguisePower || ''),
+      disguiseTier: disguiseTier,
+      controlRank: String(c.controlRank || ''),
+      quote: String(c.quote || '').replace(/^["“]+|["”]+$/g, ''),
+      ability: String(c.ability || ''),
+      disguiseDesc: String(c.disguiseDesc || ''),
+      personality: String(c.personality || ''),
+      story: String(c.story || ''),
+      gimmicks: Array.isArray(c.gimmicks) ? c.gimmicks.map(normGimmick) : [],
+      traits: Array.isArray(c.traits) ? c.traits.map(normTrait) : [],
+      goal: String(c.goal || ''),
+      transcend: {
+        candidates: c.transcend && Array.isArray(c.transcend.candidates) ? c.transcend.candidates.map(x => ({ id: String(x.id || uid('tc')), title: String(x.title || ''), desc: String(x.desc || '') })).filter(x => x.title) : [],
+        chosen: c.transcend && c.transcend.chosen ? String(c.transcend.chosen) : null
+      }
+    };
+  }
+  function normTrait(t) {
+    t = t || {};
+    return {
+      id: String(t.id || uid('tr')), name: String(t.name || '고유 특성'), nameEn: String(t.nameEn || ''), desc: String(t.desc || ''),
+      facets: Array.isArray(t.facets) ? t.facets.map(f => ({ id: String(f.id || uid('f')), name: String(f.name || ''), desc: String(f.desc || '') })).filter(f => f.name) : []
+    };
+  }
+  function normGimmick(g) {
+    g = g || {};
+    return {
+      id: String(g.id || uid('gm')),
+      name: String(g.name || '이름 없는 기믹'),
+      nameEn: String(g.nameEn || ''),
+      icon: P[g.icon] ? g.icon : 'sparkle',
+      isDraft: !!g.isDraft,
+      summary: String(g.summary || ''),
+      rules: Array.isArray(g.rules) ? g.rules.map(r => typeof r === 'string' ? { text: r } : { text: String(r.text || ''), added: !!r.added }).filter(r => r.text) : [],
+      sim: g.sim && typeof g.sim === 'object' ? g.sim : null
+    };
+  }
+  function normSkill(s, fallbackChar) {
+    s = s || {};
+    const tier = s.tier === 'transcendent' ? 'transcendent' : String(clamp(Number(s.tier) || 1, 1, 9));
+    return {
+      id: String(s.id || uid('sk')),
+      characterId: String(s.characterId || fallbackChar || ''),
+      nameKo: String(s.nameKo || '이름 없는 스킬'),
+      nameEn: String(s.nameEn || ''),
+      category: CAT[s.category] ? s.category : 'utility',
+      tier: tier,
+      subType: String(s.subType || ''),
+      difficulty: clamp(Number(s.difficulty) || 5, 1, 10),
+      power: clamp(Number(s.power) || 5, 1, 10),
+      gimmick: String(s.gimmick || ''),
+      desc: String(s.desc || ''),
+      quote: String(s.quote || ''),
+      isDraft: !!s.isDraft,
+      sealed: !!s.sealed,
+      unlockType: UNLOCK[s.unlockType] ? s.unlockType : '',
+      unlockCond: String(s.unlockCond || ''),
+      traits: Array.isArray(s.traits) ? s.traits.map(String) : [],
+      reach: REACH_N[s.reach] ? s.reach : '',
+      area: AREA_N[s.area] && s.reach !== 'self' ? s.area : '',
+      icon: /^[0-9a-f]{32}$/.test(String(s.icon || '')) ? String(s.icon) : '',
+      iconUrl: /^img\/[\w.-]+$/.test(String(s.iconUrl || '')) ? String(s.iconUrl) : '',
+      iconPrompt: String(s.iconPrompt || '')
+    };
+  }
+
+  /* ================= store ================= */
+  const state = { chars: new Map(), skills: new Map(), ready: { c: false, s: false }, mode: 'pending', readOnly: false };
+  let db = null, downloads = null, assets = null;
+
+  function charsSorted() { return Array.from(state.chars.values()).sort((a, b) => a.order - b.order || a.name.localeCompare(b.name)); }
+  function skillsOf(cid) { return Array.from(state.skills.values()).filter(s => s.characterId === cid); }
+  function facetOf(c, tag) {
+    const [tid, fid] = String(tag).split(':');
+    const t = c && c.traits.find(x => x.id === tid);
+    if (!t) return null;
+    const f = fid ? t.facets.find(x => x.id === fid) : null;
+    return { t: t, f: f };
+  }
+  function skillImg(s) { return s ? (s.iconUrl || (s.icon ? '/_blob/' + s.icon : '')) : ''; }
+  function isUnique(s) { return s.traits.length > 0; }
+  function homeCat(s) { return isUnique(s) ? 'u:' + s.category : s.category; }
+  function isUCat(cat) { return String(cat || '').indexOf('u:') === 0; }
+  function hasTrait(s, tid, fid) { return s.traits.some(tag => { const p = tag.split(':'); return p[0] === tid && (!fid || fid === 'all' || p[1] === fid); }); }
+  function traitChips(c, s) {
+    const seen = {};
+    return s.traits.map(tag => { const x = facetOf(c, tag); if (!x) return ''; const label = x.t.name; if (seen[label]) return ''; seen[label] = 1; return '<span class="chip trait">◆ 고유 · ' + esc(label) + '</span>'; }).join('');
+  }
+
+  function persistLocal() {
+    lsSet('arcana-codex-v2', JSON.stringify({ characters: Array.from(state.chars.values()), skills: Array.from(state.skills.values()) }));
+  }
+  async function write(col, obj) {
+    const map = col === 'characters' ? state.chars : state.skills;
+    if (state.mode === 'db') {
+      const prev = map.get(obj.id);
+      map.set(obj.id, obj);
+      try { await db.collection(col).doc(obj.id).set(JSON.parse(JSON.stringify(obj))); }
+      catch (e) {
+        if (prev) map.set(obj.id, prev); else map.delete(obj.id);
+        render();
+        if (e && e.code === 'invalid_argument') { state.readOnly = true; toast('이 도감은 읽기 전용이라 저장할 수 없어요.'); }
+        else if (e && e.code === 'quota_exceeded') toast('저장 공간이 가득 찼어요. 쓰지 않는 스킬을 지운 뒤 다시 저장해 주세요.');
+        else toast('저장하지 못했어요. 잠시 후 다시 시도해 주세요.');
+        throw e;
+      }
+    } else {
+      map.set(obj.id, obj); persistLocal(); render();
+    }
+  }
+  async function remove(col, id) {
+    const map = col === 'characters' ? state.chars : state.skills;
+    if (state.mode === 'db') {
+      const prev = map.get(id);
+      map.delete(id);
+      try { await db.collection(col).doc(id).delete(); }
+      catch (e) { if (prev) map.set(id, prev); render(); toast('삭제하지 못했어요. 잠시 후 다시 시도해 주세요.'); throw e; }
+    } else { map.delete(id); persistLocal(); render(); }
+  }
+
+  async function initStore() {
+    const pub = window.__PUBLIC_DATA__;
+    if (pub && Array.isArray(pub.characters)) {
+      state.mode = 'public'; state.readOnly = true;
+      pub.characters.forEach((c, i) => { const n = normChar(c, i); state.chars.set(n.id, n); });
+      (pub.skills || []).forEach(x => { const n = normSkill(x); state.skills.set(n.id, n); });
+      state.ready.c = state.ready.s = true; render(); return;
+    }
+    let dbNs = null;
+    try {
+      if (window.claude && typeof window.claude.use === 'function') {
+        dbNs = await window.claude.use('db');
+        window.claude.use('downloads').then(d => { downloads = d; }).catch(() => {});
+        window.claude.use('assets').then(a => { assets = a; if (a) render(); }).catch(() => {});
+        window.claude.use('user').then(async u => {
+          if (!u || typeof u.can !== 'function') return;
+          try { const ok = await u.can('data.write'); if (ok === false) { state.readOnly = true; render(); } } catch (e) {}
+        }).catch(() => {});
+      }
+    } catch (e) { dbNs = null; }
+
+    if (dbNs) {
+      db = dbNs; state.mode = 'db';
+      db.collection('characters').onSnapshot(snap => {
+        state.chars = new Map(snap.docs.map((d, i) => { const c = normChar(Object.assign({}, d.data(), { id: d.id }), i); return [c.id, c]; }));
+        state.ready.c = true; render();
+      }, err => { state.ready.c = true; render(); });
+      db.collection('skills').onSnapshot(snap => {
+        state.skills = new Map(snap.docs.map(d => { const s = normSkill(Object.assign({}, d.data(), { id: d.id })); return [s.id, s]; }));
+        state.ready.s = true; render();
+      }, err => { state.ready.s = true; render(); });
+    } else {
+      state.mode = 'local';
+      const raw = lsGet('arcana-codex-v2');
+      if (raw) {
+        try {
+          const data = JSON.parse(raw);
+          (data.characters || []).forEach((c, i) => { const n = normChar(c, i); state.chars.set(n.id, n); });
+          (data.skills || []).forEach(s => { const n = normSkill(s); state.skills.set(n.id, n); });
+        } catch (e) {}
+      }
+      state.ready.c = state.ready.s = true; render();
+    }
+  }
+
+  /* ================= routing ================= */
+  let route = { v: 'home' };
+  let depth = 0;
+  const listPrefs = { tier: 'all', drafts: true, sort: 'tierAsc', facet: 'all', reach: 'all', area: 'all' };
+  try { Object.assign(listPrefs, JSON.parse(lsGet('arcana-codex-listprefs') || '{}')); } catch (e) {}
+
+  function parentOf(r) {
+    switch (r.v) {
+      case 'char': return { v: 'home' };
+      case 'profile': case 'gimmicks': case 'types': case 'story': case 'traits': case 'growth': case 'icons': return { v: 'char', c: r.c };
+      case 'gimmick': return { v: 'gimmicks', c: r.c };
+      case 'list': return isUCat(r.cat) ? { v: 'traits', c: r.c } : { v: 'types', c: r.c };
+      case 'skill': return r.from === 'growth' ? { v: 'growth', c: r.c } : { v: 'list', c: r.c, cat: r.cat || 'all' };
+      case 'search': return { v: 'home' };
+      default: return null;
+    }
+  }
+  function go(r, opts) {
+    opts = opts || {};
+    route = r;
+    lsSet('arcana-codex-route', JSON.stringify(r));
+    try {
+      if (opts.replace) history.replaceState({ r: r, d: depth }, '');
+      else { depth += 1; history.pushState({ r: r, d: depth }, ''); }
+    } catch (e) {}
+    render();
+    if (!opts.keepScroll) window.scrollTo(0, 0);
+  }
+  function goBack() {
+    const p = parentOf(route);
+    if (!p) return;
+    go(p, { replace: true });
+  }
+  window.addEventListener('popstate', ev => {
+    if (ev.state && ev.state.r) { route = ev.state.r; depth = ev.state.d || 0; lsSet('arcana-codex-route', JSON.stringify(route)); closeSheet(); render(); window.scrollTo(0, 0); }
+  });
+
+  function validRoute(r) {
+    if (!r || !r.v) return { v: 'home' };
+    if (r.v === 'home' || r.v === 'search') return r;
+    if (!state.chars.has(r.c)) return { v: 'home' };
+    if (r.v === 'gimmick' && !state.chars.get(r.c).gimmicks.some(g => g.id === r.g)) return { v: 'gimmicks', c: r.c };
+    if (r.v === 'list' && r.cat !== 'all' && !CAT[r.cat] && !(isUCat(r.cat) && (r.cat === 'u:all' || CAT[r.cat.slice(2)]))) return { v: 'types', c: r.c };
+    if (r.v === 'skill' && !state.skills.has(r.s)) return parentOf(r);
+    return r;
+  }
+
+  /* ================= top bar ================= */
+  function crumbsFor(r) {
+    const out = [{ label: '도감', r: { v: 'home' } }];
+    if (r.v === 'search') { out.push({ label: '검색' }); return out; }
+    const ch = r.c && state.chars.get(r.c);
+    if (!ch) return out;
+    out.push({ label: shortName(ch.name), r: { v: 'char', c: r.c } });
+    if (r.v === 'profile') out.push({ label: '개요' });
+    if (r.v === 'story') out.push({ label: '스토리' });
+    if (r.v === 'icons') out.push({ label: '아이콘 작업' });
+    if (r.v === 'growth' || (r.v === 'skill' && r.from === 'growth')) out.push({ label: '잠재 해방', r: { v: 'growth', c: r.c } });
+    const isTraitList = (r.v === 'list' || r.v === 'skill') && isUCat(r.cat) && r.from !== 'growth';
+    if (r.v === 'traits' || isTraitList) out.push({ label: '고유 스킬', r: { v: 'traits', c: r.c } });
+    if (r.v === 'gimmicks' || r.v === 'gimmick') out.push({ label: '전투 기믹', r: { v: 'gimmicks', c: r.c } });
+    if (r.v === 'gimmick') { const g = ch.gimmicks.find(x => x.id === r.g); out.push({ label: g ? g.name : '기믹' }); }
+    if (!isTraitList && r.from !== 'growth' && (r.v === 'types' || r.v === 'list' || r.v === 'skill')) out.push({ label: '일반 스킬', r: { v: 'types', c: r.c } });
+    if (r.from !== 'growth' && (r.v === 'list' || r.v === 'skill')) out.push({ label: catLabel(ch, r.cat), r: { v: 'list', c: r.c, cat: r.cat || 'all' } });
+    if (r.v === 'skill') { const s = state.skills.get(r.s); out.push({ label: s ? s.nameKo.replace(/\s*\(.*\)$/, '') : '스킬' }); }
+    out[out.length - 1].r = null;
+    return out;
+  }
+  function catLabel(c, cat) {
+    if (!cat || cat === 'all') return '전체';
+    if (isUCat(cat)) return cat === 'u:all' ? '전체' : (CAT[cat.slice(2)] ? CAT[cat.slice(2)].name : '전체');
+    return CAT[cat] ? CAT[cat].name : '전체';
+  }
+  function shortName(n) { return String(n).replace(/\s*\(.*\)$/, ''); }
+  function renderBar() {
+    const back = $('#btn-back');
+    back.hidden = route.v === 'home';
+    const cs = crumbsFor(route);
+    const nav = $('#crumbs');
+    if (route.v === 'home') { nav.classList.remove('fade'); nav.innerHTML = '<span class="brand">아르카나 인물 도감</span>'; return; }
+    nav.innerHTML = cs.map((c, i) => (i ? '<span class="crumb-sep">›</span>' : '') +
+      (c.r ? '<button type="button" class="crumb" data-crumb="' + i + '">' + esc(c.label) + '</button>' : '<span class="crumb current" aria-current="page">' + esc(c.label) + '</span>')).join('');
+    $$('[data-crumb]', nav).forEach(b => b.addEventListener('click', () => go(cs[Number(b.dataset.crumb)].r)));
+    requestAnimationFrame(() => { nav.scrollLeft = nav.scrollWidth; nav.classList.toggle('fade', nav.scrollWidth > nav.clientWidth + 2); });
+  }
+
+  /* ================= views ================= */
+  function render() {
+    if (!(state.ready.c && state.ready.s)) return;
+    route = validRoute(route);
+    renderBar();
+    const v = $('#view');
+    const fn = VIEWS[route.v] || VIEWS.home;
+    v.innerHTML = fn(route);
+    const bind = BINDS[route.v];
+    if (bind) bind(route, v);
+  }
+
+  function readOnlyNotice() {
+    if (state.mode === 'public') return '';
+    return state.readOnly ? '<div class="notice">읽기 전용으로 열려 있어요. 내용은 볼 수 있지만 고칠 수는 없어요.</div>' : '';
+  }
+  function canEdit() { return !state.readOnly; }
+
+  const VIEWS = {};
+  const BINDS = {};
+
+  /* ---- home ---- */
+  VIEWS.home = function () {
+    const chars = charsSorted();
+    let html = '<div class="section-head"><div><span class="eyebrow">Character Archive</span><h1 class="h1">누구의 기록을 열까요?</h1>' +
+      '<p class="lede">인물을 고르면 능력, 전투 기믹, 스킬이 단계별로 열립니다.</p></div></div>' + readOnlyNotice();
+    if (!chars.length) {
+      html += '<div class="empty"><strong>아직 등록된 인물이 없어요</strong><span>첫 인물을 등록하거나, 이전에 저장한 백업을 불러오세요.</span>' +
+        '<div class="row-actions">' + (canEdit() ? '<button class="btn primary" type="button" data-act="new-char">' + icon('plus') + '첫 인물 등록</button>' : '') +
+        '<button class="btn" type="button" data-act="backup">' + icon('upload') + '백업 불러오기</button></div></div>';
+      return html;
+    }
+    html += '<div class="char-list">';
+    chars.forEach((c, i) => {
+      const sk = skillsOf(c.id);
+      const sealed = sk.filter(x => x.sealed).length;
+      html += '<button type="button" class="char-card" data-char="' + esc(c.id) + '">' +
+        '<div class="sigil xl">' + ringSvg() + '<span>' + esc(c.avatar) + '</span></div>' +
+        '<div class="cc-body"><span class="mono cc-file">FILE ' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<div class="cc-name">' + esc(shortName(c.name)) + '</div>' +
+        '<div class="cc-sub">' + ([c.className, c.realTier ? '본실력 ' + c.realTier + '성' : ''].filter(Boolean).map(x => '<span class="nw">' + esc(x) + '</span>').join(' · ') || '클래스 미정') + '</div>' +
+        '<div class="cc-stats mono"><span><b>' + sk.length + '</b> 스킬</span><span><b>' + sk.filter(isUnique).length + '</b> 고유</span>' + (sealed ? '<span><b>' + sealed + '</b> 봉인</span>' : '') + '</div></div>' +
+        icon('chev', ' class="chev"') + '</button>';
+    });
+    html += '</div>';
+    if (canEdit()) html += '<button type="button" class="add-slim" data-act="new-char">' + icon('plus') + '새 인물 등록</button>';
+    return html;
+  };
+  BINDS.home = function (r, v) {
+    $$('[data-char]', v).forEach(b => b.addEventListener('click', () => go({ v: 'char', c: b.dataset.char })));
+    bindActs(v);
+  };
+
+  /* ---- character menu ---- */
+  VIEWS.char = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id);
+    const drafts = sk.filter(s => s.isDraft).length;
+    const sealedN = sk.filter(s => s.sealed).length;
+    const html = '<section class="hero">' +
+      '<div class="hero-top"><div class="sigil xl">' + ringSvg() + '<span>' + esc(c.avatar) + '</span></div>' +
+      '<div><div class="chips">' + (c.className ? '<span class="chip t-arcane">' + esc(c.className) + '</span>' : '') + (c.gender ? '<span class="chip plain">' + esc(c.gender) + '</span>' : '') + c.traits.map(t => '<span class="chip trait">◆ 고유 · ' + esc(t.name) + '</span>').join('') + '</div>' +
+      '<h1 class="h1">' + esc(c.name) + '</h1>' + (c.quote ? '<p class="quote">' + esc(c.quote) + '</p>' : '') + '</div></div>' +
+      '<div class="stats">' +
+      '<div class="stat"><div class="k">본실력</div><div class="v">' + powerHtml(c.realPower) + '</div></div>' +
+      '<div class="stat"><div class="k">평소 위장</div><div class="v" style="color:var(--ember)">' + esc(c.disguisePower || '—') + '</div></div>' +
+      '<div class="stat"><div class="k">마력 조종</div><div class="v" style="color:var(--mana)">' + esc(c.controlRank || '—') + '</div></div>' +
+      '</div>' +
+      (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-char">' + icon('edit') + '인물 정보 수정</button></div>' : '') +
+      '</section>' + readOnlyNotice() +
+      '<div class="tiles six">' +
+      menuTile('profile', 'user', 't-arcane', '개요', '고유 능력 · 위장 · 성격') +
+      menuTile('traits', 'crown', 't-mana', '고유 스킬', c.traits.length ? c.traits.map(t => t.name).join(' · ') + ' · 상대 마나 조작' : '아직 없음', c.traits.length ? sk.filter(isUnique).length : null) +
+      menuTile('gimmicks', 'sparkle', 't-jade', '전투 기믹', c.gimmicks.length ? c.gimmicks.length + '개 · 시뮬레이터' : '아직 없음', c.gimmicks.length) +
+      menuTile('types', 'layers', 't-rose', '일반 스킬', '자기 마나로 쓰는 기술', sk.filter(x => !isUnique(x)).length) +
+      menuTile('growth', 'rise', 't-arcane', '잠재 해방', sealedN ? '봉인 ' + sealedN + '개 · 초월 목표' : '모두 해방됨', null, (sk.length - sealedN) + '/' + sk.length) +
+      menuTile('story', 'book', 't-ember', '스토리', c.story ? '성장 · 세계관 · 메모' : '아직 비어 있음') +
+      '</div>';
+    return html;
+  };
+  function powerHtml(t) {
+    const m = String(t || '').match(/^(.*?)\s*\((.+)\)\s*$/);
+    return m ? esc(m[1]) + '<small class="v-note">' + esc(m[2]) + '</small>' : esc(t || '—');
+  }
+  function menuTile(v, ic, tone, name, sub, count, countText) {
+    return '<button type="button" class="tile big ' + tone + '" data-go="' + v + '">' +
+      (count != null ? '<span class="tile-count"><b>' + count + '</b></span>' : '') + (countText ? '<span class="tile-count"><b>' + esc(countText) + '</b></span>' : '') +
+      '<div class="tile-icon">' + icon(ic) + '</div><div><div class="tile-name">' + esc(name) + '</div><div class="tile-sub">' + esc(sub) + '</div></div></button>';
+  }
+  BINDS.char = function (r, v) {
+    $$('[data-go]', v).forEach(b => b.addEventListener('click', () => go({ v: b.dataset.go, c: r.c })));
+    bindActs(v, r);
+  };
+
+  /* ---- profile ---- */
+  VIEWS.profile = function (r) {
+    const c = state.chars.get(r.c);
+    const block = (t, ic, body, tone) => '<section class="panel"><h3><span class="' + tone + '" style="color:var(--tone);display:inline-flex;width:18px;height:18px">' + icon(ic) + '</span>' + t + '</h3><p>' + (body ? esc(body) : '<span style="color:var(--faint)">아직 적지 않았어요.</span>') + '</p></section>';
+    return '<div class="section-head"><div><span class="eyebrow">개요</span><h1 class="h1">' + esc(shortName(c.name)) + '</h1></div>' +
+      (canEdit() ? '<button type="button" class="btn small" data-act="edit-char">' + icon('edit') + '수정</button>' : '') + '</div>' +
+      block('고유 능력', 'sparkle', c.ability, 't-arcane') +
+      '<div class="grid-2">' + block('마력 위장', 'mask', c.disguiseDesc, 't-ember') + block('성격 · 대인 특징', 'user', c.personality, 't-mana') + '</div>' +
+      '<section class="panel"><h3>기본 정보</h3><dl class="kv">' +
+      kv('이름', c.name) + kv('성별', c.gender) + kv('클래스', c.className) + kv('본실력', c.realPower) + kv('평소 위장', c.disguisePower) + kv('마력 조종', c.controlRank) +
+      '</dl></section>';
+  };
+  function kv(k, v) { return '<dt>' + esc(k) + '</dt><dd>' + (v ? esc(v) : '—') + '</dd>'; }
+  BINDS.profile = function (r, v) { bindActs(v, r); };
+
+  /* ---- story ---- */
+  VIEWS.story = function (r) {
+    const c = state.chars.get(r.c);
+    return '<div class="section-head"><div><span class="eyebrow">스토리</span><h1 class="h1">' + esc(shortName(c.name)) + '의 기록</h1></div>' +
+      (canEdit() ? '<button type="button" class="btn small" data-act="edit-story">' + icon('edit') + (c.story ? '수정' : '쓰기') + '</button>' : '') + '</div>' +
+      (c.story ? '<section class="panel"><p>' + esc(c.story) + '</p></section>' :
+        '<div class="empty"><strong>아직 기록이 없어요</strong><span>과거사, 인물 관계, 등장 장면 메모 등을 자유롭게 적어두세요.</span>' +
+        (canEdit() ? '<button class="btn primary" type="button" data-act="edit-story">' + icon('edit') + '스토리 쓰기</button>' : '') + '</div>');
+  };
+  BINDS.story = function (r, v) { bindActs(v, r); };
+
+  /* ---- gimmicks ---- */
+  VIEWS.gimmicks = function (r) {
+    const c = state.chars.get(r.c);
+    let html = '<div class="section-head"><div><span class="eyebrow">전투 기믹</span><h1 class="h1">' + esc(shortName(c.name)) + '의 전투 방식</h1>' +
+      '<p class="lede">기믹을 누르면 규칙과 직접 만져볼 수 있는 시뮬레이터가 열립니다.</p></div></div>';
+    if (!c.gimmicks.length && !canEdit()) return html + '<div class="empty"><strong>등록된 기믹이 없어요</strong></div>';
+    html += '<div class="tiles">';
+    c.gimmicks.forEach(g => {
+      const tone = 't-' + (GIMMICK_TONES[g.icon] || 'arcane');
+      html += '<button type="button" class="tile big ' + tone + '" data-gm="' + esc(g.id) + '">' +
+        (g.isDraft ? '<span class="chip t-ember">신규 가안</span>' : '') +
+        '<div class="tile-icon">' + icon(g.icon) + '</div><div><div class="tile-name">' + esc(g.name) + '</div>' +
+        '<div class="tile-sub">' + esc(g.summary) + '</div></div></button>';
+    });
+    html += '</div>';
+    if (canEdit()) html += '<button type="button" class="add-slim" data-act="new-gimmick">' + icon('plus') + '기믹 추가</button>';
+    return html;
+  };
+  BINDS.gimmicks = function (r, v) {
+    $$('[data-gm]', v).forEach(b => b.addEventListener('click', () => go({ v: 'gimmick', c: r.c, g: b.dataset.gm })));
+    bindActs(v, r);
+  };
+
+  /* ---- gimmick detail + simulators ---- */
+  const simState = {};
+  VIEWS.gimmick = function (r) {
+    const c = state.chars.get(r.c);
+    const g = c.gimmicks.find(x => x.id === r.g);
+    const tone = 't-' + (GIMMICK_TONES[g.icon] || 'arcane');
+    return '<div class="detail-head"><div class="chips">' + (g.isDraft ? '<span class="chip t-ember">신규 가안</span>' : '<span class="chip t-jade">공식 설정</span>') + '</div>' +
+      '<div style="display:flex;gap:14px;align-items:center"><div class="tile-icon ' + tone + '">' + icon(g.icon) + '</div><div style="min-width:0"><h1 class="h1">' + esc(g.name) + '</h1>' +
+      (g.nameEn ? '<div class="mono" style="color:var(--arcane);font-size:13px">' + esc(g.nameEn) + '</div>' : '') + '</div></div>' +
+      '<p class="lede">' + esc(g.summary) + '</p></div>' +
+      (g.sim ? simHtml(g) : '') +
+      '<section class="panel"><h3>규칙</h3><ul class="rules">' + g.rules.map(x => '<li class="' + (x.added ? 'added' : '') + '"><span>' + esc(x.text) + (x.added ? '<span class="chip t-ember">새로 추가</span>' : '') + '</span></li>').join('') + '</ul></section>' +
+      (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-gimmick">' + icon('edit') + '기믹 수정</button><button type="button" class="btn small danger" data-act="del-gimmick">' + icon('trash') + '삭제</button></div>' : '');
+  };
+  function simGet(g) {
+    const s = g.sim;
+    if (!simState[g.id]) {
+      if (s.type === 'threshold') simState[g.id] = { v: s.initial != null ? s.initial : 50 };
+      else if (s.type === 'stack') simState[g.id] = { n: s.initial != null ? s.initial : 0 };
+      else if (s.type === 'gauge') simState[g.id] = { v: s.initial || 0, t: s.scaleInitial || s.scaleMin || 1 };
+      else if (s.type === 'mode') simState[g.id] = { mode: (s.modes && s.modes[0] && s.modes[0].id) || 'a', crack: 0, base: s.baseTier || 2 };
+      else simState[g.id] = {};
+    }
+    return simState[g.id];
+  }
+  function simHtml(g) {
+    const s = g.sim, st = simGet(g);
+    let inner = '';
+    if (s.type === 'threshold') {
+      const zones = (s.zones || []).slice().sort((a, b) => a.from - b.from);
+      const z = zones.find(z => st.v >= z.from && (st.v < z.to || (z.to >= s.max && st.v <= z.to))) || zones[zones.length - 1];
+      const span = (s.max - s.min) || 1;
+      inner = '<div class="sim-big"><b>' + st.v + esc(s.unit || '') + '</b><span>' + esc(s.label || '') + '</span></div>' +
+        '<div class="zone-wrap"><div class="zonebar">' + zones.map(zz => '<div class="t-' + esc(zz.tone) + '" style="width:' + ((zz.to - zz.from) / span * 100) + '%;background:var(--tone);opacity:' + (zz === z ? 1 : .35) + '"></div>').join('') +
+        '<span class="mark" style="left:' + ((st.v - s.min) / span * 100) + '%"></span></div></div>' +
+        '<input class="range" id="sim-' + esc(g.id) + '-v" type="range" min="' + s.min + '" max="' + s.max + '" value="' + st.v + '" aria-label="' + esc(s.label || '값') + '">' +
+        (z ? '<div class="zone-card t-' + esc(z.tone) + '"><div class="nm">' + esc(z.name) + ' 구간</div><div class="ef">' + esc(z.effect) + '</div>' + (z.detail ? '<div class="dt">' + esc(String(z.detail).replace('{v}', st.v)) + '</div>' : '') + '</div>' : '') +
+        '<div class="row-actions">' + zones.slice().reverse().map(zz => '<button type="button" class="btn small" data-set="' + Math.round((zz.from + Math.min(zz.to, s.max)) / 2) + '">' + esc(zz.name) + '</button>').join('') +
+        (s.presets || []).map(p => '<button type="button" class="btn small" data-set="' + p.value + '">' + esc(p.label) + '</button>').join('') + '</div>';
+    } else if (s.type === 'stack') {
+      const max = s.max || 5;
+      let pips = '';
+      for (let i = 1; i <= max; i++) pips += '<button type="button" class="' + (i <= st.n ? 'on' : '') + '" data-n="' + i + '" aria-label="' + i + '스택">' + i + '</button>';
+      inner = '<div class="sim-big"><b>' + st.n + ' / ' + max + '</b><span>' + esc(s.label || '스택') + (st.n === max ? ' · 최대' : '') + '</span></div>' +
+        '<div class="stackrow" style="grid-template-columns:repeat(' + max + ',1fr)">' + pips + '</div>' +
+        '<div class="statlines">' + (s.perStack || []).map(p => '<div><span>' + esc(p.label) + '</span><b>+' + (p.amount * st.n) + esc(p.unit || '') + '</b></div>').join('') +
+        (s.maxEffect ? '<div><span>최대 스택 효과</span><b style="font-family:var(--font-body);color:' + (st.n === max ? 'var(--ember)' : 'var(--faint)') + '">' + (st.n === max ? esc(s.maxEffect) : (max - st.n) + '스택 더 필요') + '</b></div>' : '') + '</div>' +
+        '<div class="row-actions"><button type="button" class="btn small" data-act2="add">' + icon('plus') + esc(s.addLabel || '+1') + '</button><button type="button" class="btn small" data-act2="spend">' + esc(s.spendLabel || '전부 소모') + '</button></div>';
+    } else if (s.type === 'gauge') {
+      const max = s.max || 100;
+      const mult = 1 + (s.perTierBonus || 0) * Math.max(0, st.t - (s.baseTier || 0));
+      const gain = Math.round((s.gainBase || 10) * mult);
+      const full = st.v >= max;
+      inner = '<div class="sim-big"><b>' + st.v + '</b><span>/ ' + max + ' ' + esc(s.label || '') + '</span></div>' +
+        '<div class="gauge' + (full ? ' full' : '') + '"><div style="width:' + (st.v / max * 100) + '%"></div></div>' +
+        (full && s.fullEffect ? '<div class="zone-card t-ember"><div class="nm">가득 참</div><div class="ef">' + esc(s.fullEffect) + '</div></div>' : '') +
+        '<div class="field"><label for="sim-' + esc(g.id) + '-t">' + esc(s.scaleLabel || '배율') + ': <span class="rangeval">' + (st.t >= 10 ? '초월' : st.t + '성') + '</span> → 흡수 배율 <span class="rangeval" style="color:var(--mana)">×' + mult.toFixed(2) + '</span></label>' +
+        '<input class="range" id="sim-' + esc(g.id) + '-t" type="range" min="' + (s.scaleMin || 1) + '" max="' + (s.scaleMax || 10) + '" value="' + st.t + '"></div>' +
+        '<div class="row-actions"><button type="button" class="btn small" data-act2="gain">' + icon('magnet') + esc(s.gainLabel || '획득') + ' +' + gain + '</button>' +
+        '<button type="button" class="btn small" data-act2="spend"' + (st.v < (s.spendAmount || 30) ? ' disabled' : '') + '>' + esc(s.spendLabel || '소모') + '</button>' +
+        '<button type="button" class="btn small ghost" data-act2="reset">비우기</button></div>';
+    } else if (s.type === 'mode') {
+      const modes = s.modes || [];
+      const m = modes.find(x => x.id === st.mode) || modes[0];
+      const isFirst = m === modes[0];
+      const base = st.base || s.baseTier || 2;
+      const fill = t => String(t || '').replace(/\{b\}/g, base);
+      inner = '<div class="seg">' + modes.map(x => '<button type="button" class="' + (x.id === st.mode ? 'on' : '') + '" data-mode="' + esc(x.id) + '">' + esc(x.name) + '</button>').join('') + '</div>' +
+        '<div class="zone-card ' + (isFirst ? 't-ember' : 't-rose') + '"><div class="nm">' + esc(m.name) + (m.tag ? ' · ' + esc(fill(m.tag)) : '') + '</div>' +
+        '<div class="statlines" style="margin-top:6px">' + (m.effects || []).map(e => '<div><span style="color:var(--text)">· ' + esc(fill(e)) + '</span></div>').join('') + '</div></div>' +
+        (isFirst && s.baseSelectable ? '<div class="field"><span class="lbl">지금 몇 성으로 위장할까?</span><div class="tiergrid" style="grid-template-columns:repeat(' + Math.min(s.baseMax || 6, 6) + ',minmax(0,1fr))">' +
+          Array.from({ length: s.baseMax || 6 }, (_, k) => k + 1).map(n => '<button type="button" data-base="' + n + '" class="' + (n === base ? 'on' : '') + '">' + n + '성</button>').join('') + '</div></div>' : '') +
+        (isFirst ? '<div><div class="statlines"><div><span>' + esc(s.meterLabel || '게이지') + '</span><b>' + st.crack + '%</b></div></div>' +
+          '<div class="gauge' + (st.crack >= 70 ? ' full' : '') + '" style="margin-top:6px"><div style="width:' + st.crack + '%"></div></div></div>' +
+          '<div class="field"><span class="lbl">위장 중에 이 등급의 스킬을 쓰면?</span><div class="tiergrid">' +
+          [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => '<button type="button" data-use="' + n + '"' + (n <= base ? ' class="safe"' : '') + '>' + n + '성</button>').join('') + '<button type="button" data-use="0" title="균열 낮추기">기만</button></div></div>'
+          : '<div class="row-actions"><button type="button" class="btn small" data-mode="' + esc(modes[0].id) + '">' + icon('mask') + '다시 위장하기 (균열 0%)</button></div>');
+    }
+    return '<section class="sim" id="sim-' + esc(g.id) + '"><h3 style="margin:0;font-size:13px;color:var(--muted);letter-spacing:.06em">시뮬레이터</h3>' + inner + '</section>';
+  }
+  function bindSim(g) {
+    const box = document.getElementById('sim-' + g.id);
+    if (!box) return;
+    const s = g.sim, st = simGet(g);
+    const redraw = () => { const fresh = document.createElement('div'); fresh.innerHTML = simHtml(g); box.replaceWith(fresh.firstElementChild); bindSim(g); };
+    if (s.type === 'threshold') {
+      const rng = $('input[type=range]', box);
+      rng.addEventListener('input', () => { st.v = Number(rng.value); redraw(); const n = document.getElementById(rng.id); if (n) n.focus(); });
+      $$('[data-set]', box).forEach(b => b.addEventListener('click', () => { st.v = Number(b.dataset.set); redraw(); }));
+    } else if (s.type === 'stack') {
+      $$('[data-n]', box).forEach(b => b.addEventListener('click', () => { st.n = st.n === Number(b.dataset.n) ? Number(b.dataset.n) - 1 : Number(b.dataset.n); redraw(); }));
+      $$('[data-act2]', box).forEach(b => b.addEventListener('click', () => {
+        if (b.dataset.act2 === 'add') st.n = Math.min(s.max || 5, st.n + 1);
+        else { if (!st.n) { toast('소모할 스택이 없어요.'); return; } toast(st.n + '스택을 모두 소모했어요.'); st.n = 0; }
+        redraw();
+      }));
+    } else if (s.type === 'gauge') {
+      const rng = $('input[type=range]', box);
+      rng.addEventListener('input', () => { st.t = Number(rng.value); redraw(); const n = document.getElementById(rng.id); if (n) n.focus(); });
+      $$('[data-act2]', box).forEach(b => b.addEventListener('click', () => {
+        const max = s.max || 100;
+        const mult = 1 + (s.perTierBonus || 0) * Math.max(0, st.t - (s.baseTier || 0));
+        if (b.dataset.act2 === 'gain') { st.v = Math.min(max, st.v + Math.round((s.gainBase || 10) * mult)); if (st.v >= max && s.fullEffect) toast(s.fullEffect); }
+        else if (b.dataset.act2 === 'spend') st.v = Math.max(0, st.v - (s.spendAmount || 30));
+        else st.v = 0;
+        redraw();
+      }));
+    } else if (s.type === 'mode') {
+      $$('[data-mode]', box).forEach(b => b.addEventListener('click', () => { st.mode = b.dataset.mode; if (st.mode === s.modes[0].id) st.crack = 0; redraw(); }));
+      $$('[data-base]', box).forEach(b => b.addEventListener('click', () => { st.base = Number(b.dataset.base); redraw(); }));
+      $$('[data-use]', box).forEach(b => b.addEventListener('click', () => {
+        const n = Number(b.dataset.use);
+        if (n === 0) { st.crack = Math.max(0, st.crack - 20); toast('기만 성공. 균열이 20% 줄었어요.'); }
+        else {
+          const add = Math.max(0, (n - (st.base || s.baseTier || 2)) * (s.perTier || 10));
+          if (!add) toast(n + '성 스킬은 위장 범위 안이라 들키지 않아요.');
+          st.crack = Math.min(100, st.crack + add);
+          if (st.crack >= 100 && s.modes[1]) { st.mode = s.modes[1].id; toast('균열 100%. 위장이 강제로 풀렸어요!'); }
+        }
+        redraw();
+      }));
+    }
+  }
+  BINDS.gimmick = function (r, v) {
+    const c = state.chars.get(r.c);
+    const g = c.gimmicks.find(x => x.id === r.g);
+    if (g.sim) bindSim(g);
+    bindActs(v, r);
+  };
+
+  function catTiles(sk, prefix, allSub) {
+    let html = '<div class="tiles">';
+    html += '<button type="button" class="tile ' + (prefix ? 't-mana' : 't-arcane') + '" data-cat="' + prefix + 'all"><span class="tile-count"><b>' + sk.length + '</b></span><div class="tile-icon">' + icon(prefix ? 'crown' : 'grid') + '</div><div><div class="tile-name">전체</div><div class="tile-sub">' + esc(allSub) + '</div></div></button>';
+    CATEGORIES.forEach(cat => {
+      const n = sk.filter(s => s.category === cat.id).length;
+      if (!n && ['attack', 'defense', 'counter', 'utility'].indexOf(cat.id) < 0) return;
+      html += '<button type="button" class="tile t-' + cat.tone + (n ? '' : ' dim') + '" data-cat="' + prefix + cat.id + '">' +
+        '<span class="tile-count"><b>' + n + '</b></span>' +
+        '<div class="tile-icon">' + icon(cat.icon) + '</div><div><div class="tile-name">' + esc(cat.name) + '' + '</div><div class="tile-sub">' + esc(cat.desc) + '</div></div></button>';
+    });
+    return html + '</div>';
+  }
+
+  /* ---- unique traits ---- */
+  VIEWS.traits = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id).filter(s => listPrefs.drafts || !s.isDraft);
+    let html = '<div class="section-head"><div><span class="eyebrow">고유 스킬</span><h1 class="h1">' + esc(shortName(c.name)) + '만의 능력</h1>' +
+      '<p class="lede">상대의 마나를 조작해서 쓰는 기술만 모았어요. 자기 마나로 쓰는 기술은 일반 스킬에 따로 있어요.</p></div></div>';
+    if (!c.traits.length) {
+      return html + '<div class="empty"><strong>등록된 고유 특성이 없어요</strong>' + (canEdit() ? '<button class="btn primary" type="button" data-act="new-trait">' + icon('plus') + '고유 특성 만들기</button>' : '') + '</div>';
+    }
+    c.traits.forEach(t => {
+      html += '<section class="trait-hero"><div class="row"><div class="tile-icon t-mana">' + icon('crown') + '</div><div style="min-width:0"><span class="chip trait">◆ 고유 특성</span>' +
+        '<h2 class="h2" style="margin-top:6px">' + esc(t.name) + (t.nameEn ? ' <span class="mono" style="font-size:13px;color:var(--mana)">' + esc(t.nameEn) + '</span>' : '') + '</h2></div></div>' +
+        (t.desc ? '<p>' + esc(t.desc) + '</p>' : '') +
+        (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-trait" data-tid="' + esc(t.id) + '">' + icon('edit') + '특성 설명 수정</button></div>' : '') + '</section>';
+    });
+    const uniq = sk.filter(isUnique);
+    html += '<div class="section-head"><div><h2 class="h2">어떤 유형을 볼까요?</h2><p class="lede" style="font-size:14px">고유 스킬 ' + uniq.length + '개' + (listPrefs.drafts ? '' : ' (가안 숨김)') + ' · 일반 스킬과 같은 유형으로 나눴어요.</p></div>' +
+      (canEdit() ? '<button type="button" class="btn small primary" data-act="new-skill">' + icon('plus') + '고유 스킬 추가</button>' : '') + '</div>';
+    html += catTiles(uniq, 'u:', '고유 스킬 한 번에 보기');
+    return html;
+  };
+  BINDS.traits = function (r, v) {
+    $$('[data-cat]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = 'all'; listPrefs.reach = 'all'; listPrefs.area = 'all'; saveListPrefs(); go({ v: 'list', c: r.c, cat: b.dataset.cat }); }));
+    $$('[data-act="new-skill"]', v).forEach(b => b.addEventListener('click', () => openSkillForm(null, { c: r.c, cat: 'u:all' })));
+    $$('[data-act="edit-trait"]', v).forEach(b => b.addEventListener('click', e => { e.stopPropagation(); openTraitForm(r.c, b.dataset.tid); }));
+    $$('[data-act="new-trait"]', v).forEach(b => b.addEventListener('click', () => openTraitForm(r.c, null)));
+  };
+
+  /* ---- growth (latent unlock) ---- */
+  VIEWS.growth = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id);
+    const sealed = sk.filter(s => s.sealed);
+    const open = sk.length - sealed.length;
+    const pct = sk.length ? Math.round(open / sk.length * 100) : 0;
+    const chosen = c.transcend.candidates.find(x => x.id === c.transcend.chosen);
+    let html = '<div class="section-head"><div><span class="eyebrow">잠재 해방</span><h1 class="h1">잠재력을 여는 길</h1>' +
+      '<p class="lede">이미 강하다. 다만 아직 잠겨 있을 뿐. 봉인된 스킬은 수련이 아니라 특정 행동과 상황으로 풀립니다.</p></div></div>';
+    html += '<section class="panel"><h3>해방 현황</h3><div class="sim-big"><b>' + open + '</b><span>/ ' + sk.length + ' 스킬 해방 · ' + pct + '%</span></div>' +
+      '<div class="gauge"><div style="width:' + pct + '%"></div></div><p class="hint">봉인된 잠재 스킬 ' + sealed.length + '개 · 본실력 ' + esc(c.realPower || '—') + '</p></section>';
+    html += '<section class="goal"><div class="k">' + icon('crown') + '최종 목표</div><p>' + (c.goal ? esc(c.goal) : '<span style="color:var(--faint)">아직 적지 않았어요.</span>') + '</p>' +
+      (chosen ? '<div class="chosen"><span class="chip t-arcane">확정된 초월 행동</span><b>' + esc(chosen.title) + '</b><span>' + esc(chosen.desc) + '</span></div>' : '') +
+      (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-goal">' + icon('edit') + '목표 · 후보 수정</button></div>' : '') + '</section>';
+    if (c.transcend.candidates.length) {
+      html += '<div class="section-head"><div><h2 class="h2">초월 행동 후보</h2><p class="lede" style="font-size:14px">' + (chosen ? '확정한 행동이 위 최종 목표에 표시돼요.' : '아직 정하지 않았어요. 마음에 드는 걸 확정해 두세요.') + '</p></div></div><div class="cand-list">' +
+        c.transcend.candidates.map((x, i) => '<div class="cand' + (x.id === c.transcend.chosen ? ' on' : (chosen ? ' dimmed' : '')) + '"><span class="num mono">' + (i + 1) + '</span><div style="min-width:0"><b>' + esc(x.title) + '</b><p>' + esc(x.desc) + '</p></div>' +
+          (canEdit() ? (x.id === c.transcend.chosen ? '<button type="button" class="btn small ghost" data-unchoose="1">확정 취소</button>' : '<button type="button" class="btn small" data-choose="' + esc(x.id) + '">' + icon('check') + '확정</button>') : '') + '</div>').join('') + '</div>';
+    }
+    html += '<div class="section-head"><div><h2 class="h2">봉인된 잠재 스킬</h2><p class="lede" style="font-size:14px">해방 조건 유형별로 묶었어요. 눌러서 해방 처리할 수 있어요.</p></div></div>';
+    if (!sealed.length) html += '<div class="empty"><strong>봉인된 스킬이 없어요</strong><span>스킬 수정 화면의 상세 설정에서 봉인과 해방 조건을 지정할 수 있어요.</span></div>';
+    UNLOCK_TYPES.concat([{ id: '', name: '조건 미정', tone: 'arcane', desc: '해방 조건을 아직 정하지 않음' }]).forEach(u => {
+      const list = sealed.filter(s => s.unlockType === u.id).sort((a, b) => tierNum(a.tier) - tierNum(b.tier));
+      if (!list.length) return;
+      html += '<div class="unlock-group"><div class="ug-head"><span class="chip t-' + u.tone + '">' + esc(u.name) + '</span><span class="hint">' + esc(u.desc) + '</span></div><div class="skill-list">' +
+        list.map(s => '<button type="button" class="skill-row sealed" data-gskill="' + esc(s.id) + '">' + tierBlock(s.tier, s) + '<div class="body"><div class="nm">' + esc(s.nameKo) + '</div>' +
+          '<div class="cond">' + icon('lock') + '<span>' + esc(s.unlockCond || '해방 조건 미정') + '</span></div><div class="meta"><span class="chip t-' + CAT[s.category].tone + '">' + esc(CAT[s.category].name) + '</span>' + traitChips(c, s) + '</div></div>' + icon('chev', ' class="chev"') + '</button>').join('') + '</div></div>';
+    });
+    return html;
+  };
+  BINDS.growth = function (r, v) {
+    $$('[data-gskill]', v).forEach(b => b.addEventListener('click', () => { const s = state.skills.get(b.dataset.gskill); if (!listPrefs.drafts && s.isDraft) { listPrefs.drafts = true; saveListPrefs(); } go({ v: 'skill', c: r.c, cat: 'all', s: s.id, from: 'growth' }); }));
+    $$('[data-choose]', v).forEach(b => b.addEventListener('click', async () => { const c = state.chars.get(r.c); try { await write('characters', Object.assign({}, c, { transcend: Object.assign({}, c.transcend, { chosen: b.dataset.choose }) })); toast('초월 행동을 확정했어요.'); } catch (e) {} }));
+    $$('[data-unchoose]', v).forEach(b => b.addEventListener('click', async () => { const c = state.chars.get(r.c); try { await write('characters', Object.assign({}, c, { transcend: Object.assign({}, c.transcend, { chosen: null }) })); toast('확정을 취소했어요.'); } catch (e) {} }));
+    bindActs(v, r);
+  };
+
+  /* ---- skill types ---- */
+  VIEWS.types = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id).filter(s => !isUnique(s) && (listPrefs.drafts || !s.isDraft));
+    let html = '<div class="section-head"><div><span class="eyebrow">일반 스킬</span><h1 class="h1">어떤 유형을 볼까요?</h1>' +
+      '<p class="lede">자기 마나로 쓰는 기술 ' + sk.length + '개' + (listPrefs.drafts ? '' : ' (가안 숨김)') + '. 상대 마나를 조작하는 기술은 고유 스킬에 따로 있어요.</p></div>' +
+      (canEdit() ? '<button type="button" class="btn small primary" data-act="new-skill">' + icon('plus') + '스킬 추가</button>' : '') + '</div>';
+    return html + catTiles(sk, '', '일반 스킬 한 번에 보기');
+  };
+  BINDS.types = function (r, v) {
+    $$('[data-cat]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = 'all'; listPrefs.reach = 'all'; listPrefs.area = 'all'; saveListPrefs(); go({ v: 'list', c: r.c, cat: b.dataset.cat }); }));
+    bindActs(v, r);
+  };
+  function saveListPrefs() { lsSet('arcana-codex-listprefs', JSON.stringify(listPrefs)); }
+
+  /* ---- skill list ---- */
+  function listSkills(r, ignoreTier) {
+    const isT = isUCat(r.cat);
+    const sub = isT ? r.cat.slice(2) : r.cat;
+    let list = skillsOf(r.c).filter(s => isUnique(s) === isT && (sub === 'all' || s.category === sub) && (listPrefs.drafts || !s.isDraft));
+    if (ignoreTier !== 'range') {
+      if (listPrefs.reach !== 'all') list = list.filter(s => s.reach === listPrefs.reach);
+      if (listPrefs.area !== 'all') list = list.filter(s => s.area === listPrefs.area);
+    }
+    if (!ignoreTier && listPrefs.tier !== 'all') list = list.filter(s => s.tier === listPrefs.tier);
+    const cmp = {
+      tierAsc: (a, b) => tierNum(a.tier) - tierNum(b.tier) || a.nameKo.localeCompare(b.nameKo),
+      tierDesc: (a, b) => tierNum(b.tier) - tierNum(a.tier) || a.nameKo.localeCompare(b.nameKo),
+      powerDesc: (a, b) => b.power - a.power || tierNum(b.tier) - tierNum(a.tier),
+      diffDesc: (a, b) => b.difficulty - a.difficulty || tierNum(b.tier) - tierNum(a.tier),
+      name: (a, b) => a.nameKo.localeCompare(b.nameKo)
+    }[listPrefs.sort] || ((a, b) => tierNum(a.tier) - tierNum(b.tier));
+    return list.sort(cmp);
+  }
+  function tierStatus(c, t, s) {
+    if (s && s.sealed) return '<span class="chip sealed-chip">' + icon('lock') + '봉인</span>';
+    const n = tierNum(t);
+    if (c.disguiseTier && n <= c.disguiseTier) return '<span class="chip t-ember">위장 중 사용</span>';
+    if (c.realTier && n <= c.realTier) return '';
+    return '';
+  }
+  function tierBlock(t, s) {
+    const img = skillImg(s);
+    if (img) return '<div class="tier-block img' + (t === 'transcendent' ? ' trans' : Number(t) >= 7 ? ' hi' : '') + '"><img src="' + esc(img) + '" alt="" loading="lazy" decoding="async"><b class="tb-badge">' + (t === 'transcendent' ? '★' : esc(t)) + '</b></div>';
+    if (t === 'transcendent') return '<div class="tier-block trans"><b>★</b><small>초월</small></div>';
+    return '<div class="tier-block' + (Number(t) >= 7 ? ' hi' : '') + '"><b>' + t + '</b><small>성</small></div>';
+  }
+  VIEWS.list = function (r) {
+    const c = state.chars.get(r.c);
+    const isT = isUCat(r.cat);
+    const sub = isT ? r.cat.slice(2) : r.cat;
+    const cat = sub === 'all' ? (isT ? { name: '고유 스킬 전체', desc: '상대 마나를 조작하는 기술', icon: 'crown', tone: 'mana' } : { name: '일반 스킬 전체', desc: '자기 마나로 쓰는 기술', icon: 'grid', tone: 'arcane' })
+      : Object.assign({}, CAT[sub], { desc: (isT ? '고유 스킬 · ' : '일반 스킬 · ') + CAT[sub].desc });
+    const pool = listSkills(r, 'range');
+    if (listPrefs.reach !== 'all' && !pool.some(s => s.reach === listPrefs.reach)) listPrefs.reach = 'all';
+    if (listPrefs.area !== 'all' && !pool.some(s => s.area === listPrefs.area && (listPrefs.reach === 'all' || s.reach === listPrefs.reach))) listPrefs.area = 'all';
+    const base = listSkills(r, true);
+    if (listPrefs.tier !== 'all' && !base.some(s => s.tier === listPrefs.tier)) listPrefs.tier = 'all';
+    const list = listSkills(r);
+    const counts = {}; base.forEach(s => { counts[s.tier] = (counts[s.tier] || 0) + 1; });
+    let html = '<div class="section-head"><div style="flex-direction:row;align-items:center;gap:14px"><div class="tile-icon t-' + cat.tone + '">' + icon(cat.icon) + '</div>' +
+      '<div style="min-width:0"><h1 class="h1">' + esc(cat.name) + '</h1><p class="lede" style="font-size:14px">' + esc(cat.desc) + ' · ' + base.length + '개</p></div></div>' +
+      (canEdit() ? '<button type="button" class="btn small primary" data-act="new-skill">' + icon('plus') + '추가</button>' : '') + '</div>';
+    html += '<div class="filterbar">';
+    const reachPool = listPrefs.area === 'all' ? pool : pool.filter(s => s.area === listPrefs.area);
+    const areaPool = listPrefs.reach === 'all' ? pool : pool.filter(s => s.reach === listPrefs.reach);
+    html += '<div class="tierbar" role="group" aria-label="공격 범위">' +
+      REACH.map(x => { const n = reachPool.filter(s => s.reach === x.id).length; return '<button type="button" class="tier-chip rng' + (listPrefs.reach === x.id ? ' on' : '') + (n ? '' : ' zero') + '" data-reach="' + x.id + '">' + x.name + ' <small>' + n + '</small></button>'; }).join('') +
+      '<span class="bar-sep" aria-hidden="true"></span>' +
+      AREA.map(x => { const n = areaPool.filter(s => s.area === x.id).length; return '<button type="button" class="tier-chip rng' + (listPrefs.area === x.id ? ' on' : '') + (n ? '' : ' zero') + '" data-area="' + x.id + '">' + x.name + ' <small>' + n + '</small></button>'; }).join('') +
+      '</div>';
+    html += '<div class="tierbar" role="group" aria-label="등급">' +
+      '<button type="button" class="tier-chip' + (listPrefs.tier === 'all' ? ' on' : '') + '" data-tier="all">전체 <small>' + base.length + '</small></button>' +
+      TIERS.filter(t => counts[t]).map(t => '<button type="button" class="tier-chip' + (t === 'transcendent' ? ' trans' : '') + (listPrefs.tier === t ? ' on' : '') + '" data-tier="' + t + '">' + tierText(t) + ' <small>' + counts[t] + '</small></button>').join('') +
+      '</div><div class="tools"><select class="select" id="sort-select" aria-label="정렬">' +
+      [['tierAsc', '등급 낮은 순'], ['tierDesc', '등급 높은 순'], ['powerDesc', '파괴력 높은 순'], ['diffDesc', '난이도 높은 순'], ['name', '이름 순']].map(o => '<option value="' + o[0] + '"' + (listPrefs.sort === o[0] ? ' selected' : '') + '>' + o[1] + '</option>').join('') +
+      '</select><label class="toggle"><input type="checkbox" id="drafts-toggle"' + (listPrefs.drafts ? ' checked' : '') + '>가안 포함</label></div></div>';
+    if (!list.length) {
+      html += '<div class="empty"><strong>이 조건에 맞는 스킬이 없어요</strong><span>' + (listPrefs.drafts ? '첫 스킬을 등록해 보세요.' : '가안을 포함하면 더 보일 수 있어요.') + '</span>' +
+        (canEdit() ? '<button class="btn primary" type="button" data-act="new-skill">' + icon('plus') + '스킬 추가</button>' : '') + '</div>';
+      return html;
+    }
+    html += '<div class="skill-list">' + list.map(s => {
+      const cc = CAT[s.category];
+      return '<button type="button" class="skill-row' + (s.tier === 'transcendent' ? ' trans' : '') + (s.sealed ? ' sealed' : '') + '" data-skill="' + esc(s.id) + '">' + tierBlock(s.tier, s) +
+        '<div class="body"><div class="nm">' + esc(s.nameKo) + '</div>' + ((s.nameEn || s.subType) ? '<div class="en">' + esc(s.nameEn) + (s.subType ? '<span class="st">' + (s.nameEn ? ' · ' : '') + esc(s.subType) + '</span>' : '') + '</div>' : '') +
+        '<div class="meta">' + (sub === 'all' ? '<span class="chip t-' + cc.tone + '">' + esc(cc.name) + '</span>' : '') +
+        (rangeLabel(s) ? '<span class="chip range-chip">' + esc(rangeLabel(s)) + '</span>' : '') +
+        (s.isDraft ? '<span class="chip t-ember">가안</span>' : '') + (s.sealed ? tierStatus(c, s.tier, s) : '') + '</div></div>' + icon('chev', ' class="chev"') + '</button>';
+    }).join('') + '</div>';
+    return html;
+  };
+  BINDS.list = function (r, v) {
+    $$('[data-tier]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = b.dataset.tier; saveListPrefs(); render(); }));
+    $$('[data-reach]', v).forEach(b => b.addEventListener('click', () => { listPrefs.reach = listPrefs.reach === b.dataset.reach ? 'all' : b.dataset.reach; if (listPrefs.reach !== 'all' && b.classList.contains('zero')) listPrefs.area = 'all'; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
+    $$('[data-area]', v).forEach(b => b.addEventListener('click', () => { listPrefs.area = listPrefs.area === b.dataset.area ? 'all' : b.dataset.area; if (listPrefs.area !== 'all' && b.classList.contains('zero')) listPrefs.reach = 'all'; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
+    $$('[data-facet]', v).forEach(b => b.addEventListener('click', () => { listPrefs.facet = b.dataset.facet; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
+    $('#sort-select', v).addEventListener('change', e => { listPrefs.sort = e.target.value; saveListPrefs(); render(); });
+    $('#drafts-toggle', v).addEventListener('change', e => { listPrefs.drafts = e.target.checked; saveListPrefs(); render(); });
+    $$('[data-skill]', v).forEach(b => b.addEventListener('click', () => go({ v: 'skill', c: r.c, cat: r.cat, s: b.dataset.skill })));
+    bindActs(v, r);
+  };
+
+  /* ---- skill detail ---- */
+  VIEWS.skill = function (r) {
+    const s = state.skills.get(r.s);
+    const c = state.chars.get(r.c);
+    const cc = CAT[s.category];
+    const sib = r.from === 'growth' ? skillsOf(r.c).filter(x => x.sealed || x.id === s.id).sort((a, b) => tierNum(a.tier) - tierNum(b.tier)) : listSkills({ c: r.c, cat: r.cat || 'all' });
+    const i = sib.findIndex(x => x.id === s.id);
+    const prev = i > 0 ? sib[i - 1] : null, next = i >= 0 && i < sib.length - 1 ? sib[i + 1] : null;
+    const pips = (n, tone) => '<div class="pips ' + tone + '">' + Array.from({ length: 10 }, (_, k) => '<i class="' + (k < n ? 'on' : '') + '"></i>').join('') + '</div>';
+    const art = skillImg(s);
+    return (art ? '<figure class="skill-art"><img src="' + esc(art) + '" alt="' + esc(s.nameKo) + ' 아이콘"></figure>' : '') +
+      '<div class="detail-head"><div class="chips"><span class="chip t-' + cc.tone + '">' + esc(cc.name) + '</span>' +
+      '<span class="chip ' + (s.tier === 'transcendent' ? 't-ember' : 't-arcane') + '">' + tierText(s.tier) + ' · ' + TIER_SUB[s.tier] + '</span>' +
+      (rangeLabel(s) ? '<span class="chip range-chip">' + esc(rangeLabel(s)) + '</span>' : '') +
+      (s.isDraft ? '<span class="chip t-ember">추천 가안</span>' : '<span class="chip t-jade">공식 설정</span>') + tierStatus(c, s.tier, s) + traitChips(c, s) + '</div>' +
+      '<div style="display:flex;gap:14px;align-items:center">' + tierBlock(s.tier, s) + '<div style="min-width:0"><h1 class="h1">' + esc(s.nameKo) + '</h1>' +
+      '<div class="mono" style="color:var(--arcane);font-size:13px">' + esc([s.nameEn, s.subType].filter(Boolean).join(' · ')) + '</div></div></div>' +
+      (s.quote ? '<p class="quote">' + esc(s.quote) + '</p>' : '') + '</div>' +
+      '<div class="meters"><div class="meter t-mana"><div class="top"><span>기술 난이도</span><b>' + s.difficulty + '/10</b></div>' + pips(s.difficulty, 't-mana') + '</div>' +
+      '<div class="meter t-rose"><div class="top"><span>파괴력 · 영향력</span><b>' + s.power + '/10</b></div>' + pips(s.power, 't-rose') + '</div></div>' +
+      (s.sealed ? '<div class="seal-banner"><div class="k">' + icon('lock') + '봉인된 잠재 스킬' + (s.unlockType ? ' · <span class="chip t-' + UNLOCK[s.unlockType].tone + '">' + esc(UNLOCK[s.unlockType].name) + '</span>' : '') + '</div><p>' + esc(s.unlockCond || '해방 조건을 아직 정하지 않았어요.') + '</p>' +
+        (canEdit() ? '<button type="button" class="btn small primary" data-act="unlock-skill">' + icon('unlock') + '해방 처리</button>' : '') + '</div>' :
+        (s.unlockCond ? '<div class="callout jade"><div class="k">해방 완료 · 조건이었던 것</div>' + esc(s.unlockCond) + '</div>' : '')) +
+      (s.gimmick ? '<div class="callout"><div class="k">기믹 연동 · 발동 조건</div>' + esc(s.gimmick) + '</div>' : '') +
+      '<section class="panel"><h3>효과와 연출</h3><p>' + esc(s.desc) + '</p></section>' +
+      (canEdit() && state.mode !== 'public' ? iconPanel(s) : '') +
+      (canEdit() ? '<div class="row-actions"><button type="button" class="btn small" data-act="edit-skill">' + icon('edit') + '수정</button>' +
+        '<button type="button" class="btn small" data-act="dup-skill">' + icon('copy') + '복제</button>' +
+        (s.isDraft ? '<button type="button" class="btn small" data-act="confirm-skill">' + icon('seal') + '공식 설정으로 확정</button>' : '<button type="button" class="btn small ghost" data-act="draft-skill">가안으로 되돌리기</button>') +
+        (!s.sealed ? '<button type="button" class="btn small ghost" data-act="seal-skill">' + icon('lock') + '봉인하기</button>' : '') +
+        '<button type="button" class="btn small danger" data-act="del-skill">' + icon('trash') + '삭제</button></div>' : '') +
+      '<div class="prevnext"><button type="button" class="pn" data-pn="' + (prev ? esc(prev.id) : '') + '"' + (prev ? '' : ' disabled') + '><small>‹ 이전</small><span>' + (prev ? esc(prev.nameKo) : '처음') + '</span></button>' +
+      '<button type="button" class="pn next" data-pn="' + (next ? esc(next.id) : '') + '"' + (next ? '' : ' disabled') + '><small>다음 ›</small><span>' + (next ? esc(next.nameKo) : '마지막') + '</span></button></div>';
+  };
+  function iconPanel(s) {
+    const img = skillImg(s);
+    return '<section class="panel icon-panel"><h3>' + icon('sparkle') + '아이콘 이미지</h3>' +
+      (s.iconPrompt ? '<div class="field"><span class="lbl">Firefly 프롬프트 (1:1로 생성)</span><textarea class="code prompt" readonly rows="4" id="ip-' + esc(s.id) + '">' + esc(s.iconPrompt) + '</textarea></div>' : '') +
+      '<div class="row-actions">' + (s.iconPrompt ? '<button type="button" class="btn small" data-copyprompt="' + esc(s.id) + '">' + icon('copy') + '프롬프트 복사</button>' : '') +
+      (assets ? '<button type="button" class="btn small primary" data-upicon="' + esc(s.id) + '">' + icon('upload') + (img ? '이미지 바꾸기' : '이미지 올리기') + '</button>' +
+        (img ? '<button type="button" class="btn small ghost" data-rmicon="' + esc(s.id) + '">' + icon('x') + '이미지 빼기</button>' : '') : '<span class="hint">이미지 올리기는 편집 권한이 있을 때만 보여요.</span>') +
+      '</div></section>';
+  }
+  function copyText(text, ta) {
+    const fallback = () => { if (ta) { ta.focus(); ta.select(); } toast('텍스트를 선택했어요. 복사해서 쓰세요.'); };
+    try { navigator.clipboard.writeText(text).then(() => toast('프롬프트를 복사했어요.'), fallback); } catch (e) { fallback(); }
+  }
+  function squareWebp(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const im = new Image();
+      im.onload = () => {
+        const n = 512, side = Math.min(im.naturalWidth, im.naturalHeight);
+        const cv = document.createElement('canvas'); cv.width = n; cv.height = n;
+        const ctx = cv.getContext('2d'); ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(im, (im.naturalWidth - side) / 2, (im.naturalHeight - side) / 2, side, side, 0, 0, n, n);
+        URL.revokeObjectURL(url);
+        cv.toBlob(b => b ? resolve(b) : reject(new Error('encode')), 'image/webp', 0.86);
+      };
+      im.onerror = () => { URL.revokeObjectURL(url); reject(new Error('decode')); };
+      im.src = url;
+    });
+  }
+  function pickIcon(sid) {
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/png,image/jpeg,image/webp';
+    inp.addEventListener('change', async () => {
+      const f = inp.files && inp.files[0]; if (!f) return;
+      const s = state.skills.get(sid); if (!s) return;
+      toast('이미지를 올리는 중…');
+      try {
+        const blob = await squareWebp(f);
+        const res = await assets.upload(blob, { type: 'image/webp' });
+        const old = s.icon;
+        await write('skills', Object.assign({}, s, { icon: res.id }));
+        if (old && old !== res.id) { try { await assets.delete(old); } catch (e) {} }
+        toast('「' + s.nameKo + '」 아이콘을 넣었어요.');
+      } catch (e) {
+        const code = e && e.code;
+        toast(code === 'too_large' ? '파일이 너무 커요. 20MB 이하로 올려 주세요.' : code === 'quota_or_state' ? '저장 공간이 가득 찼어요.' : (e && e.message === 'decode') ? '이 이미지 파일을 읽지 못했어요. PNG나 JPG로 올려 주세요.' : '이미지를 올리지 못했어요. 잠시 후 다시 시도해 주세요.');
+      }
+    });
+    inp.click();
+  }
+  function bindIconButtons(v) {
+    $$('[data-copyprompt]', v).forEach(b => b.addEventListener('click', e => { e.stopPropagation(); const s = state.skills.get(b.dataset.copyprompt); copyText(s.iconPrompt, document.getElementById('ip-' + s.id)); }));
+    $$('[data-upicon]', v).forEach(b => b.addEventListener('click', e => { e.stopPropagation(); pickIcon(b.dataset.upicon); }));
+    $$('[data-rmicon]', v).forEach(b => b.addEventListener('click', e => {
+      e.stopPropagation();
+      const s = state.skills.get(b.dataset.rmicon);
+      confirmSheet('아이콘 빼기', '「' + s.nameKo + '」의 아이콘 이미지를 지워요.', '빼기', async () => {
+        const old = s.icon;
+        try { await write('skills', Object.assign({}, s, { icon: '' })); if (old && assets) { try { await assets.delete(old); } catch (e2) {} } toast('아이콘을 뺐어요.'); } catch (e2) {}
+      });
+    }));
+  }
+
+  /* ---- icon workbench ---- */
+  VIEWS.icons = function (r) {
+    const c = state.chars.get(r.c);
+    const sk = skillsOf(c.id).sort((a, b) => (skillImg(a) ? 1 : 0) - (skillImg(b) ? 1 : 0) || tierNum(a.tier) - tierNum(b.tier) || a.nameKo.localeCompare(b.nameKo));
+    const done = sk.filter(skillImg).length;
+    const pct = sk.length ? Math.round(done / sk.length * 100) : 0;
+    return '<div class="section-head"><div><span class="eyebrow">아이콘 작업</span><h1 class="h1">스킬 아이콘 만들기</h1>' +
+      '<p class="lede">프롬프트를 복사해 Firefly에서 1:1로 생성한 뒤, 같은 줄에서 이미지를 올리면 바로 붙어요. 아직 없는 스킬이 위에 있어요.</p></div></div>' +
+      '<section class="panel"><div class="sim-big"><b>' + done + '</b><span>/ ' + sk.length + ' 완료 · ' + pct + '%</span></div><div class="gauge"><div style="width:' + pct + '%"></div></div>' +
+      (assets ? '' : '<p class="hint">이미지 올리기는 편집 권한이 있을 때만 쓸 수 있어요.</p>') + '</section>' +
+      '<div class="icon-list">' + sk.map(s => {
+        const img = skillImg(s); const cc = CAT[s.category];
+        return '<div class="icon-row' + (img ? ' done' : '') + '">' + tierBlock(s.tier, s) +
+          '<div class="body"><button type="button" class="linkish" data-goskill="' + esc(s.id) + '">' + esc(s.nameKo) + '</button>' +
+          '<div class="meta"><span class="chip t-' + cc.tone + '">' + esc(cc.name) + '</span>' + (isUnique(s) ? '<span class="chip trait">◆ 고유</span>' : '') + (img ? '<span class="chip t-jade">' + icon('check') + '완료</span>' : '') + '</div>' +
+          '<div class="row-actions">' + (s.iconPrompt ? '<button type="button" class="btn small" data-copyprompt="' + esc(s.id) + '">' + icon('copy') + '프롬프트</button>' : '') +
+          (assets ? '<button type="button" class="btn small' + (img ? '' : ' primary') + '" data-upicon="' + esc(s.id) + '">' + icon('upload') + (img ? '바꾸기' : '올리기') + '</button>' : '') + '</div></div></div>';
+      }).join('') + '</div>';
+  };
+  BINDS.icons = function (r, v) {
+    bindIconButtons(v);
+    $$('[data-goskill]', v).forEach(b => b.addEventListener('click', () => { const s = state.skills.get(b.dataset.goskill); go({ v: 'skill', c: s.characterId, cat: homeCat(s), s: s.id }); }));
+  };
+
+  BINDS.skill = function (r, v) {
+    bindIconButtons(v);
+    $$('[data-pn]', v).forEach(b => b.addEventListener('click', () => { if (b.dataset.pn) go(Object.assign({}, r, { s: b.dataset.pn }), { replace: true }); }));
+    bindActs(v, r);
+  };
+
+  /* ---- search ---- */
+  let searchQ = '';
+  VIEWS.search = function () {
+    return '<div class="section-head"><div><span class="eyebrow">검색</span><h1 class="h1">스킬과 기믹 찾기</h1></div></div>' +
+      '<div class="searchbox">' + icon('search') + '<input class="input" id="search-input" type="search" placeholder="이름, 효과, 대사 (예: 기절, 차용, 결계)" value="' + esc(searchQ) + '" autocomplete="off"></div>' +
+      '<div id="search-results"></div>';
+  };
+  function searchResults() {
+    const q = searchQ.trim().toLowerCase();
+    const box = $('#search-results');
+    if (!box) return;
+    if (!q) { box.innerHTML = '<p class="hint">모든 인물의 스킬 이름, 영문명, 효과, 기믹, 대사를 함께 찾아요.</p>'; return; }
+    const hits = Array.from(state.skills.values()).filter(s => { const c = state.chars.get(s.characterId); return [s.nameKo, s.nameEn, s.subType, s.gimmick, s.desc, s.quote, s.unlockCond, s.sealed ? '봉인' : '', rangeLabel(s), CAT[s.category].name].concat(s.traits.map(t => { const x = facetOf(c, t); return x ? x.t.name + ' ' + (x.f ? x.f.name : '') : ''; })).join(' ').toLowerCase().includes(q); })
+      .sort((a, b) => tierNum(a.tier) - tierNum(b.tier));
+    const gms = [];
+    state.chars.forEach(c => c.gimmicks.forEach(g => { if ([g.name, g.nameEn, g.summary].concat(g.rules.map(x => x.text)).join(' ').toLowerCase().includes(q)) gms.push({ c, g }); }));
+    let html = '<p class="hint">스킬 ' + hits.length + '개' + (gms.length ? ' · 기믹 ' + gms.length + '개' : '') + '</p>';
+    if (gms.length) html += '<div class="skill-list">' + gms.map(x => '<button type="button" class="skill-row" data-sgm="' + esc(x.c.id) + '|' + esc(x.g.id) + '"><div class="tier-block"><span style="width:26px;height:26px;color:var(--mana)">' + icon(x.g.icon) + '</span></div><div class="body"><div class="nm">' + esc(x.g.name) + '</div><div class="meta"><span class="chip t-mana">전투 기믹</span><span class="chip plain">' + esc(shortName(x.c.name)) + '</span></div></div>' + icon('chev', ' class="chev"') + '</button>').join('') + '</div>';
+    html += '<div class="skill-list" style="margin-top:10px">' + hits.slice(0, 80).map(s => {
+      const c = state.chars.get(s.characterId); const cc = CAT[s.category];
+      return '<button type="button" class="skill-row' + (s.tier === 'transcendent' ? ' trans' : '') + '" data-ss="' + esc(s.id) + '">' + tierBlock(s.tier, s) +
+        '<div class="body"><div class="nm">' + esc(s.nameKo) + '</div>' + (s.nameEn ? '<div class="en">' + esc(s.nameEn) + '</div>' : '') +
+        '<div class="meta">' + (isUnique(s) ? '<span class="chip trait">◆ 고유</span>' : '') + '<span class="chip t-' + cc.tone + '">' + esc(cc.name) + '</span>' + (rangeLabel(s) ? '<span class="chip range-chip">' + esc(rangeLabel(s)) + '</span>' : '') + (c && state.chars.size > 1 ? '<span class="chip plain">' + esc(shortName(c.name)) + '</span>' : '') + (s.isDraft ? '<span class="chip t-ember">가안</span>' : '') + '</div></div>' + icon('chev', ' class="chev"') + '</button>';
+    }).join('') + '</div>';
+    box.innerHTML = html;
+    $$('[data-ss]', box).forEach(b => b.addEventListener('click', () => { const s = state.skills.get(b.dataset.ss); if (!listPrefs.drafts && s.isDraft) { listPrefs.drafts = true; saveListPrefs(); } go({ v: 'skill', c: s.characterId, cat: homeCat(s), s: s.id }); }));
+    $$('[data-sgm]', box).forEach(b => b.addEventListener('click', () => { const p = b.dataset.sgm.split('|'); go({ v: 'gimmick', c: p[0], g: p[1] }); }));
+  }
+  BINDS.search = function (r, v) {
+    const inp = $('#search-input', v);
+    inp.addEventListener('input', () => { searchQ = inp.value; searchResults(); });
+    searchResults();
+    setTimeout(() => { try { inp.focus({ preventScroll: true }); } catch (e) {} }, 60);
+  };
+
+  /* ================= actions ================= */
+  function bindActs(v, r) {
+    $$('[data-act]', v).forEach(b => b.addEventListener('click', () => ACTS[b.dataset.act] && ACTS[b.dataset.act](r || route, b)));
+  }
+  const ACTS = {
+    'new-char': () => openCharForm(null),
+    'edit-char': r => openCharForm(r.c),
+    'edit-story': r => openStoryForm(r.c),
+    'backup': () => openBackup(),
+    'new-skill': r => openSkillForm(null, r),
+    'edit-skill': r => openSkillForm(r.s, r),
+    'dup-skill': async r => {
+      const s = state.skills.get(r.s);
+      const copy = Object.assign({}, s, { id: uid('sk'), nameKo: s.nameKo + ' (사본)', isDraft: true });
+      try { await write('skills', copy); toast('사본을 만들었어요.'); go({ v: 'skill', c: r.c, cat: r.cat, s: copy.id }, { replace: true }); } catch (e) {}
+    },
+    'confirm-skill': async r => { const s = state.skills.get(r.s); try { await write('skills', Object.assign({}, s, { isDraft: false })); toast('공식 설정으로 확정했어요.'); } catch (e) {} },
+    'draft-skill': async r => { const s = state.skills.get(r.s); try { await write('skills', Object.assign({}, s, { isDraft: true })); toast('가안으로 바꿨어요.'); } catch (e) {} },
+    'del-skill': r => {
+      const s = state.skills.get(r.s);
+      confirmSheet('「' + s.nameKo + '」 삭제', '이 스킬을 도감에서 지워요. 바로 아래 알림에서 되돌릴 수 있어요.', '삭제', async () => {
+        const backup = Object.assign({}, s);
+        try {
+          await remove('skills', s.id);
+          go({ v: 'list', c: r.c, cat: r.cat || 'all' }, { replace: true });
+          toast('「' + backup.nameKo + '」를 지웠어요.', '되돌리기', async () => { try { await write('skills', backup); toast('되돌렸어요.'); } catch (e) {} });
+        } catch (e) {}
+      });
+    },
+    'unlock-skill': async r => { const s = state.skills.get(r.s); try { await write('skills', Object.assign({}, s, { sealed: false })); toast('「' + s.nameKo + '」 해방!'); } catch (e) {} },
+    'seal-skill': r => openSkillForm(r.s, r, true),
+    'edit-goal': r => openGoalForm(r.c),
+    'new-gimmick': r => openGimmickForm(r.c, null),
+    'edit-gimmick': r => openGimmickForm(r.c, r.g),
+    'del-gimmick': r => {
+      const c = state.chars.get(r.c); const g = c.gimmicks.find(x => x.id === r.g);
+      confirmSheet('「' + g.name + '」 기믹 삭제', '규칙과 시뮬레이터가 함께 지워져요.', '삭제', async () => {
+        const before = c.gimmicks.slice();
+        try {
+          await write('characters', Object.assign({}, c, { gimmicks: c.gimmicks.filter(x => x.id !== g.id) }));
+          go({ v: 'gimmicks', c: c.id }, { replace: true });
+          toast('기믹을 지웠어요.', '되돌리기', async () => { const cur = state.chars.get(c.id); try { await write('characters', Object.assign({}, cur, { gimmicks: before })); } catch (e) {} });
+        } catch (e) {}
+      });
+    }
+  };
+
+  /* ================= sheets ================= */
+  let sheetOpen = false, lastFocus = null;
+  function openSheet(title, bodyHtml, onMount) {
+    lastFocus = document.activeElement;
+    const root = $('#sheet-root');
+    root.innerHTML = '<div class="backdrop" id="backdrop"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title"><div class="grabber"></div>' +
+      '<div class="sheet-head"><h2 id="sheet-title">' + esc(title) + '</h2><button type="button" class="icon-btn" id="sheet-close" aria-label="닫기">' + icon('x') + '</button></div>' + bodyHtml + '</div></div>';
+    sheetOpen = true;
+    document.body.style.overflow = 'hidden';
+    $('#backdrop').addEventListener('click', e => { if (e.target.id === 'backdrop') closeSheet(); });
+    $('#sheet-close').addEventListener('click', closeSheet);
+    if (onMount) onMount($('.sheet', root));
+  }
+  function closeSheet() {
+    if (!sheetOpen) return;
+    $('#sheet-root').innerHTML = ''; sheetOpen = false; document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) try { lastFocus.focus({ preventScroll: true }); } catch (e) {}
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheetOpen) closeSheet(); });
+
+  function confirmSheet(title, msg, okLabel, onOk) {
+    openSheet(title, '<p style="margin:0;color:var(--muted)">' + esc(msg) + '</p><div class="sheet-actions"><button type="button" class="btn" id="cf-cancel">취소</button><button type="button" class="btn danger" id="cf-ok">' + esc(okLabel) + '</button></div>', sh => {
+      $('#cf-cancel', sh).addEventListener('click', closeSheet);
+      $('#cf-ok', sh).addEventListener('click', () => { closeSheet(); onOk(); });
+      $('#cf-cancel', sh).focus();
+    });
+  }
+
+  function opt(v, label, cur) { return '<option value="' + esc(v) + '"' + (String(cur) === String(v) ? ' selected' : '') + '>' + esc(label) + '</option>'; }
+
+  /* ---- skill form ---- */
+  function openSkillForm(skillId, r, focusSeal) {
+    const s = skillId ? state.skills.get(skillId) : null;
+    const fromT = r && isUCat(r.cat);
+    const sub0 = r && r.cat ? (fromT ? r.cat.slice(2) : r.cat) : 'all';
+    const defCat = s ? s.category : (CAT[sub0] ? sub0 : 'attack');
+    const cc0 = state.chars.get(r.c);
+    let defKind = s ? (s.traits[0] ? s.traits[0].split(':')[0] : '') : (fromT && cc0 && cc0.traits[0] ? cc0.traits[0].id : '');
+    const defTier = s ? s.tier : (listPrefs.tier !== 'all' ? listPrefs.tier : '3');
+    const c = state.chars.get(r.c);
+    const body = '<form class="form" id="skill-form" novalidate>' +
+      '<div class="field"><label for="f-nameKo">스킬 이름 <em>*</em></label><input class="input" id="f-nameKo" required placeholder="예: 청구서" value="' + esc(s ? s.nameKo : '') + '"></div>' +
+      (c && c.traits.length ? '<div class="field"><label for="f-kind">분류</label><select class="select" id="f-kind">' + opt('', '일반 스킬 · 자기 마나로 씀', defKind) +
+        c.traits.map(t => opt(t.id, '고유 스킬 · ' + t.name + ' (상대 마나 조작)', defKind)).join('') + '</select>' +
+        '<span class="hint">상대의 마나를 조작해서 쓰는 기술이면 고유 스킬로 고르세요.</span></div>' : '') +
+      '<div class="row2"><div class="field"><label for="f-category">유형</label><select class="select" id="f-category">' + CATEGORIES.map(x => opt(x.id, x.name, defCat)).join('') + '</select></div>' +
+      '<div class="field"><label for="f-tier">등급</label><select class="select" id="f-tier">' + TIERS.map(t => opt(t, tierText(t) + ' · ' + TIER_SUB[t] + (c && c.disguiseTier === tierNum(t) ? ' (위장)' : '') + (c && c.realTier === tierNum(t) ? ' (본실력)' : ''), defTier)).join('') + '</select></div></div>' +
+      '<div class="row2"><div class="field"><label for="f-reach">사거리</label><select class="select" id="f-reach">' + opt('', '정하지 않음', s ? s.reach : '') + REACH.map(x => opt(x.id, x.name, s ? s.reach : '')).join('') + '</select></div>' +
+      '<div class="field"><label for="f-area">범위</label><select class="select" id="f-area">' + opt('', '정하지 않음', s ? s.area : '') + AREA.map(x => opt(x.id, x.name, s ? s.area : '')).join('') + '</select></div></div>' +
+      '<div class="field"><label for="f-desc">효과와 연출 <em>*</em></label><textarea class="textarea" id="f-desc" placeholder="무슨 일이 일어나는지, 어떻게 보이는지">' + esc(s ? s.desc : '') + '</textarea></div>' +
+      '<details class="more"' + (s && (s.gimmick || s.quote) ? '' : '') + '><summary>상세 설정 (영문명, 수치, 기믹, 대사)</summary><div class="form">' +
+      '<div class="row2"><div class="field"><label for="f-nameEn">영문 이름</label><input class="input" id="f-nameEn" value="' + esc(s ? s.nameEn : '') + '" placeholder="The Invoice"></div>' +
+      '<div class="field"><label for="f-subType">세부 형태</label><input class="input" id="f-subType" value="' + esc(s ? s.subType : '') + '" placeholder="누적 정산 일격"></div></div>' +
+      '<div class="row2"><div class="field"><label for="f-difficulty">기술 난이도 <span class="rangeval" id="f-difficulty-v">' + (s ? s.difficulty : 5) + '</span></label><input class="range" type="range" id="f-difficulty" min="1" max="10" value="' + (s ? s.difficulty : 5) + '"></div>' +
+      '<div class="field"><label for="f-power">파괴력 <span class="rangeval" id="f-power-v">' + (s ? s.power : 5) + '</span></label><input class="range" type="range" id="f-power" min="1" max="10" value="' + (s ? s.power : 5) + '"></div></div>' +
+      '<div class="field"><label for="f-gimmick">기믹 연동 · 발동 조건</label><input class="input" id="f-gimmick" value="' + esc(s ? s.gimmick : '') + '" placeholder="예: 차용 마력 전부 소모 · 과부하 +1"></div>' +
+      '<div class="field"><label for="f-quote">대사</label><input class="input" id="f-quote" value="' + esc(s ? s.quote : '') + '" placeholder="시전할 때 한마디"></div>' +
+      '</div></details>' +
+      '<details class="more" id="f-seal-box"' + ((s && s.sealed) || focusSeal ? ' open' : '') + '><summary>잠재 해방 (봉인 · 해방 조건)</summary><div class="form">' +
+      '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="f-sealed"' + ((s && s.sealed) || focusSeal ? ' checked' : '') + '>아직 봉인된 잠재 스킬</label>' +
+      '<div class="field"><label for="f-unlockType">해방 조건 유형</label><select class="select" id="f-unlockType">' + opt('', '정하지 않음', s ? s.unlockType : '') + UNLOCK_TYPES.map(u => opt(u.id, u.name + ' · ' + u.desc, s ? s.unlockType : '')).join('') + '</select></div>' +
+      '<div class="field"><label for="f-unlockCond">해방 조건</label><input class="input" id="f-unlockCond" value="' + esc(s ? s.unlockCond : '') + '" placeholder="예: 8성 이상 상대의 마력 회로를 직접 읽어낸다"></div>' +
+      '</div></details>' +
+      '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="f-isDraft"' + (s ? (s.isDraft ? ' checked' : '') : '') + '>추천 가안 (미확정)으로 표시</label>' +
+      '<div class="sheet-actions"><button type="button" class="btn" id="f-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + (s ? '저장' : '도감에 추가') + '</button></div></form>';
+    openSheet(s ? '스킬 수정' : '새 스킬', body, sh => {
+      if (focusSeal) setTimeout(() => { const b = $('#f-seal-box', sh); if (b) b.scrollIntoView({ block: 'center' }); }, 60);
+      const syncArea = () => { const self = $('#f-reach', sh).value === 'self'; $('#f-area', sh).disabled = self; if (self) $('#f-area', sh).value = ''; };
+      $('#f-reach', sh).addEventListener('change', syncArea); syncArea();
+      ['difficulty', 'power'].forEach(k => { const el = $('#f-' + k, sh); el.addEventListener('input', () => { $('#f-' + k + '-v', sh).textContent = el.value; }); });
+      $('#f-cancel', sh).addEventListener('click', closeSheet);
+      if (!s) setTimeout(() => { try { $('#f-nameKo', sh).focus(); } catch (e) {} }, 80);
+      $('#skill-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const nameKo = $('#f-nameKo', sh).value.trim(); const desc = $('#f-desc', sh).value.trim();
+        if (!nameKo) { toast('스킬 이름을 적어 주세요.'); $('#f-nameKo', sh).focus(); return; }
+        if (!desc) { toast('효과와 연출을 한 줄이라도 적어 주세요.'); $('#f-desc', sh).focus(); return; }
+        const obj = normSkill({
+          id: s ? s.id : uid('sk'), characterId: s ? s.characterId : r.c, nameKo: nameKo, desc: desc,
+          category: $('#f-category', sh).value, tier: $('#f-tier', sh).value,
+          nameEn: $('#f-nameEn', sh).value.trim(), subType: $('#f-subType', sh).value.trim(),
+          difficulty: Number($('#f-difficulty', sh).value), power: Number($('#f-power', sh).value),
+          gimmick: $('#f-gimmick', sh).value.trim(), quote: $('#f-quote', sh).value.trim(), isDraft: $('#f-isDraft', sh).checked,
+          reach: $('#f-reach', sh).value, area: $('#f-area', sh).value,
+          sealed: $('#f-sealed', sh).checked, unlockType: $('#f-unlockType', sh).value, unlockCond: $('#f-unlockCond', sh).value.trim(),
+          traits: $('#f-kind', sh) ? ($('#f-kind', sh).value ? [$('#f-kind', sh).value] : []) : (s ? s.traits : [])
+        });
+        try {
+          await write('skills', obj);
+          closeSheet();
+          toast(s ? '저장했어요.' : '「' + obj.nameKo + '」를 추가했어요.');
+          const hc = homeCat(obj);
+          const keepAll = route.v === 'list' && (route.cat === 'all' || route.cat === 'u:all') && isUCat(route.cat) === isUnique(obj);
+          if (!s) go({ v: 'skill', c: obj.characterId, cat: keepAll ? route.cat : hc, s: obj.id });
+          else if (route.v === 'skill' && route.from !== 'growth') {
+            const allCat = isUnique(obj) ? 'u:all' : 'all';
+            if (route.cat !== hc && route.cat !== allCat) go(Object.assign({}, route, { cat: hc }), { replace: true });
+            if (isUnique(obj) !== isUnique(s)) toast(isUnique(obj) ? '고유 스킬로 옮겼어요.' : '일반 스킬로 옮겼어요.');
+          }
+        } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- character form ---- */
+  function openCharForm(cid) {
+    const c = cid ? state.chars.get(cid) : null;
+    const f = (id, label, val, ph, req) => '<div class="field"><label for="' + id + '">' + label + (req ? ' <em>*</em>' : '') + '</label><input class="input" id="' + id + '" value="' + esc(val || '') + '" placeholder="' + esc(ph || '') + '"></div>';
+    const t = (id, label, val, ph) => '<div class="field"><label for="' + id + '">' + label + '</label><textarea class="textarea" id="' + id + '" placeholder="' + esc(ph || '') + '">' + esc(val || '') + '</textarea></div>';
+    const tierSel = (id, label, cur) => '<div class="field"><label for="' + id + '">' + label + '</label><select class="select" id="' + id + '">' + opt('', '없음', cur == null ? '' : cur) + [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => opt(n, n + '성', cur)).join('') + '</select></div>';
+    const body = '<form class="form" id="char-form" novalidate>' +
+      '<div class="row2">' + f('c-name', '이름', c && c.name, '예: 왓더퍽 (WhatTheFuck)', true) + f('c-avatar', '약자 (2~4자)', c && c.avatar, 'WTF') + '</div>' +
+      '<div class="row2">' + f('c-className', '클래스 · 이명', c && c.className, '아르카나') + f('c-gender', '성별', c && c.gender, '') + '</div>' +
+      t('c-ability', '고유 능력', c && c.ability, '이 인물만의 핵심 능력') +
+      '<details class="more"' + (c ? '' : ' open') + '><summary>등급 · 위장 · 성격</summary><div class="form">' +
+      '<div class="row2">' + f('c-realPower', '본실력 표기', c && c.realPower, '7성 (더 오를 수 있음)') + tierSel('c-realTier', '본실력 등급', c && c.realTier) + '</div>' +
+      '<div class="row2">' + f('c-disguisePower', '위장 표기', c && c.disguisePower, '2성급 완벽 위장') + tierSel('c-disguiseTier', '위장 등급', c && c.disguiseTier) + '</div>' +
+      f('c-controlRank', '마력 조종 수준', c && c.controlRank, '세계 최고') +
+      f('c-quote', '대표 대사', c && c.quote, '') +
+      t('c-disguiseDesc', '위장 특징', c && c.disguiseDesc, '') + t('c-personality', '성격 · 대인 특징', c && c.personality, '') +
+      '</div></details>' +
+      (c ? '<button type="button" class="btn small danger" id="c-delete" style="align-self:flex-start">' + icon('trash') + '이 인물 삭제</button>' : '') +
+      '<div class="sheet-actions"><button type="button" class="btn" id="c-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + (c ? '저장' : '인물 등록') + '</button></div></form>';
+    openSheet(c ? '인물 정보 수정' : '새 인물 등록', body, sh => {
+      $('#c-cancel', sh).addEventListener('click', closeSheet);
+      if (c) $('#c-delete', sh).addEventListener('click', () => {
+        const n = skillsOf(c.id).length;
+        confirmSheet('「' + shortName(c.name) + '」 삭제', '인물과 스킬 ' + n + '개, 기믹이 모두 지워져요. 지우기 전에 메뉴의 백업을 받아두면 안전해요.', '모두 삭제', async () => {
+          try { for (const s of skillsOf(c.id)) await remove('skills', s.id); await remove('characters', c.id); go({ v: 'home' }, { replace: true }); toast('인물을 지웠어요.'); } catch (e) {}
+        });
+      });
+      $('#char-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = $('#c-name', sh).value.trim();
+        if (!name) { toast('이름을 적어 주세요.'); $('#c-name', sh).focus(); return; }
+        const num = id => { const v = $(id, sh).value; return v === '' ? null : Number(v); };
+        const obj = normChar(Object.assign({}, c || { order: charsSorted().length + 1, gimmicks: [], story: '' }, {
+          id: c ? c.id : uid('char'), name: name, avatar: $('#c-avatar', sh).value.trim() || name.slice(0, 2),
+          className: $('#c-className', sh).value.trim(), gender: $('#c-gender', sh).value.trim(), ability: $('#c-ability', sh).value.trim(),
+          realPower: $('#c-realPower', sh).value.trim(), realTier: num('#c-realTier'), disguisePower: $('#c-disguisePower', sh).value.trim(), disguiseTier: num('#c-disguiseTier'),
+          controlRank: $('#c-controlRank', sh).value.trim(), quote: $('#c-quote', sh).value.trim(), disguiseDesc: $('#c-disguiseDesc', sh).value.trim(), personality: $('#c-personality', sh).value.trim()
+        }));
+        try { await write('characters', obj); closeSheet(); toast(c ? '저장했어요.' : '「' + shortName(obj.name) + '」를 등록했어요.'); if (!c) go({ v: 'char', c: obj.id }); } catch (err) {}
+      });
+    });
+  }
+
+  function openStoryForm(cid) {
+    const c = state.chars.get(cid);
+    openSheet('스토리', '<form class="form" id="story-form"><div class="field"><label for="s-story">과거사 · 관계 · 메모</label><textarea class="textarea" id="s-story" style="min-height:260px" placeholder="자유롭게 적어 주세요.">' + esc(c.story) + '</textarea></div>' +
+      '<div class="sheet-actions"><button type="button" class="btn" id="s-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + '저장</button></div></form>', sh => {
+      $('#s-cancel', sh).addEventListener('click', closeSheet);
+      $('#story-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        try { await write('characters', Object.assign({}, c, { story: $('#s-story', sh).value })); closeSheet(); toast('저장했어요.'); } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- goal form ---- */
+  function openGoalForm(cid) {
+    const c = state.chars.get(cid);
+    const lines = c.transcend.candidates.map(x => x.title + ': ' + x.desc).join('\n');
+    openSheet('최종 목표 · 초월 후보', '<form class="form" id="goal-form"><div class="field"><label for="goal-text">최종 목표</label><textarea class="textarea" id="goal-text">' + esc(c.goal) + '</textarea></div>' +
+      '<div class="field"><label for="goal-cands">초월 행동 후보 (한 줄에 하나, "제목: 설명")</label><textarea class="textarea" id="goal-cands" style="min-height:180px">' + esc(lines) + '</textarea></div>' +
+      '<div class="sheet-actions"><button type="button" class="btn" id="goal-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + '저장</button></div></form>', sh => {
+      $('#goal-cancel', sh).addEventListener('click', closeSheet);
+      $('#goal-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const old = c.transcend.candidates;
+        const cands = $('#goal-cands', sh).value.split('\n').map(x => x.trim()).filter(Boolean).map((x, i) => {
+          const k = x.indexOf(':'); const title = (k > 0 ? x.slice(0, k) : x).trim(); const desc = k > 0 ? x.slice(k + 1).trim() : '';
+          const prev = old.find(o => o.title === title) || old[i];
+          return { id: prev ? prev.id : uid('tc'), title: title, desc: desc };
+        });
+        const chosen = cands.some(x => x.id === c.transcend.chosen) ? c.transcend.chosen : null;
+        try { await write('characters', Object.assign({}, c, { goal: $('#goal-text', sh).value.trim(), transcend: { candidates: cands, chosen: chosen } })); closeSheet(); toast('저장했어요.'); } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- trait form ---- */
+  function openTraitForm(cid, tid) {
+    const c = state.chars.get(cid);
+    const t = tid ? c.traits.find(x => x.id === tid) : null;
+    const lines = t ? t.facets.map(f => f.name + ': ' + f.desc).join('\n') : '';
+    openSheet(t ? '고유 특성 수정' : '새 고유 특성', '<form class="form" id="trait-form" novalidate>' +
+      '<div class="row2"><div class="field"><label for="t-name">이름 <em>*</em></label><input class="input" id="t-name" value="' + esc(t ? t.name : '') + '" placeholder="예: 마나 조종"></div>' +
+      '<div class="field"><label for="t-nameEn">영문 이름</label><input class="input" id="t-nameEn" value="' + esc(t ? t.nameEn : '') + '"></div></div>' +
+      '<div class="field"><label for="t-desc">설명</label><textarea class="textarea" id="t-desc">' + esc(t ? t.desc : '') + '</textarea></div>' +
+
+      '<div class="sheet-actions"><button type="button" class="btn" id="t-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + '저장</button></div></form>', sh => {
+      $('#t-cancel', sh).addEventListener('click', closeSheet);
+      $('#trait-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = $('#t-name', sh).value.trim();
+        if (!name) { toast('이름을 적어 주세요.'); return; }
+        const facets = (t ? t.facets.map(f => f.name + ': ' + f.desc).join('\n') : '').split('\n').map(x => x.trim()).filter(Boolean).map((x, i) => {
+          const k = x.indexOf(':'); const fname = (k > 0 ? x.slice(0, k) : x).trim();
+          const prev = t && (t.facets.find(f => f.name === fname) || t.facets[i]);
+          return { id: prev ? prev.id : uid('f'), name: fname, desc: k > 0 ? x.slice(k + 1).trim() : '' };
+        });
+        const obj = normTrait({ id: t ? t.id : uid('tr'), name: name, nameEn: $('#t-nameEn', sh).value.trim(), desc: $('#t-desc', sh).value.trim(), facets: facets });
+        const traits = t ? c.traits.map(x => x.id === t.id ? obj : x) : c.traits.concat([obj]);
+        try { await write('characters', Object.assign({}, c, { traits: traits })); closeSheet(); toast('저장했어요.'); } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- gimmick form ---- */
+  function openGimmickForm(cid, gid) {
+    const c = state.chars.get(cid);
+    const g = gid ? c.gimmicks.find(x => x.id === gid) : null;
+    const rulesText = g ? g.rules.map(x => (x.added ? '+ ' : '') + x.text).join('\n') : '';
+    const body = '<form class="form" id="gm-form" novalidate>' +
+      '<div class="row2"><div class="field"><label for="g-name">기믹 이름 <em>*</em></label><input class="input" id="g-name" value="' + esc(g ? g.name : '') + '" placeholder="예: 차용 마력"></div>' +
+      '<div class="field"><label for="g-icon">아이콘</label><select class="select" id="g-icon">' + [['sparkle', '별빛'], ['droplet', '마나 방울'], ['flame', '불꽃'], ['magnet', '자석'], ['mask', '가면']].map(o => opt(o[0], o[1], g ? g.icon : 'sparkle')).join('') + '</select></div></div>' +
+      '<div class="field"><label for="g-nameEn">영문 이름</label><input class="input" id="g-nameEn" value="' + esc(g ? g.nameEn : '') + '"></div>' +
+      '<div class="field"><label for="g-summary">한 줄 요약</label><input class="input" id="g-summary" value="' + esc(g ? g.summary : '') + '"></div>' +
+      '<div class="field"><label for="g-rules">규칙 (한 줄에 하나, 앞에 + 를 붙이면 "새로 추가" 표시)</label><textarea class="textarea" id="g-rules" style="min-height:160px">' + esc(rulesText) + '</textarea></div>' +
+      (!g ? '<div class="field"><label for="g-sim">시뮬레이터</label><select class="select" id="g-sim">' + opt('none', '없음 (규칙만)', 'none') + opt('stack', '스택형 (최대 N스택)', '') + '</select></div>' +
+        '<div class="field" id="g-max-wrap" hidden><label for="g-max">최대 스택</label><input class="input" id="g-max" type="number" min="2" max="10" value="5"></div>' : '') +
+      '<label class="toggle" style="align-self:flex-start"><input type="checkbox" id="g-draft"' + (g ? (g.isDraft ? ' checked' : '') : ' checked') + '>신규 가안으로 표시</label>' +
+      '<div class="sheet-actions"><button type="button" class="btn" id="g-cancel">취소</button><button type="submit" class="btn primary">' + icon('check') + (g ? '저장' : '기믹 추가') + '</button></div></form>';
+    openSheet(g ? '기믹 수정' : '새 기믹', body, sh => {
+      $('#g-cancel', sh).addEventListener('click', closeSheet);
+      const simSel = $('#g-sim', sh);
+      if (simSel) simSel.addEventListener('change', () => { $('#g-max-wrap', sh).hidden = simSel.value !== 'stack'; });
+      $('#gm-form', sh).addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = $('#g-name', sh).value.trim();
+        if (!name) { toast('기믹 이름을 적어 주세요.'); return; }
+        const rules = $('#g-rules', sh).value.split('\n').map(x => x.trim()).filter(Boolean).map(x => /^\+\s*/.test(x) ? { text: x.replace(/^\+\s*/, ''), added: true } : { text: x });
+        let sim = g ? g.sim : null;
+        if (!g && simSel && simSel.value === 'stack') sim = { type: 'stack', label: name, max: clamp(Number($('#g-max', sh).value) || 5, 2, 10), initial: 0, perStack: [], addLabel: '+1', spendLabel: '전부 소모' };
+        const obj = normGimmick({ id: g ? g.id : uid('gm'), name: name, nameEn: $('#g-nameEn', sh).value.trim(), icon: $('#g-icon', sh).value, summary: $('#g-summary', sh).value.trim(), rules: rules, sim: sim, isDraft: $('#g-draft', sh).checked });
+        const list = g ? c.gimmicks.map(x => x.id === g.id ? obj : x) : c.gimmicks.concat([obj]);
+        if (g) delete simState[g.id];
+        try { await write('characters', Object.assign({}, c, { gimmicks: list })); closeSheet(); toast(g ? '저장했어요.' : '기믹을 추가했어요.'); if (!g) go({ v: 'gimmick', c: c.id, g: obj.id }); } catch (err) {}
+      });
+    });
+  }
+
+  /* ---- more menu & backup ---- */
+  function openMenu() {
+    const items = [
+      ['home', 'grid', '인물 목록으로', '맨 처음 화면'],
+      ['search', 'search', '검색', '스킬과 기믹 찾기'],
+      ['backup', 'download', '백업 · 복원', 'JSON으로 내보내거나 불러오기']
+    ];
+    if (state.mode !== 'public' && canEdit() && state.chars.size) items.splice(2, 0, ['icons', 'sparkle', '아이콘 작업', 'Firefly 프롬프트 복사 · 이미지 올리기']);
+    openSheet('메뉴', '<div class="menu-list">' + items.map(i => '<button type="button" class="menu-item" data-m="' + i[0] + '">' + icon(i[1]) + '<span><b>' + i[2] + '</b><small>' + i[3] + '</small></span></button>').join('') + '</div>' +
+      '<p class="hint" style="margin:0">' + (state.mode === 'public' ? '읽기 전용 공개판이에요.' : state.mode === 'db' ? '변경 내용은 자동 저장되고, 이 링크를 여는 모든 기기에서 똑같이 보여요.' : '지금은 이 브라우저에만 저장돼요. 다른 기기로 옮기려면 백업을 이용하세요.') + '</p>', sh => {
+      $$('[data-m]', sh).forEach(b => b.addEventListener('click', () => {
+        const m = b.dataset.m; closeSheet();
+        if (m === 'home') go({ v: 'home' }); else if (m === 'search') go({ v: 'search' }); else if (m === 'icons') go({ v: 'icons', c: (route.c && state.chars.has(route.c)) ? route.c : charsSorted()[0].id }); else openBackup();
+      }));
+    });
+  }
+  function exportData() {
+    return JSON.stringify({ format: 'arcana-codex', version: 2, exportedAt: new Date().toISOString(), characters: charsSorted(), skills: Array.from(state.skills.values()) }, null, 2);
+  }
+  function openBackup() {
+    const json = exportData();
+    openSheet('백업 · 복원', '<div class="field"><span class="lbl">현재 도감 (인물 ' + state.chars.size + '명 · 스킬 ' + state.skills.size + '개)</span><textarea class="code" id="b-out" readonly>' + esc(json) + '</textarea></div>' +
+      '<div class="row-actions"><button type="button" class="btn small" id="b-copy">' + icon('copy') + '복사</button>' + (downloads ? '<button type="button" class="btn small" id="b-save">' + icon('download') + '파일로 저장</button>' : '') + '</div>' +
+      (canEdit() ? '<div class="field" style="margin-top:6px"><label for="b-in">불러오기 — 백업 JSON을 붙여넣거나 파일을 고르세요. 이전 도감 형식도 읽을 수 있어요.</label><textarea class="code" id="b-in" placeholder="{ &quot;characters&quot;: [...], &quot;skills&quot;: [...] }" style="color:var(--text)"></textarea>' +
+        '<input type="file" id="b-file" accept=".json,application/json,text/plain" class="input" style="padding:10px"></div>' +
+        '<div class="sheet-actions"><button type="button" class="btn" id="b-cancel">닫기</button><button type="button" class="btn primary" id="b-apply">' + icon('upload') + '불러오기</button></div>' : ''), sh => {
+      $('#b-copy', sh).addEventListener('click', () => {
+        const ta = $('#b-out', sh);
+        const fallback = () => { ta.focus(); ta.select(); toast('텍스트를 선택했어요. 복사해서 보관하세요.'); };
+        try { navigator.clipboard.writeText(json).then(() => toast('백업을 복사했어요.'), fallback); } catch (e) { fallback(); }
+      });
+      const save = $('#b-save', sh);
+      if (save) save.addEventListener('click', async () => {
+        try { await downloads.save({ filename: 'arcana-codex-' + new Date().toISOString().slice(0, 10) + '.json', data: json }); } catch (e) { toast('파일을 저장하지 않았어요.'); }
+      });
+      if (!canEdit()) return;
+      $('#b-cancel', sh).addEventListener('click', closeSheet);
+      $('#b-file', sh).addEventListener('change', e => {
+        const file = e.target.files && e.target.files[0]; if (!file) return;
+        const rd = new FileReader(); rd.onload = () => { $('#b-in', sh).value = String(rd.result || ''); }; rd.readAsText(file);
+      });
+      $('#b-apply', sh).addEventListener('click', () => {
+        let data;
+        try { data = parseBackup($('#b-in', sh).value); } catch (err) { toast(err.message); return; }
+        confirmSheet('도감을 교체할까요?', '불러온 인물 ' + data.characters.length + '명, 스킬 ' + data.skills.length + '개로 지금 도감을 바꿔요. 지금 내용이 필요하면 먼저 복사해 두세요.', '교체하기', () => applyBackup(data));
+      });
+    });
+  }
+  function parseBackup(text) {
+    if (!text.trim()) throw new Error('붙여넣은 내용이 없어요.');
+    let raw;
+    try { raw = JSON.parse(text); } catch (e) { throw new Error('JSON 형식이 아니에요. 백업 전체를 빠짐없이 붙여넣었는지 확인해 주세요.'); }
+    let chars = [], skills = [];
+    if (Array.isArray(raw)) skills = raw;
+    else if (raw && Array.isArray(raw.skills)) { skills = raw.skills; chars = Array.isArray(raw.characters) ? raw.characters : []; }
+    else throw new Error('인물이나 스킬 목록을 찾지 못했어요.');
+    chars = chars.map((c, i) => {
+      const n = normChar(c, i);
+      const cur = state.chars.get(n.id);
+      if (cur && !(Array.isArray(c.gimmicks) && c.gimmicks.length)) n.gimmicks = cur.gimmicks;
+      if (cur && !c.story) n.story = cur.story;
+      return n;
+    });
+    if (!chars.length) chars = charsSorted();
+    const fallback = chars[0] ? chars[0].id : '';
+    skills = skills.map(s => normSkill(s, fallback)).map(s => (chars.some(c => c.id === s.characterId) ? s : Object.assign(s, { characterId: fallback })));
+    return { characters: chars, skills: skills };
+  }
+  async function applyBackup(data) {
+    closeSheet();
+    toast('불러오는 중…');
+    try {
+      const keepS = new Set(data.skills.map(s => s.id)), keepC = new Set(data.characters.map(c => c.id));
+      if (state.mode === 'db') {
+        for (const s of Array.from(state.skills.values())) if (!keepS.has(s.id)) await db.collection('skills').doc(s.id).delete();
+        for (const c of Array.from(state.chars.values())) if (!keepC.has(c.id)) await db.collection('characters').doc(c.id).delete();
+        for (const c of data.characters) await db.collection('characters').doc(c.id).set(JSON.parse(JSON.stringify(c)));
+        for (const s of data.skills) await db.collection('skills').doc(s.id).set(JSON.parse(JSON.stringify(s)));
+      } else {
+        state.chars = new Map(data.characters.map(c => [c.id, c])); state.skills = new Map(data.skills.map(s => [s.id, s])); persistLocal();
+      }
+      go({ v: 'home' }, { replace: true });
+      toast('불러왔어요. 인물 ' + data.characters.length + '명 · 스킬 ' + data.skills.length + '개');
+    } catch (e) { toast('불러오는 중 일부를 저장하지 못했어요. 다시 시도해 주세요.'); render(); }
+  }
+
+  /* ================= toast ================= */
+  let toastTimer = null;
+  function toast(msg, actionLabel, onAction) {
+    const root = $('#toast-root');
+    root.innerHTML = '<div class="toast" role="status"><span>' + esc(msg) + '</span>' + (actionLabel ? '<button type="button" id="toast-act">' + esc(actionLabel) + '</button>' : '') + '</div>';
+    if (actionLabel) $('#toast-act', root).addEventListener('click', () => { root.innerHTML = ''; onAction(); });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { root.innerHTML = ''; }, actionLabel ? 6500 : 2600);
+  }
+
+  /* ================= boot ================= */
+  $('#btn-back').innerHTML = icon('back');
+  $('#btn-search').innerHTML = icon('search');
+  $('#btn-more').innerHTML = icon('more');
+  $('#btn-back').addEventListener('click', goBack);
+  const topBtn = $('#to-top');
+  topBtn.innerHTML = icon('back', ' style="transform:rotate(90deg)"');
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  let topTick = false;
+  window.addEventListener('scroll', () => { if (topTick) return; topTick = true; requestAnimationFrame(() => { topBtn.hidden = window.scrollY < 900; topTick = false; }); }, { passive: true });
+  document.addEventListener('keydown', e => {
+    if (sheetOpen || route.v !== 'skill' || e.altKey || e.metaKey || e.ctrlKey) return;
+    const t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
+    const b = e.key === 'ArrowLeft' ? $('.pn:not(.next)') : e.key === 'ArrowRight' ? $('.pn.next') : null;
+    if (b && !b.disabled) { e.preventDefault(); b.click(); }
+  });
+  $('#btn-search').addEventListener('click', () => { if (route.v !== 'search') go({ v: 'search' }); });
+  $('#btn-more').addEventListener('click', openMenu);
+  try { const saved = JSON.parse(lsGet('arcana-codex-route') || 'null'); if (saved && saved.v) route = saved; } catch (e) {}
+  try { history.replaceState({ r: route, d: 0 }, ''); } catch (e) {}
+  initStore();
+})();
+</script>
