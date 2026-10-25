@@ -46,5 +46,5 @@ Netlify 사이트 ID: `2ab97681-84fd-435e-9069-7c9c89cf3447` (팀 slug `rainbowc
 - 다시 그린 것: sk-n25(헉헉 연기), sk-n29(마나 시음) — 첫 결과가 아이콘으로 부적절해서 프롬프트를 고쳐 재생성.
 - 새 스킬을 추가하면: `icon_prompts.py`에 subject 추가 → Firefly 생성 → `tools/take.py <id> <캡처.png>` → asset 업로드 → DB `icon` 기록 → 사이트 빌드.
 - 초월 스킬 4개(sk-14, sk-15, sk-a06, sk-p05)는 고급 프롬프트(`tools/tc_prompts.py`)로 각 5장씩 뽑아 엄선. 후보 20장은 `art/transcendent-candidates/`.
-  선택: sk-14 #1, sk-15 #4(사용자 선택), sk-a06 #3, sk-p05 #4.
+  선택: sk-14 #1, sk-15 #4(사용자 선택), sk-a06 #3, sk-p05 #2(사용자 선택).
 - 도감 메뉴 → "아이콘 작업" 화면에서 사용자가 직접 프롬프트 복사/이미지 올리기도 가능.
