@@ -39,12 +39,10 @@ Netlify 사이트 ID: `2ab97681-84fd-435e-9069-7c9c89cf3447` (팀 slug `rainbowc
 - 새 스킬은 `isDraft: true`(추천 가안)로 넣고, 사용자 확인 후 확정. 스토리에 큰 영향이 있으면 먼저 물어볼 것.
 - 사용자가 도감에서 직접 고친 내용(desc 등)은 덮어쓰지 말 것. 쓰기 전 DB를 다시 읽고 `if_version`으로 고정.
 
-## 진행 중인 작업 (2026-10-25 기준)
-**스킬 아이콘 82개 만들기** — 1/82 완료(마나 웨이브, `sk-u01`).
-- 그림체: 마나 웨이브 샘플로 확정. `tools/icon_prompts.py`의 STYLE 문장 그대로 사용, Firefly 1:1.
-- 사용자가 원하는 방식: **Claude가 에이전트로 직접** Firefly 웹(firefly.adobe.com)에서 생성 → 결과를 직접 보고 골라서 → 도감에 넣고 → 사이트 업데이트.
-  - 브라우저(데스크톱 앱 내장 브라우저 또는 Claude in Chrome)가 연결된 세션이 필요.
-  - Adobe 커넥터는 이미지 생성 기능이 없음(편집만). 생성은 Firefly 웹에서.
-  - 시작 전 확인: Firefly 크레딧 사용, 이미지 다운로드 허락을 한 번 받기. 10개 단위로 중간 결과 보여주기.
-  - 도감에 넣는 방법: 512×512 webp로 맞춰 Artifact `publish`(`url` + `asset: true`)로 올리고, 해당 스킬 문서의 `icon` 필드에 asset id를 기록.
+## 스킬 아이콘 (2026-10-25 완료)
+- 82/82 완료. Firefly 웹, GPT Image 2.5 Sunburst · 1:1 · High. 그림체는 `tools/icon_prompts.py`의 STYLE 문장.
+- 고해상도 원본(855px): `art/<스킬id>.webp`. 사이트용 512px: `img/<스킬id>.webp`.
+- 도감 DB의 각 스킬 `icon` = 아티팩트 asset id. 매핑은 `tools/icon_ids.json`.
+- 다시 그린 것: sk-n25(헉헉 연기), sk-n29(마나 시음) — 첫 결과가 아이콘으로 부적절해서 프롬프트를 고쳐 재생성.
+- 새 스킬을 추가하면: `icon_prompts.py`에 subject 추가 → Firefly 생성 → `tools/take.py <id> <캡처.png>` → asset 업로드 → DB `icon` 기록 → 사이트 빌드.
 - 도감 메뉴 → "아이콘 작업" 화면에서 사용자가 직접 프롬프트 복사/이미지 올리기도 가능.
