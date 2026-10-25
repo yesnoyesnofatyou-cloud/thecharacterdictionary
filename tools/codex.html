@@ -781,8 +781,11 @@ details.more .form { padding: 0 16px 16px; }
   /* ================= routing ================= */
   let route = { v: 'home' };
   let depth = 0;
-  const listPrefs = { tier: 'all', drafts: true, sort: 'tierAsc', facet: 'all', reach: 'all', area: 'all' };
+  const listPrefs = { tiers: [], drafts: true, sort: 'tierAsc', facet: 'all', reach: 'all', area: 'all' };
   try { Object.assign(listPrefs, JSON.parse(lsGet('arcana-codex-listprefs') || '{}')); } catch (e) {}
+  if (!Array.isArray(listPrefs.tiers)) listPrefs.tiers = [];
+  if (listPrefs.tier && listPrefs.tier !== 'all' && !listPrefs.tiers.length) listPrefs.tiers = [listPrefs.tier];
+  delete listPrefs.tier;
 
   function parentOf(r) {
     switch (r.v) {
@@ -1172,7 +1175,7 @@ details.more .form { padding: 0 16px 16px; }
     return html;
   };
   BINDS.traits = function (r, v) {
-    $$('[data-cat]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = 'all'; listPrefs.reach = 'all'; listPrefs.area = 'all'; saveListPrefs(); go({ v: 'list', c: r.c, cat: b.dataset.cat }); }));
+    $$('[data-cat]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tiers = []; listPrefs.reach = 'all'; listPrefs.area = 'all'; saveListPrefs(); go({ v: 'list', c: r.c, cat: b.dataset.cat }); }));
     $$('[data-act="new-skill"]', v).forEach(b => b.addEventListener('click', () => openSkillForm(null, { c: r.c, cat: 'u:all' })));
     $$('[data-act="edit-trait"]', v).forEach(b => b.addEventListener('click', e => { e.stopPropagation(); openTraitForm(r.c, b.dataset.tid); }));
     $$('[data-act="new-trait"]', v).forEach(b => b.addEventListener('click', () => openTraitForm(r.c, null)));
@@ -1226,7 +1229,7 @@ details.more .form { padding: 0 16px 16px; }
     return html + catTiles(sk, '', '일반 스킬 한 번에 보기');
   };
   BINDS.types = function (r, v) {
-    $$('[data-cat]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = 'all'; listPrefs.reach = 'all'; listPrefs.area = 'all'; saveListPrefs(); go({ v: 'list', c: r.c, cat: b.dataset.cat }); }));
+    $$('[data-cat]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tiers = []; listPrefs.reach = 'all'; listPrefs.area = 'all'; saveListPrefs(); go({ v: 'list', c: r.c, cat: b.dataset.cat }); }));
     bindActs(v, r);
   };
   function saveListPrefs() { lsSet('arcana-codex-listprefs', JSON.stringify(listPrefs)); }
@@ -1240,7 +1243,7 @@ details.more .form { padding: 0 16px 16px; }
       if (listPrefs.reach !== 'all') list = list.filter(s => s.reach === listPrefs.reach);
       if (listPrefs.area !== 'all') list = list.filter(s => s.area === listPrefs.area);
     }
-    if (!ignoreTier && listPrefs.tier !== 'all') list = list.filter(s => s.tier === listPrefs.tier);
+    if (!ignoreTier && listPrefs.tiers.length) list = list.filter(s => listPrefs.tiers.includes(s.tier));
     const cmp = {
       tierAsc: (a, b) => tierNum(a.tier) - tierNum(b.tier) || a.nameKo.localeCompare(b.nameKo),
       tierDesc: (a, b) => tierNum(b.tier) - tierNum(a.tier) || a.nameKo.localeCompare(b.nameKo),
@@ -1273,11 +1276,11 @@ details.more .form { padding: 0 16px 16px; }
     if (listPrefs.reach !== 'all' && !pool.some(s => s.reach === listPrefs.reach)) listPrefs.reach = 'all';
     if (listPrefs.area !== 'all' && !pool.some(s => s.area === listPrefs.area && (listPrefs.reach === 'all' || s.reach === listPrefs.reach))) listPrefs.area = 'all';
     const base = listSkills(r, true);
-    if (listPrefs.tier !== 'all' && !base.some(s => s.tier === listPrefs.tier)) listPrefs.tier = 'all';
+    listPrefs.tiers = listPrefs.tiers.filter(t => base.some(s => s.tier === t));
     const list = listSkills(r);
     const counts = {}; base.forEach(s => { counts[s.tier] = (counts[s.tier] || 0) + 1; });
     let html = '<div class="section-head"><div style="flex-direction:row;align-items:center;gap:14px"><div class="tile-icon t-' + cat.tone + '">' + icon(cat.icon) + '</div>' +
-      '<div style="min-width:0"><h1 class="h1">' + esc(cat.name) + '</h1><p class="lede" style="font-size:14px">' + esc(cat.desc) + ' · ' + base.length + '개</p></div></div>' +
+      '<div style="min-width:0"><h1 class="h1">' + esc(cat.name) + '</h1><p class="lede" style="font-size:14px">' + esc(cat.desc) + ' · ' + (listPrefs.tiers.length ? list.length + ' / ' + base.length : base.length) + '개</p></div></div>' +
       (canEdit() ? '<button type="button" class="btn small primary" data-act="new-skill">' + icon('plus') + '추가</button>' : '') + '</div>';
     html += '<div class="filterbar">';
     const reachPool = listPrefs.area === 'all' ? pool : pool.filter(s => s.area === listPrefs.area);
@@ -1288,8 +1291,8 @@ details.more .form { padding: 0 16px 16px; }
       AREA.map(x => { const n = areaPool.filter(s => s.area === x.id).length; return '<button type="button" class="tier-chip rng' + (listPrefs.area === x.id ? ' on' : '') + (n ? '' : ' zero') + '" data-area="' + x.id + '">' + x.name + ' <small>' + n + '</small></button>'; }).join('') +
       '</div>';
     html += '<div class="tierbar" role="group" aria-label="등급">' +
-      '<button type="button" class="tier-chip' + (listPrefs.tier === 'all' ? ' on' : '') + '" data-tier="all">전체 <small>' + base.length + '</small></button>' +
-      TIERS.filter(t => counts[t]).map(t => '<button type="button" class="tier-chip' + (t === 'transcendent' ? ' trans' : '') + (listPrefs.tier === t ? ' on' : '') + '" data-tier="' + t + '">' + tierText(t) + ' <small>' + counts[t] + '</small></button>').join('') +
+      '<button type="button" class="tier-chip' + (listPrefs.tiers.length ? '' : ' on') + '" aria-pressed="' + !listPrefs.tiers.length + '" data-tier="all">전체 <small>' + base.length + '</small></button>' +
+      TIERS.filter(t => counts[t]).map(t => '<button type="button" class="tier-chip' + (t === 'transcendent' ? ' trans' : '') + (listPrefs.tiers.includes(t) ? ' on' : '') + '" aria-pressed="' + listPrefs.tiers.includes(t) + '" data-tier="' + t + '">' + tierText(t) + ' <small>' + counts[t] + '</small></button>').join('') +
       '</div><div class="tools"><select class="select" id="sort-select" aria-label="정렬">' +
       [['tierAsc', '등급 낮은 순'], ['tierDesc', '등급 높은 순'], ['powerDesc', '파괴력 높은 순'], ['diffDesc', '난이도 높은 순'], ['name', '이름 순']].map(o => '<option value="' + o[0] + '"' + (listPrefs.sort === o[0] ? ' selected' : '') + '>' + o[1] + '</option>').join('') +
       '</select><label class="toggle"><input type="checkbox" id="drafts-toggle"' + (listPrefs.drafts ? ' checked' : '') + '>가안 포함</label></div></div>';
@@ -1309,10 +1312,17 @@ details.more .form { padding: 0 16px 16px; }
     return html;
   };
   BINDS.list = function (r, v) {
-    $$('[data-tier]', v).forEach(b => b.addEventListener('click', () => { listPrefs.tier = b.dataset.tier; saveListPrefs(); render(); }));
-    $$('[data-reach]', v).forEach(b => b.addEventListener('click', () => { listPrefs.reach = listPrefs.reach === b.dataset.reach ? 'all' : b.dataset.reach; if (listPrefs.reach !== 'all' && b.classList.contains('zero')) listPrefs.area = 'all'; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
-    $$('[data-area]', v).forEach(b => b.addEventListener('click', () => { listPrefs.area = listPrefs.area === b.dataset.area ? 'all' : b.dataset.area; if (listPrefs.area !== 'all' && b.classList.contains('zero')) listPrefs.reach = 'all'; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
-    $$('[data-facet]', v).forEach(b => b.addEventListener('click', () => { listPrefs.facet = b.dataset.facet; listPrefs.tier = 'all'; saveListPrefs(); render(); }));
+    $$('[data-tier]', v).forEach(b => b.addEventListener('click', () => {
+      const t = b.dataset.tier;
+      if (t === 'all') listPrefs.tiers = [];
+      else if (listPrefs.tiers.includes(t)) listPrefs.tiers = listPrefs.tiers.filter(x => x !== t);
+      else listPrefs.tiers = listPrefs.tiers.concat(t).sort((a, b) => tierNum(a) - tierNum(b));
+      if (listPrefs.tiers.length && listPrefs.tiers.length === $$('[data-tier]', v).length - 1) listPrefs.tiers = [];
+      saveListPrefs(); render();
+    }));
+    $$('[data-reach]', v).forEach(b => b.addEventListener('click', () => { listPrefs.reach = listPrefs.reach === b.dataset.reach ? 'all' : b.dataset.reach; if (listPrefs.reach !== 'all' && b.classList.contains('zero')) listPrefs.area = 'all'; saveListPrefs(); render(); }));
+    $$('[data-area]', v).forEach(b => b.addEventListener('click', () => { listPrefs.area = listPrefs.area === b.dataset.area ? 'all' : b.dataset.area; if (listPrefs.area !== 'all' && b.classList.contains('zero')) listPrefs.reach = 'all'; saveListPrefs(); render(); }));
+    $$('[data-facet]', v).forEach(b => b.addEventListener('click', () => { listPrefs.facet = b.dataset.facet; saveListPrefs(); render(); }));
     $('#sort-select', v).addEventListener('change', e => { listPrefs.sort = e.target.value; saveListPrefs(); render(); });
     $('#drafts-toggle', v).addEventListener('change', e => { listPrefs.drafts = e.target.checked; saveListPrefs(); render(); });
     $$('[data-skill]', v).forEach(b => b.addEventListener('click', () => go({ v: 'skill', c: r.c, cat: r.cat, s: b.dataset.skill })));
@@ -1565,7 +1575,7 @@ details.more .form { padding: 0 16px 16px; }
     const defCat = s ? s.category : (CAT[sub0] ? sub0 : 'attack');
     const cc0 = state.chars.get(r.c);
     let defKind = s ? (s.traits[0] ? s.traits[0].split(':')[0] : '') : (fromT && cc0 && cc0.traits[0] ? cc0.traits[0].id : '');
-    const defTier = s ? s.tier : (listPrefs.tier !== 'all' ? listPrefs.tier : '3');
+    const defTier = s ? s.tier : (listPrefs.tiers.length === 1 ? listPrefs.tiers[0] : '3');
     const c = state.chars.get(r.c);
     const body = '<form class="form" id="skill-form" novalidate>' +
       '<div class="field"><label for="f-nameKo">스킬 이름 <em>*</em></label><input class="input" id="f-nameKo" required placeholder="예: 청구서" value="' + esc(s ? s.nameKo : '') + '"></div>' +
